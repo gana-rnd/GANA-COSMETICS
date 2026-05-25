@@ -1,0 +1,311 @@
+/*
+ * GANA Cosmetic — "Clinical Luxury" (Lumivion-inspired)
+ * Pure white background · Gold accent · Clean serif headlines
+ * Layout: Split hero (text left / full-bleed photo right) + feature card strip
+ */
+
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  /* ── Palette ── */
+  --cl-white:    #FFFFFF;
+  --cl-offwhite: #F8F6F3;   /* very subtle warm tint */
+  --cl-light:    #F0EDE8;   /* card / section bg */
+  --cl-ink:      #1E1C1A;   /* primary text */
+  --cl-ink-70:   rgba(30,28,26,0.70);
+  --cl-ink-45:   rgba(30,28,26,0.45);
+  --cl-gold:     #A8905A;   /* primary accent — warm gold */
+  --cl-gold-h:   #BFA570;   /* hover */
+  --cl-gold-10:  rgba(168,144,90,0.10);
+  --cl-gold-20:  rgba(168,144,90,0.20);
+  --cl-border:   #DDD8D2;   /* card borders */
+  --cl-border-l: #EAE6E0;   /* light dividers */
+
+  /* ── Semantic ── */
+  --background:           var(--cl-white);
+  --foreground:           var(--cl-ink);
+  --card:                 var(--cl-white);
+  --card-foreground:      var(--cl-ink);
+  --popover:              var(--cl-white);
+  --popover-foreground:   var(--cl-ink);
+  --primary:              var(--cl-gold);
+  --primary-foreground:   var(--cl-white);
+  --secondary:            var(--cl-offwhite);
+  --secondary-foreground: var(--cl-ink);
+  --muted:                var(--cl-light);
+  --muted-foreground:     var(--cl-ink-45);
+  --accent:               var(--cl-gold);
+  --accent-foreground:    var(--cl-white);
+  --destructive:          oklch(0.55 0.22 25);
+  --destructive-foreground: #fff;
+  --border:               var(--cl-border);
+  --input:                var(--cl-border);
+  --ring:                 var(--cl-gold);
+  --radius:               0.25rem;
+}
+
+/* ── Base ──────────────────────────────────────────────────────────────── */
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cl-white);
+    color: var(--cl-ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Playfair Display for hero headline — bold serif */
+  .headline {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+  }
+
+  /* Cormorant for section headings — elegant medium */
+  .subhead {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    line-height: 1.15;
+  }
+
+  button:not(:disabled), [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled), [type="submit"]:not(:disabled),
+  a[href], select:not(:disabled) { cursor: pointer; }
+}
+
+/* ── Components ────────────────────────────────────────────────────────── */
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  .flex { min-height: 0; min-width: 0; }
+  @media (min-width: 768px)  { .container { padding-left: 3rem; padding-right: 3rem; } }
+  @media (min-width: 1280px) { .container { padding-left: 5rem; padding-right: 5rem; max-width: 1440px; } }
+
+  /* ── Eyebrow ── */
+  .eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cl-gold);
+  }
+
+  /* ── Gold CTA button (filled) ── */
+  .btn-gold {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--cl-gold);
+    color: var(--cl-white);
+    border: 1.5px solid var(--cl-gold);
+    padding: 0.875rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.22s ease, border-color 0.22s ease, transform 0.15s ease;
+  }
+  .btn-gold:hover {
+    background: var(--cl-gold-h);
+    border-color: var(--cl-gold-h);
+    transform: translateY(-1px);
+  }
+  .btn-gold:active { transform: none; }
+
+  /* ── Outline button ── */
+  .btn-outline-gold {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--cl-ink);
+    border: 1.5px solid var(--cl-border);
+    padding: 0.875rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.22s ease, color 0.22s ease, transform 0.15s ease;
+  }
+  .btn-outline-gold:hover {
+    border-color: var(--cl-gold);
+    color: var(--cl-gold);
+    transform: translateY(-1px);
+  }
+
+  /* ── Nav ── */
+  .nav-link {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--cl-ink);
+    position: relative;
+    padding-bottom: 2px;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 1.5px;
+    background: var(--cl-gold);
+    transition: width 0.28s cubic-bezier(0.23,1,0.32,1);
+  }
+  .nav-link:hover::after { width: 100%; }
+
+  /* ── Feature card (icon + title + text + photo) ── */
+  .feature-card {
+    background: var(--cl-white);
+    border: 1px solid var(--cl-border);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .feature-card:hover {
+    box-shadow: 0 8px 32px -4px rgba(30,28,26,0.10);
+    border-color: var(--cl-gold);
+  }
+
+  /* ── Product card ── */
+  .product-card {
+    background: var(--cl-white);
+    border: 1px solid var(--cl-border);
+    overflow: hidden;
+    transition: transform 0.28s cubic-bezier(0.23,1,0.32,1),
+                box-shadow 0.28s cubic-bezier(0.23,1,0.32,1),
+                border-color 0.22s ease;
+  }
+  .product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px -8px rgba(30,28,26,0.12);
+    border-color: var(--cl-gold);
+  }
+  .product-card:hover .card-img { transform: scale(1.04); }
+  .card-img { transition: transform 0.45s cubic-bezier(0.23,1,0.32,1); }
+
+  /* ── Stat bar item ── */
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 1.5rem;
+    border-right: 1px solid var(--cl-border-l);
+  }
+  .stat-item:last-child { border-right: none; }
+
+  /* ── Cert badge ── */
+  .cert-card {
+    background: var(--cl-white);
+    border: 1px solid var(--cl-border);
+    border-top: 2px solid var(--cl-gold);
+    padding: 1.75rem;
+    transition: box-shadow 0.22s ease;
+  }
+  .cert-card:hover { box-shadow: 0 6px 24px -4px rgba(168,144,90,0.15); }
+
+  /* ── Ingredient chip ── */
+  .chip {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    padding: 0.2rem 0.55rem;
+    border: 1px solid var(--cl-border);
+    color: var(--cl-ink-45);
+  }
+
+  /* ── Form ── */
+  .form-label {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cl-ink-45);
+    margin-bottom: 0.375rem;
+  }
+  .form-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid var(--cl-border);
+    padding: 0.625rem 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--cl-ink);
+    outline: none;
+    transition: border-color 0.22s ease;
+  }
+  .form-input:focus { border-color: var(--cl-gold); }
+  .form-input::placeholder { color: var(--cl-border); }
+
+  /* ── Scroll fade-up ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.6s cubic-bezier(0.23,1,0.32,1),
+                transform 0.6s cubic-bezier(0.23,1,0.32,1);
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .d1 { transition-delay: 0ms; }
+  .d2 { transition-delay: 80ms; }
+  .d3 { transition-delay: 160ms; }
+  .d4 { transition-delay: 240ms; }
+  .d5 { transition-delay: 320ms; }
+  .d6 { transition-delay: 400ms; }
+
+  /* ── Divider ── */
+  .gold-line { display: block; width: 2.5rem; height: 1.5px; background: var(--cl-gold); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-up, .product-card, .card-img, .btn-gold, .btn-outline-gold, .nav-link::after { transition: none !important; }
+  }
+}
