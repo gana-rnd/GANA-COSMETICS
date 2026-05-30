@@ -114,31 +114,31 @@ const STATS = [
 const PRODUCTS = [
   { id:"dmp-plus", cat:"Skin Booster", name:"GANA DMP+", tag:"High End Skin Booster",
     desc:"PLLA + HA + PDRN + Glutathione. Multi-active booster in a ready-to-use prefilled vial.",
-    ings:["PLLA 1mg/ml","HA 3mg/ml","PDRN 2mg/ml"], vol:"3ml × 2 vials", img:PROD_DMP, badge:"2024 NEW" },
+    ings:["PLLA 1mg/ml","HA 3mg/ml","PDRN 2mg/ml"], vol:"3ml × 2 vials", price:"150", img:PROD_DMP, badge:"2024 NEW" },
   { id:"phv", cat:"Skin Booster", name:"GANA PHV", tag:"2-Year Lasting Hydration",
     desc:"High-molecular HA + PLLA biostimulator. Hyaluronidase-correctable for precise control.",
-    ings:["HA 20mg/ml","PLLA 1mg/ml"], vol:"10ml vial", img:SYRINGE_B, badge:"2024 NEW" },
+    ings:["HA 20mg/ml","PLLA 1mg/ml"], vol:"10ml vial", price:"150", img:SYRINGE_B, badge:"2024 NEW" },
   { id:"eye-booster", cat:"Skin Booster", name:"GANA EYE BOOSTER", tag:"Full-Face PDRN Revitalizer",
     desc:"PDRN + Sodium DNA + Glutathione. Targets cellular regeneration across the full face.",
-    ings:["PDRN","HA","Glutathione","Sodium DNA"], vol:"1.2ml syringe", img:SYRINGE_G, badge:"2025 NEW" },
+    ings:["PDRN","HA","Glutathione","Sodium DNA"], vol:"1.2ml syringe", price:"30", img:SYRINGE_G, badge:"2025 NEW" },
   { id:"tox", cat:"Meso Solution", name:"GANA TOX", tag:"Topical Neuromodulator",
     desc:"Argireline 100ppm + PDRN + HA. Spray-applied — no injection required. FDA & EU CPNP.",
-    ings:["Argireline 100ppm","PDRN","HA"], vol:"Spray", img:null, badge:"FDA + CPNP" },
+    ings:["Argireline 100ppm","PDRN","HA"], vol:"5ml × 10ea", price:"150", img:null, badge:"FDA + CPNP" },
   { id:"pnv-plus", cat:"Meso Solution", name:"GANA PNV+", tag:"High-Concentration PDRN",
     desc:"PDRN 2% — direct clinical alternative to Rejuran. With Glutathione and HA 10mg/cc.",
-    ings:["PDRN 2%","Glutathione","HA 10mg/cc"], vol:"5ml vial", img:null, badge:"vs Rejuran" },
+    ings:["PDRN 2%","Glutathione","HA 10mg/cc"], vol:"3ml × 5ea", price:"150", img:null, badge:"vs Rejuran" },
   { id:"scalp", cat:"Meso Solution", name:"GANA SCALP", tag:"Scalp Regeneration",
     desc:"PDRN + GHK-Cu targeting hair follicle regeneration and scalp microenvironment.",
-    ings:["PDRN","GHK-Cu"], vol:"5ml vial", img:null, badge:"Hair Specialist" },
+    ings:["PDRN","GHK-Cu"], vol:"3ml × 10ea", price:"150", img:null, badge:"Hair Specialist" },
   { id:"tc-plus", cat:"Topical", name:"GANA TC+", tag:"Post-Procedure Recovery",
     desc:"4× concentrated PDRN topical with PHA + peptides. Premium post-treatment care.",
-    ings:["PDRN 2%","PHA","Peptides"], vol:"45g tube", img:null, badge:"4× Conc." },
+    ings:["PDRN 2%","PHA","Peptides"], vol:"45g tube", price:"90", img:null, badge:"4× Conc." },
   { id:"gino-face", cat:"Chemical Peel", name:"GINO FACE", tag:"Natural Microneedling Peel",
     desc:"Spongilla spicule-based exfoliation. Globally rare natural micro-needling mechanism.",
-    ings:["Spongilla Spicules","Botanicals"], vol:"30ml", img:null, badge:"Acne Specialist" },
+    ings:["Spongilla Spicules","Botanicals"], vol:"45g tube", price:"90", img:null, badge:"Acne Specialist" },
   { id:"regen-peel", cat:"Chemical Peel", name:"REGEN PEEL", tag:"Medical-Grade TCA Peel",
     desc:"TCA 30% with bicarbonate neutralizer. For licensed medical professionals only.",
-    ings:["TCA 30%","Bicarbonate"], vol:"Professional kit", img:null, badge:"Rx Only" },
+    ings:["TCA 30%","Bicarbonate"], vol:"30ml / 50ml", price:"60", img:null, badge:"Rx Only" },
 ];
 
 const CERTS = [
@@ -221,65 +221,100 @@ function Navbar() {
         borderBottom: `1px solid ${C.borderL}`,
         boxShadow: scrolled ? "0 2px 16px rgba(30,28,26,0.06)" : "none",
       }}>
-      <div className="container flex items-center justify-between"
-        style={{ height: scrolled ? "60px" : "72px", transition: "height 0.3s ease" }}>
+      <div className="container">
+        {/* Top row — logo (center) + contact (right) */}
+        <div className="grid grid-cols-3 items-center"
+          style={{ height: scrolled ? "60px" : "72px", transition: "height 0.3s ease" }}>
 
-        {/* Logo */}
-        <a href="#" className="select-none flex items-center gap-3">
-          {/* Hexagon logo mark — script G */}
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-            {/* Outer hexagon */}
-            <path d="M18 2.5 L31 9.75 L31 26.25 L18 33.5 L5 26.25 L5 9.75 Z"
-              stroke={C.gold} strokeWidth="1.25" fill="none"/>
-            {/* Inner hex fill */}
-            <path d="M18 8 L25 12 L25 20 L18 24 L11 20 L11 12 Z"
-              fill={C.gold} opacity="0.08"/>
-            {/* Script G — drawn as SVG path for italic/cursive feel */}
-            <text
-              x="18" y="22"
-              textAnchor="middle"
-              fill={C.gold}
-              fontSize="14"
-              fontFamily="'Playfair Display', 'Cormorant Garamond', serif"
-              fontWeight="700"
-              fontStyle="italic"
-            >G</text>
-          </svg>
-          <div className="flex flex-col leading-none">
-            <span style={{ fontFamily:"'Playfair Display',serif", fontWeight:700, fontSize:"1.0625rem", color:C.ink, letterSpacing:"0.05em" }}>GANA</span>
-            <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.5rem", fontWeight:600, letterSpacing:"0.3em", textTransform:"uppercase", color:C.gold }}>Cosmetic</span>
+          {/* Left spacer */}
+          <div></div>
+
+          {/* Logo — centered */}
+          <a href="#" className="select-none flex items-center gap-3 justify-self-center">
+            {/* Hexagon logo mark — script G */}
+            <svg width="44" height="44" viewBox="0 0 36 36" fill="none">
+              {/* Outer hexagon */}
+              <path d="M18 2.5 L31 9.75 L31 26.25 L18 33.5 L5 26.25 L5 9.75 Z"
+                stroke={C.gold} strokeWidth="1.25" fill="none"/>
+              {/* Inner hex fill */}
+              <path d="M18 8 L25 12 L25 20 L18 24 L11 20 L11 12 Z"
+                fill={C.gold} opacity="0.08"/>
+              {/* Script G — drawn as SVG path for italic/cursive feel */}
+              <text
+                x="18" y="22"
+                textAnchor="middle"
+                fill={C.gold}
+                fontSize="14"
+                fontFamily="'Playfair Display', 'Cormorant Garamond', serif"
+                fontWeight="700"
+                fontStyle="italic"
+              >G</text>
+            </svg>
+            <div className="flex flex-col leading-none gap-1">
+              <span style={{ fontFamily:"'Playfair Display',serif", fontWeight:700, fontSize:"1.625rem", color:C.ink, letterSpacing:"0.06em" }}>GANA</span>
+              <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.7rem", fontWeight:600, letterSpacing:"0.3em", textTransform:"uppercase", color:C.gold }}>Cosmetic</span>
+            </div>
+          </a>
+
+          {/* Right slot — empty on desktop (contact moved to category row), hamburger on mobile */}
+          <div className="hidden lg:block"></div>
+
+          {/* Mobile hamburger */}
+          <button className="lg:hidden p-2 flex flex-col gap-1.5 justify-self-end" onClick={() => setOpen(!open)} aria-label="Menu">
+            {[0,1,2].map(i => (
+              <span key={i} className="block w-5 h-px transition-all duration-300"
+                style={{
+                  background: C.ink,
+                  transform: open ? (i===0?"rotate(45deg) translateY(8px)":i===2?"rotate(-45deg) translateY(-8px)":"none") : "none",
+                  opacity: open && i===1 ? 0 : 1,
+                }}/>
+            ))}
+          </button>
+        </div>
+
+        {/* Bottom row — categories (center) + Contact Us (right). Desktop only */}
+        <div className="hidden lg:grid grid-cols-3 items-center"
+          style={{
+            paddingTop: scrolled ? "0.625rem" : "1rem",
+            paddingBottom: scrolled ? "0.75rem" : "1.125rem",
+            borderTop: `1px solid ${C.borderL}`,
+            transition: "padding 0.3s ease",
+          }}>
+          {/* Left spacer */}
+          <div></div>
+
+          {/* Categories — centered */}
+          <div className="flex items-center justify-center" style={{ gap: "5.5rem" }}>
+            {[["Products","#products"],["Certifications","#certifications"],["About","#about"]].map(([l,h]) => (
+              <a key={l} href={h} className="nav-link"
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: "1.1875rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.03em",
+                  textTransform: "none",
+                  color: "#000",
+                }}>{l}</a>
+            ))}
           </div>
-        </a>
 
-        {/* Desktop nav */}
-        <div className="hidden lg:flex items-center gap-8">
-          {[["Research","#science"],["Ingredients","#science"],["Products","#products"],["Certifications","#certifications"],["About","#about"]].map(([l,h]) => (
-            <a key={l} href={h} className="nav-link">{l}</a>
-          ))}
-        </div>
-
-        {/* Right actions */}
-        <div className="hidden lg:flex items-center gap-3">
-          <a href="#contact" className="btn-gold">Contact Us →</a>
-        </div>
-
-        {/* Mobile hamburger */}
-        <button className="lg:hidden p-2 flex flex-col gap-1.5" onClick={() => setOpen(!open)} aria-label="Menu">
-          {[0,1,2].map(i => (
-            <span key={i} className="block w-5 h-px transition-all duration-300"
+          {/* Contact Us — right */}
+          <div className="justify-self-end">
+            <a href="#contact" className="btn-gold"
               style={{
-                background: C.ink,
-                transform: open ? (i===0?"rotate(45deg) translateY(8px)":i===2?"rotate(-45deg) translateY(-8px)":"none") : "none",
-                opacity: open && i===1 ? 0 : 1,
-              }}/>
-          ))}
-        </button>
+                padding: "0.5rem 1.125rem",
+                fontSize: "0.65rem",
+                letterSpacing: "0.1em",
+                gap: "0.35rem",
+              }}>Contact Us →</a>
+          </div>
+        </div>
       </div>
 
       {open && (
         <div style={{ background: C.white, borderTop: `1px solid ${C.borderL}` }}>
           <div className="container py-6 flex flex-col gap-5">
-            {["Products","Science","About","Certifications","Contact"].map(item => (
+            {["Products","Certifications","About","Contact"].map(item => (
               <a key={item} href={`#${item.toLowerCase()}`} className="nav-link" onClick={() => setOpen(false)}>{item}</a>
             ))}
             <a href="#contact" className="btn-gold text-center mt-2">Contact Us →</a>
@@ -477,7 +512,7 @@ function ProductsSection() {
               fontFamily:"'Playfair Display',serif", fontWeight:700,
               fontSize:"clamp(1.75rem,3.5vw,2.75rem)", color:C.ink,
             }}>
-              23 Active SKUs
+              Cosmeceutical Catalogue
             </h2>
           </div>
           <div className="flex flex-wrap gap-2 fade-up d3">
@@ -532,7 +567,12 @@ function ProductsSection() {
 
                 <div className="flex items-center justify-between pt-4"
                   style={{ borderTop:`1px solid ${C.borderL}` }}>
-                  <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.625rem", color:C.ink45 }}>{p.vol}</span>
+                  <div>
+                    <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.9rem", fontWeight:500, color:C.ink }}>
+                      USD {p.price}
+                    </span>
+                    <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.625rem", color:C.ink45, marginLeft:"0.5rem" }}>{p.vol}</span>
+                  </div>
                   <a href="#contact" style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.7rem",
                     fontWeight:600, letterSpacing:"0.08em", textTransform:"uppercase",
                     color:C.gold, textDecoration:"none" }}>Inquire →</a>
@@ -544,7 +584,8 @@ function ProductsSection() {
 
         <div className="text-center mt-14 fade-up d4">
           <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.875rem", color:C.ink45, marginBottom:"1.25rem" }}>
-            Full specifications, wholesale pricing, and regulatory documentation available upon inquiry.
+            Retail prices shown. Dealer &amp; distributor pricing available separately upon inquiry,
+            along with full specifications and regulatory documentation.
           </p>
           <a href="#contact" className="btn-gold">Request Full Catalogue →</a>
         </div>
@@ -830,6 +871,212 @@ function ContactSection() {
   );
 }
 
+/* ── Certification badge SVGs (visual approximations of regulatory marks) ── */
+const CertFDA = () => (
+  <svg width="76" height="64" viewBox="0 0 76 64" aria-label="FDA">
+    <rect x="2" y="6" width="72" height="52" rx="3" fill="#1B3A6B"/>
+    <text x="38" y="33" textAnchor="middle" fill="#fff"
+      fontFamily="'Playfair Display', serif" fontWeight="700" fontSize="20" letterSpacing="2">FDA</text>
+    <text x="38" y="44" textAnchor="middle" fill="#fff"
+      fontFamily="'DM Sans', sans-serif" fontWeight="600" fontSize="4.5" letterSpacing="0.6">USA · COMPOUND</text>
+    <text x="38" y="51" textAnchor="middle" fill="#fff" opacity="0.85"
+      fontFamily="'DM Sans', sans-serif" fontSize="3.4" letterSpacing="0.3">Food and Drug Administration</text>
+  </svg>
+);
+
+const CertGMP = () => (
+  <svg width="64" height="64" viewBox="0 0 64 64" aria-label="GMP">
+    <circle cx="32" cy="32" r="29" fill="#C9A24E"/>
+    <circle cx="32" cy="32" r="29" fill="none" stroke="#8A6F2C" strokeWidth="1"/>
+    <circle cx="32" cy="32" r="22" fill="none" stroke="#fff" strokeWidth="0.8" opacity="0.55"/>
+    <text x="32" y="38" textAnchor="middle" fill="#fff"
+      fontFamily="'Playfair Display', serif" fontWeight="700" fontSize="14" letterSpacing="1.5">GMP</text>
+    {/* tiny stars/dots */}
+    {[0, 60, 120, 180, 240, 300].map(deg => {
+      const rad = (deg * Math.PI) / 180;
+      const x = 32 + Math.cos(rad) * 25;
+      const y = 32 + Math.sin(rad) * 25;
+      return <circle key={deg} cx={x} cy={y} r="0.9" fill="#fff" opacity="0.7"/>;
+    })}
+  </svg>
+);
+
+const CertIGC = () => (
+  <svg width="64" height="64" viewBox="0 0 64 64" aria-label="IGC">
+    <circle cx="32" cy="32" r="29" fill="#1B7AB3"/>
+    {/* Globe meridians */}
+    <ellipse cx="32" cy="32" rx="11" ry="22" fill="none" stroke="#fff" strokeWidth="0.9" opacity="0.45"/>
+    <ellipse cx="32" cy="32" rx="22" ry="11" fill="none" stroke="#fff" strokeWidth="0.9" opacity="0.45"/>
+    <circle cx="32" cy="32" r="22" fill="none" stroke="#fff" strokeWidth="1.1" opacity="0.6"/>
+    <rect x="14" y="29" width="36" height="9" fill="#1B7AB3" opacity="0.85"/>
+    <text x="32" y="36" textAnchor="middle" fill="#fff"
+      fontFamily="'Playfair Display', serif" fontWeight="700" fontSize="11" letterSpacing="1.5">IGC</text>
+  </svg>
+);
+
+const CertISO = () => (
+  <svg width="86" height="64" viewBox="0 0 86 64" aria-label="ISO 13485">
+    <rect x="2" y="6" width="82" height="52" rx="2" fill="#fff" stroke="#1C1C1C" strokeWidth="1.5"/>
+    <rect x="2" y="6" width="82" height="16" fill="#1C1C1C"/>
+    <text x="43" y="17" textAnchor="middle" fill="#fff"
+      fontFamily="'DM Sans', sans-serif" fontWeight="700" fontSize="8" letterSpacing="2.5">CERTIFIED</text>
+    <text x="43" y="40" textAnchor="middle" fill="#1C1C1C"
+      fontFamily="'Playfair Display', serif" fontWeight="700" fontSize="13" letterSpacing="1">ISO 13485</text>
+    <line x1="22" y1="48" x2="64" y2="48" stroke="#1C1C1C" strokeWidth="0.6" opacity="0.4"/>
+    <text x="43" y="55" textAnchor="middle" fill="#1C1C1C" opacity="0.6"
+      fontFamily="'DM Sans', sans-serif" fontSize="4" letterSpacing="1">QUALITY MANAGEMENT</text>
+  </svg>
+);
+
+const CertAccredited = () => (
+  <svg width="68" height="64" viewBox="0 0 68 64" aria-label="Accredited">
+    <circle cx="34" cy="32" r="29" fill="#2E7D5F"/>
+    <circle cx="34" cy="32" r="24" fill="none" stroke="#fff" strokeWidth="0.9" opacity="0.5"/>
+    <text x="34" y="29" textAnchor="middle" fill="#fff"
+      fontFamily="'Playfair Display', serif" fontWeight="700" fontSize="7" letterSpacing="1.4">ACCREDITED</text>
+    <line x1="20" y1="33" x2="48" y2="33" stroke="#fff" strokeWidth="0.6" opacity="0.4"/>
+    <text x="34" y="40" textAnchor="middle" fill="#fff" opacity="0.92"
+      fontFamily="'DM Sans', sans-serif" fontWeight="600" fontSize="4.2" letterSpacing="0.7">Recognized</text>
+    <text x="34" y="46" textAnchor="middle" fill="#fff" opacity="0.85"
+      fontFamily="'DM Sans', sans-serif" fontSize="3.5" letterSpacing="0.3">Quality Mark</text>
+  </svg>
+);
+
+/* ── GANA Group banner (horizontal) ──────────────────────────────────────── */
+function GanaGroupSection() {
+  const ref = useSectionReveal();
+
+  const BRANDS = [
+    {
+      part1: "GANA",  c1: "#2A2A2A",
+      part2: "R&D",   c2: "#1B3A6B",
+      tag: "Medical Devices",
+      desc: "Dermal fillers, mesotherapy devices, and ODM development for medical aesthetics.",
+      site: "www.ganarnd.co.kr",
+    },
+    {
+      part1: "GANA",     c1: "#2A2A2A",
+      part2: "COSMETIC", c2: "#3FA34D",
+      tag: "Cosmeceuticals",
+      desc: "Clinical-grade cosmetic formulations distributed to clinics and partners worldwide.",
+      site: "",
+    },
+    {
+      part1: "Dr.",  c1: "#2A2A2A",
+      part2: "PARK", c2: "#A8905A",
+      tag: "Gene Therapy R&D",
+      desc: "Advanced gene therapy research and next-generation medical innovation.",
+      site: "",
+    },
+  ];
+
+  const CERT_BADGES = [
+    { label: "FDA",        Icon: CertFDA },
+    { label: "GMP",        Icon: CertGMP },
+    { label: "IGC",        Icon: CertIGC },
+    { label: "ISO 13485",  Icon: CertISO },
+    { label: "Accredited", Icon: CertAccredited },
+  ];
+
+  return (
+    <section ref={ref} className="py-20 md:py-28 relative overflow-hidden"
+      style={{
+        background: "linear-gradient(135deg, #E8EFF5 0%, #F4F7FA 60%, #EAF1F6 100%)",
+        borderTop: `1px solid ${C.borderL}`,
+      }}>
+
+      {/* Subtle hexagon/cell texture overlay (matches brochure's water-bubble feel) */}
+      <div className="absolute inset-0 pointer-events-none"
+        style={{ opacity: 0.09, backgroundImage: `url(${HEX_CELLS})`, backgroundSize: "cover", backgroundPosition: "center" }}/>
+
+      <div className="container relative z-10">
+        {/* Top row — heading (left) + certification badges (right) */}
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-14">
+          <div>
+            <p className="eyebrow mb-3 fade-up d1">Our Group</p>
+            <h2 className="fade-up d2" style={{
+              fontFamily:"'Playfair Display',serif", fontWeight:700,
+              fontSize:"clamp(1.75rem,3.5vw,2.5rem)", color:C.ink,
+              lineHeight:1.15,
+            }}>
+              The <em style={{ fontStyle:"italic", color:C.gold }}>GANA Group</em>
+            </h2>
+            <p className="fade-up d3" style={{
+              fontFamily:"'DM Sans',sans-serif", fontSize:"0.9rem",
+              color:C.ink70, lineHeight:1.7, marginTop:"0.75rem", maxWidth:"420px",
+            }}>
+              Three companies, one mission — combining cosmeceutical, medical-device,
+              and gene-therapy expertise under a single Korean corporate group.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-4 fade-up d3">
+            {CERT_BADGES.map(({ label, Icon }) => (
+              <div key={label} title={label} className="flex items-center justify-center">
+                <Icon />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 3 brand cards — horizontal row */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          {BRANDS.map((b, i) => (
+            <div key={b.part1 + b.part2} className={`fade-up d${i+2}`}
+              style={{
+                background: "rgba(255,255,255,0.7)",
+                backdropFilter: "blur(10px)",
+                border: `1px solid ${C.borderL}`,
+                padding: "2.25rem 1.75rem",
+                textAlign: "center",
+                transition: "transform 0.25s ease, box-shadow 0.25s ease",
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = "translateY(-3px)";
+                e.currentTarget.style.boxShadow = "0 8px 24px rgba(30,28,26,0.08)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "none";
+              }}>
+              {/* Logo (two-tone text) */}
+              <div style={{ marginBottom: "1rem" }}>
+                <span style={{
+                  fontFamily:"'Playfair Display',serif", fontWeight:700,
+                  fontSize:"1.625rem", color: b.c1, letterSpacing:"0.04em",
+                }}>{b.part1} </span>
+                <span style={{
+                  fontFamily:"'Playfair Display',serif", fontWeight:700,
+                  fontSize:"1.625rem", color: b.c2, letterSpacing:"0.04em",
+                }}>{b.part2}</span>
+              </div>
+
+              <p style={{
+                fontFamily:"'DM Sans',sans-serif", fontSize:"0.7rem", fontWeight:600,
+                letterSpacing:"0.15em", textTransform:"uppercase", color: b.c2,
+                marginBottom:"1rem",
+              }}>{b.tag}</p>
+
+              <p style={{
+                fontFamily:"'DM Sans',sans-serif", fontSize:"0.825rem",
+                color: C.ink70, lineHeight: 1.7, marginBottom: b.site ? "1.125rem" : 0,
+              }}>{b.desc}</p>
+
+              {b.site && (
+                <a href={`https://${b.site}`} target="_blank" rel="noopener noreferrer" style={{
+                  fontFamily:"'DM Mono',monospace", fontSize:"0.7rem", color: C.gold,
+                  letterSpacing:"0.04em", textDecoration:"none",
+                  borderBottom: `1px solid ${C.gold}`, paddingBottom: "1px",
+                }}>{b.site} →</a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ── Footer ──────────────────────────────────────────────────────────────── */
 function Footer() {
   return (
@@ -855,7 +1102,7 @@ function Footer() {
           </div>
 
           <div className="flex flex-wrap gap-6">
-            {["Products","Science","About","Certifications","Contact"].map(item => (
+            {["Products","Certifications","About","Contact"].map(item => (
               <a key={item} href={`#${item.toLowerCase()}`}
                 style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.7rem", fontWeight:500,
                   letterSpacing:"0.08em", textTransform:"uppercase",
@@ -897,6 +1144,7 @@ export default function Home() {
       <CertificationsSection />
       <AboutSection />
       <ContactSection />
+      <GanaGroupSection />
       <Footer />
     </div>
   );
