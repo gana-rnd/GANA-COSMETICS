@@ -25,7 +25,10 @@
 - GANA FILL (CE approved PLLA filler)
 - GANA CH (Calcium + HA filler)
 - GANA PNS (PDRN filler)
-- GANA PFS (peptide filler)
+- GANA PF / GANA PFS (peptide filler)
+- GANA CH Plus / GANA PH Plus / Filler X Plus (Plus 변형 포함)
+
+> **원칙: 필러는 예외 없이 전부 제외.** 빌드 문서의 "GANA PF를 메조(Expression Line Solution)로 유지" 권고는 무효.
 
 ### 2.2 Clinic Care — 전체 제외
 - GANA DA (lipolysis)
