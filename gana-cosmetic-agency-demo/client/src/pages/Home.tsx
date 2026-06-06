@@ -306,6 +306,25 @@ function HeroSection() {
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}>
+      {/* Top headline — sits in the open background space above the card */}
+      <div className="absolute z-10"
+        style={{ top: "clamp(130px, 17vh, 210px)", left: "clamp(2rem, 11vw, 12rem)", right: "2rem", maxWidth: "640px" }}>
+        <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.72rem", fontWeight: 700,
+          letterSpacing: "0.22em", textTransform: "uppercase", color: C.gold, marginBottom: "1.1rem" }}>
+          GANA Cosmetic · Made in Korea
+        </p>
+        <h2 style={{ fontFamily: "'Playfair Display',serif", fontWeight: 700,
+          fontSize: "clamp(2.4rem, 5vw, 4.25rem)", color: C.ink, lineHeight: 1.08, letterSpacing: "-0.01em" }}>
+          Cosmeceutical science,<br/>
+          <em style={{ fontStyle: "italic" }}>built for the world.</em>
+        </h2>
+        <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "1rem", color: C.ink70,
+          lineHeight: 1.7, maxWidth: "440px", marginTop: "1.5rem" }}>
+          High-purity PDRN, PLLA &amp; HA formulations — developed, manufactured, and
+          export-ready for distributors and aesthetic clinics worldwide.
+        </p>
+      </div>
+
       <div className="relative flex items-end"
         style={{ minHeight: "115vh", paddingTop: "120px", paddingBottom: "56px",
           paddingLeft: "clamp(2rem, 11vw, 12rem)", paddingRight: "0" }}>
