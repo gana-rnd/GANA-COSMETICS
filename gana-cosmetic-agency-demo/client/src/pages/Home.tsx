@@ -15,6 +15,8 @@
  */
 
 import { useEffect, useRef, useState } from "react";
+import { Link } from "wouter";
+import { C, PRODUCTS, PROD_DMP } from "@/data/products";
 
 /* ── Assets ──────────────────────────────────────────────────────────────── */
 const HERO_IMG    = "https://d2xsxph8kpxj0f.cloudfront.net/310519663528899790/XvzYhBJDEkprN8oG2gCU4K/hero_lab_products-WBzLhbCjkt5eNHKAvqkqhU.webp";
@@ -24,23 +26,6 @@ const FT_CELLS    = "https://d2xsxph8kpxj0f.cloudfront.net/310519663528899790/Xv
 const FT_CLEAN    = "https://d2xsxph8kpxj0f.cloudfront.net/310519663528899790/XvzYhBJDEkprN8oG2gCU4K/feature_clean-HT5kAn5DGswFNwgUenaFQx.webp";
 const ABOUT_LAB   = "https://d2xsxph8kpxj0f.cloudfront.net/310519663528899790/XvzYhBJDEkprN8oG2gCU4K/about_lab-DwzkzCxKNYK9HeMQX4J5cs.webp";
 const HEX_CELLS   = "https://d2xsxph8kpxj0f.cloudfront.net/310519663528899790/XvzYhBJDEkprN8oG2gCU4K/section_hexcell-AVjrcqYiijdY3abeQR6BFU.webp";
-const PROD_DMP    = "/manus-storage/prod_dmp_plus_7a06592d.webp";
-const SYRINGE_B   = "/manus-storage/prod_syringe_blue_192d6c45.webp";
-const SYRINGE_G   = "/manus-storage/prod_syringe_green_e82d9e06.webp";
-
-/* ── Colour shortcuts ────────────────────────────────────────────────────── */
-const C = {
-  white:   "#FFFFFF",
-  off:     "#F8F6F3",
-  light:   "#F0EDE8",
-  ink:     "#1E1C1A",
-  ink70:   "rgba(30,28,26,0.70)",
-  ink45:   "rgba(30,28,26,0.45)",
-  gold:    "#A8905A",
-  goldH:   "#BFA570",
-  border:  "#DDD8D2",
-  borderL: "#EAE6E0",
-};
 
 /* ── SVG Icons ───────────────────────────────────────────────────────────── */
 const IconFlask = () => (
@@ -111,35 +96,7 @@ const STATS = [
   { icon: "🏅", label: "GMP & ISO 13485\nCertified" },
 ];
 
-const PRODUCTS = [
-  { id:"dmp-plus", cat:"Skin Booster", name:"GANA DMP+", tag:"High End Skin Booster",
-    desc:"PLLA + HA + PDRN + Glutathione. Multi-active booster in a ready-to-use prefilled vial.",
-    ings:["PLLA 1mg/ml","HA 3mg/ml","PDRN 2mg/ml"], vol:"3ml × 2 vials", price:"150", img:PROD_DMP, badge:"2024 NEW" },
-  { id:"phv", cat:"Skin Booster", name:"GANA PHV", tag:"2-Year Lasting Hydration",
-    desc:"High-molecular HA + PLLA biostimulator. Hyaluronidase-correctable for precise control.",
-    ings:["HA 20mg/ml","PLLA 1mg/ml"], vol:"10ml vial", price:"150", img:SYRINGE_B, badge:"2024 NEW" },
-  { id:"eye-booster", cat:"Skin Booster", name:"GANA EYE BOOSTER", tag:"Full-Face PDRN Revitalizer",
-    desc:"PDRN + Sodium DNA + Glutathione. Targets cellular regeneration across the full face.",
-    ings:["PDRN","HA","Glutathione","Sodium DNA"], vol:"1.2ml syringe", price:"30", img:SYRINGE_G, badge:"2025 NEW" },
-  { id:"tox", cat:"Meso Solution", name:"GANA TOX", tag:"Topical Neuromodulator",
-    desc:"Argireline 100ppm + PDRN + HA. Spray-applied — no injection required. FDA & EU CPNP.",
-    ings:["Argireline 100ppm","PDRN","HA"], vol:"5ml × 10ea", price:"150", img:null, badge:"FDA + CPNP" },
-  { id:"pnv-plus", cat:"Meso Solution", name:"GANA PNV+", tag:"High-Concentration PDRN",
-    desc:"PDRN 2% — direct clinical alternative to Rejuran. With Glutathione and HA 10mg/cc.",
-    ings:["PDRN 2%","Glutathione","HA 10mg/cc"], vol:"3ml × 5ea", price:"150", img:null, badge:"vs Rejuran" },
-  { id:"scalp", cat:"Meso Solution", name:"GANA SCALP", tag:"Scalp Regeneration",
-    desc:"PDRN + GHK-Cu targeting hair follicle regeneration and scalp microenvironment.",
-    ings:["PDRN","GHK-Cu"], vol:"3ml × 10ea", price:"150", img:null, badge:"Hair Specialist" },
-  { id:"tc-plus", cat:"Topical", name:"GANA TC+", tag:"Post-Procedure Recovery",
-    desc:"4× concentrated PDRN topical with PHA + peptides. Premium post-treatment care.",
-    ings:["PDRN 2%","PHA","Peptides"], vol:"45g tube", price:"90", img:null, badge:"4× Conc." },
-  { id:"gino-face", cat:"Chemical Peel", name:"GINO FACE", tag:"Natural Microneedling Peel",
-    desc:"Spongilla spicule-based exfoliation. Globally rare natural micro-needling mechanism.",
-    ings:["Spongilla Spicules","Botanicals"], vol:"45g tube", price:"90", img:null, badge:"Acne Specialist" },
-  { id:"regen-peel", cat:"Chemical Peel", name:"REGEN PEEL", tag:"Medical-Grade TCA Peel",
-    desc:"TCA 30% with bicarbonate neutralizer. For licensed medical professionals only.",
-    ings:["TCA 30%","Bicarbonate"], vol:"30ml / 50ml", price:"60", img:null, badge:"Rx Only" },
-];
+/* PRODUCTS data is imported from @/data/products (shared with ProductDetail) */
 
 const CERTS = [
   { code:"FDA", title:"FDA Registration", icon:"🇺🇸",
@@ -328,100 +285,74 @@ function Navbar() {
 /* ── Hero ────────────────────────────────────────────────────────────────── */
 function HeroSection() {
   const textRef = useRef<HTMLDivElement>(null);
-  const imgRef  = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const text = textRef.current;
-    const img  = imgRef.current;
-    if (!text || !img) return;
-    text.style.opacity = "0";
-    text.style.transform = "translateX(-28px)";
-    img.style.opacity = "0";
-    img.style.transform = "translateX(28px)";
-    const ease = "0.85s cubic-bezier(0.23,1,0.32,1)";
-    text.style.transition = `opacity ${ease}, transform ${ease}`;
-    img.style.transition  = `opacity ${ease}, transform ${ease}`;
-    img.style.transitionDelay = "0.15s";
+    const card = textRef.current;
+    if (!card) return;
+    card.style.opacity = "0";
+    card.style.transform = "translateY(28px)";
+    card.style.transition = "opacity 0.9s cubic-bezier(0.23,1,0.32,1), transform 0.9s cubic-bezier(0.23,1,0.32,1)";
     const raf = requestAnimationFrame(() => requestAnimationFrame(() => {
-      text.style.opacity = "1";
-      text.style.transform = "translateX(0)";
-      img.style.opacity = "1";
-      img.style.transform = "translateX(0)";
+      card.style.opacity = "1";
+      card.style.transform = "translateY(0)";
     }));
     return () => cancelAnimationFrame(raf);
   }, []);
 
   return (
-    <section className="relative overflow-hidden" style={{ background: C.white, minHeight: "88vh" }}>
-      <div className="grid grid-cols-1 lg:grid-cols-2" style={{ minHeight: "88vh" }}>
+    <section className="relative overflow-hidden"
+      style={{
+        minHeight: "115vh",
+        backgroundImage: "url(/hero-fluid.png)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}>
+      <div className="relative flex items-end"
+        style={{ minHeight: "115vh", paddingTop: "120px", paddingBottom: "56px",
+          paddingLeft: "clamp(2rem, 11vw, 12rem)", paddingRight: "0" }}>
 
-        {/* Left — text */}
-        <div ref={textRef} className="flex flex-col justify-center px-8 md:px-16 lg:px-20 pt-28 pb-16 lg:pt-0 lg:pb-0">
-          <p className="eyebrow mb-5">Dermatology. Innovation. Results.</p>
+        {/* Floating white card — flush to right edge, gap on the left */}
+        <div ref={textRef}
+          style={{ width: "100%", background: C.white, boxShadow: "0 30px 80px rgba(11,18,26,0.38)" }}>
+          <div className="grid grid-cols-1 md:grid-cols-2">
 
-          <h1 className="headline mb-6"
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontWeight: 700,
-              fontSize: "clamp(2.5rem, 5vw, 4.25rem)",
-              color: C.ink,
-              lineHeight: 1.1,
-            }}>
-            Clinical Beauty,<br/>
-            <em style={{ fontStyle: "italic", color: C.ink }}>Refined by Science</em>
-          </h1>
-
-          <p style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontSize: "1rem",
-            color: C.ink70,
-            lineHeight: 1.75,
-            maxWidth: "420px",
-            marginBottom: "2.25rem",
-          }}>
-            Precision cosmeceutical formulas powered by clinical research and
-            clean actives — PDRN, PLLA, HA — to visibly transform skin health
-            for distributors and aesthetic clinics worldwide.
-          </p>
-
-          <div className="flex flex-wrap gap-3 mb-12">
-            <a href="#products" className="btn-gold">Discover Our Science →</a>
-            <a href="#contact" className="btn-outline-gold">B2B Inquiry</a>
-          </div>
-
-          {/* Mini trust badges */}
-          <div className="flex flex-wrap gap-4">
-            {[
-              { label: "FDA Registered" },
-              { label: "EU CPNP Compliant" },
-              { label: "GMP Certified" },
-            ].map(b => (
-              <div key={b.label} className="flex items-center gap-1.5">
-                <span style={{ color: C.gold, fontSize: "0.75rem" }}>✓</span>
-                <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.75rem", fontWeight:500, color:C.ink70 }}>{b.label}</span>
+            {/* Left — text */}
+            <div className="flex flex-col justify-center" style={{ padding: "3rem 3rem 3rem 3.25rem" }}>
+              <p className="eyebrow mb-4">Cosmeceutical Innovation · Korea</p>
+              <h1 style={{
+                fontFamily: "'Playfair Display', serif", fontWeight: 700,
+                fontSize: "clamp(2rem, 3.4vw, 3rem)", color: C.ink,
+                lineHeight: 1.12, marginBottom: "1.25rem",
+              }}>
+                Clinical Beauty,<br/>
+                <em style={{ fontStyle: "italic" }}>Refined by Science</em>
+              </h1>
+              <p style={{
+                fontFamily: "'DM Sans', sans-serif", fontSize: "0.95rem",
+                color: C.ink70, lineHeight: 1.7, maxWidth: "430px", marginBottom: "1.75rem",
+              }}>
+                Precision cosmeceutical formulas powered by clinical research and clean
+                actives — PDRN, PLLA, HA — to visibly transform skin health for
+                distributors and aesthetic clinics worldwide.
+              </p>
+              <div className="flex flex-wrap gap-3 mb-7">
+                <a href="#products" className="btn-gold">Discover Our Science →</a>
+                <a href="#contact" className="btn-outline-gold">B2B Inquiry</a>
               </div>
-            ))}
-          </div>
-        </div>
+              <div className="flex flex-wrap gap-4">
+                {["FDA Registered", "EU CPNP Compliant", "GMP Certified"].map(b => (
+                  <div key={b} className="flex items-center gap-1.5">
+                    <span style={{ color: C.gold, fontSize: "0.75rem" }}>✓</span>
+                    <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.72rem", fontWeight:500, color:C.ink70 }}>{b}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-        {/* Right — full-bleed photo */}
-        <div ref={imgRef} className="relative overflow-hidden" style={{ minHeight: "480px" }}>
-          <img src={HERO_IMG} alt="GANA Cosmetic laboratory products"
-            className="absolute inset-0 w-full h-full object-cover"/>
-
-          {/* Clinically tested badge */}
-          <div className="absolute top-8 right-8 hidden lg:flex flex-col items-center justify-center"
-            style={{
-              width: "96px", height: "96px",
-              borderRadius: "50%",
-              border: `1.5px solid ${C.gold}`,
-              background: "rgba(255,255,255,0.92)",
-              backdropFilter: "blur(8px)",
-              textAlign: "center",
-              padding: "0.75rem",
-            }}>
-            <span style={{ color:C.gold, fontSize:"1rem", marginBottom:"2px" }}>✓</span>
-            <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.5rem", fontWeight:700, letterSpacing:"0.12em", textTransform:"uppercase", color:C.ink, lineHeight:1.3 }}>Clinically<br/>Tested</span>
-            <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.45rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.ink45, marginTop:"2px" }}>Dermatologist<br/>Tested</span>
+            {/* Product photo — LEFT of card (matches reference) */}
+            <div className="relative overflow-hidden" style={{ minHeight: "340px", order: -1 }}>
+              <img src={HERO_IMG} alt="GANA Cosmetic products"
+                className="absolute inset-0 w-full h-full object-cover"/>
+            </div>
           </div>
         </div>
       </div>
@@ -499,7 +430,7 @@ function StatsBar() {
 function ProductsSection() {
   const ref = useSectionReveal();
   const [filter, setFilter] = useState("All");
-  const filters = ["All","Skin Booster","Meso Solution","Chemical Peel","Topical"];
+  const filters = ["All","Skin Booster","Meso Solution","Chemical Peel","Topical","Intimate Care"];
   const list = filter === "All" ? PRODUCTS : PRODUCTS.filter(p => p.cat === filter);
 
   return (
@@ -532,7 +463,9 @@ function ProductsSection() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {list.map((p, i) => (
-            <div key={p.id} className={`product-card fade-up d${Math.min(i+1,6)}`}>
+            <Link key={p.id} href={`/products/${p.id}`}
+              className="product-card"
+              style={{ display:"block", textDecoration:"none", cursor:"pointer" }}>
               {/* Image */}
               <div className="overflow-hidden" style={{ height:"180px", background:C.light }}>
                 {p.img
@@ -573,12 +506,12 @@ function ProductsSection() {
                     </span>
                     <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.625rem", color:C.ink45, marginLeft:"0.5rem" }}>{p.vol}</span>
                   </div>
-                  <a href="#contact" style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.7rem",
+                  <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.7rem",
                     fontWeight:600, letterSpacing:"0.08em", textTransform:"uppercase",
-                    color:C.gold, textDecoration:"none" }}>Inquire →</a>
+                    color:C.gold }}>View details →</span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
@@ -760,7 +693,7 @@ function AboutSection() {
               {[
                 ["Address","555 Dunchon-daero, Jungwon-gu, Seongnam-si, Gyeonggi-do, South Korea"],
                 ["Tel","+82-31-732-0242"],
-                ["Email","dydgh416@naver.com"],
+                ["Email","contact@gana-cosmetics.com"],
               ].map(([l,v]) => (
                 <div key={l} className="flex gap-4">
                   <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.625rem", color:C.gold,
@@ -776,13 +709,46 @@ function AboutSection() {
   );
 }
 
-/* ── Contact ─────────────────────────────────────────────────────────────── */
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby5jPT8G_Mtl5b6nuy1Hh07RJA2cqkQBe3SRQqtjbB8bZ_8-kqBx7ZImgEu5AZdaZJH/exec";
+
 function ContactSection() {
   const ref = useSectionReveal();
   const [done, setDone] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(false);
   const [form, setForm] = useState({ name:"", company:"", email:"", phone:"", country:"", type:"", message:"" });
   const set = (k:string) => (e:React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>) =>
     setForm(f => ({ ...f, [k]: e.target.value }));
+
+  const onSubmit = async (e:React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setError(false);
+    try {
+      // Apps Script 웹앱은 CORS 응답 헤더를 주지 않으므로 no-cors 로 보낸다.
+      // 응답 본문을 읽을 수 없어 성공 여부 확인이 불가 → 네트워크 전송 성공 시 낙관적으로 완료 처리.
+      await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          subject: `[GANA B2B Inquiry] ${form.company || form.name}`,
+          name: form.name,
+          company: form.company,
+          email: form.email,
+          phone: form.phone,
+          country: form.country,
+          inquiry_type: form.type,
+          message: form.message,
+        }),
+      });
+      setDone(true);
+    } catch {
+      setError(true);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <section id="contact" className="py-24 md:py-32"
@@ -824,7 +790,7 @@ function ContactSection() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={e=>{e.preventDefault();setDone(true);}}
+              <form onSubmit={onSubmit}
                 className="p-8 md:p-10 space-y-6"
                 style={{ background:C.off, border:`1px solid ${C.borderL}` }}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -861,7 +827,16 @@ function ContactSection() {
                     value={form.message} onChange={set("message")}
                     placeholder="Describe your business and requirements..."/>
                 </div>
-                <button type="submit" className="btn-gold w-full justify-center">Send Inquiry →</button>
+                {error && (
+                  <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.8125rem", color:"#B23B3B", textAlign:"center" }}>
+                    Something went wrong. Please try again or email us directly at contact@gana-cosmetics.com.
+                  </p>
+                )}
+                <button type="submit" disabled={submitting}
+                  className="btn-gold w-full justify-center"
+                  style={{ opacity: submitting ? 0.6 : 1, cursor: submitting ? "wait" : "pointer" }}>
+                  {submitting ? "Sending…" : "Send Inquiry →"}
+                </button>
               </form>
             )}
           </div>
