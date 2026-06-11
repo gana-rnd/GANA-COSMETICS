@@ -130,10 +130,8 @@ export default function ProductDetail() {
 
             {/* CTAs */}
             <div className="flex flex-wrap" style={{ gap: "0.75rem" }}>
-              <a href="/#contact" className="btn-gold" style={{ textDecoration: "none" }}>Inquire about this product →</a>
-              <a href="/#contact" style={{ fontFamily: sans, fontSize: "0.8rem", fontWeight: 600,
-                letterSpacing: "0.06em", textTransform: "uppercase", color: C.ink, textDecoration: "none",
-                padding: "0.85rem 1.5rem", border: `1.5px solid ${C.border}` }}>Request Catalogue</a>
+              <a href={`/?product=${encodeURIComponent(product.name)}#contact`} className="btn-gold"
+                style={{ textDecoration: "none" }}>Inquire about this product →</a>
             </div>
           </div>
         </div>

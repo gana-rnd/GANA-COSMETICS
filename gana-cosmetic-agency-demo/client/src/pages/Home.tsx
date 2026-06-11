@@ -461,6 +461,18 @@ function ContactSection() {
   const set = (k:string) => (e:React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>) =>
     setForm(f => ({ ...f, [k]: e.target.value }));
 
+  // prefill from a product page's "Inquire about this product" link (/?product=…#contact)
+  useEffect(() => {
+    const product = new URLSearchParams(window.location.search).get("product");
+    if (product) {
+      setForm(f => ({
+        ...f,
+        type: f.type || "general",
+        message: f.message || `I'm interested in ${product}. Please send pricing and details.`,
+      }));
+    }
+  }, []);
+
   const onSubmit = async (e:React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
