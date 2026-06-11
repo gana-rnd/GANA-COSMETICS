@@ -2,7 +2,7 @@
  * GANA Cosmetic — "Clinical Luxury" layout
  * Inspired by: Lumivion Laboratories reference
  * Structure:
- *   1. Navbar — white bg, gold CTA
+ *   1. (no navbar — single-page flow, hero video starts at the very top)
  *   2. Hero — split: text left / full-bleed lab photo right
  *   3. Feature strip — 4 cards (icon + title + text + photo)
  *   4. Stats bar — horizontal divider
@@ -159,129 +159,6 @@ function useSectionReveal() {
   return ref as React.RefObject<HTMLElement>;
 }
 
-/* ── Navbar ──────────────────────────────────────────────────────────────── */
-function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", h, { passive: true });
-    return () => window.removeEventListener("scroll", h);
-  }, []);
-
-  return (
-    <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      style={{
-        background: scrolled ? "rgba(255,255,255,0.97)" : "rgba(255,255,255,0.88)",
-        backdropFilter: "blur(8px)",
-        WebkitBackdropFilter: "blur(8px)",
-        borderBottom: `1px solid ${C.borderL}`,
-        boxShadow: scrolled ? "0 2px 16px rgba(20,24,30,0.06)" : "none",
-      }}>
-      <div className="container">
-        {/* Top row — logo (center) + contact (right) */}
-        <div className="grid grid-cols-3 items-center"
-          style={{ height: scrolled ? "60px" : "72px", transition: "height 0.3s ease" }}>
-
-          {/* Left spacer */}
-          <div></div>
-
-          {/* Logo — centered */}
-          <a href="#" className="select-none flex items-center gap-3 justify-self-center">
-            {/* Hexagon logo mark — script G */}
-            <svg width="44" height="44" viewBox="0 0 36 36" fill="none">
-              {/* Outer hexagon */}
-              <path d="M18 2.5 L31 9.75 L31 26.25 L18 33.5 L5 26.25 L5 9.75 Z"
-                stroke={C.gold} strokeWidth="1.25" fill="none"/>
-              {/* Inner hex fill */}
-              <path d="M18 8 L25 12 L25 20 L18 24 L11 20 L11 12 Z"
-                fill={C.gold} opacity="0.08"/>
-              {/* Script G — drawn as SVG path for italic/cursive feel */}
-              <text
-                x="18" y="22"
-                textAnchor="middle"
-                fill={C.gold}
-                fontSize="14"
-                fontFamily="'Playfair Display', 'Cormorant Garamond', serif"
-                fontWeight="700"
-                fontStyle="italic"
-              >G</text>
-            </svg>
-            <div className="flex flex-col leading-none gap-1">
-              <span style={{ fontFamily:"'Playfair Display',serif", fontWeight:700, fontSize:"1.625rem", color:C.ink, letterSpacing:"0.06em" }}>GANA</span>
-              <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.7rem", fontWeight:600, letterSpacing:"0.3em", textTransform:"uppercase", color:C.gold }}>Cosmetic</span>
-            </div>
-          </a>
-
-          {/* Right slot — empty on desktop (contact moved to category row), hamburger on mobile */}
-          <div className="hidden lg:block"></div>
-
-          {/* Mobile hamburger */}
-          <button className="lg:hidden p-2 flex flex-col gap-1.5 justify-self-end" onClick={() => setOpen(!open)} aria-label="Menu">
-            {[0,1,2].map(i => (
-              <span key={i} className="block w-5 h-px transition-all duration-300"
-                style={{
-                  background: C.ink,
-                  transform: open ? (i===0?"rotate(45deg) translateY(8px)":i===2?"rotate(-45deg) translateY(-8px)":"none") : "none",
-                  opacity: open && i===1 ? 0 : 1,
-                }}/>
-            ))}
-          </button>
-        </div>
-
-        {/* Bottom row — categories (center) + Contact Us (right). Desktop only */}
-        <div className="hidden lg:grid grid-cols-3 items-center"
-          style={{
-            paddingTop: scrolled ? "0.625rem" : "1rem",
-            paddingBottom: scrolled ? "0.75rem" : "1.125rem",
-            borderTop: `1px solid ${C.borderL}`,
-            transition: "padding 0.3s ease",
-          }}>
-          {/* Left spacer */}
-          <div></div>
-
-          {/* Categories — centered */}
-          <div className="flex items-center justify-center" style={{ gap: "5.5rem" }}>
-            {[["Products","#products"],["Science","#science"],["Certifications","#certifications"],["About","#about"]].map(([l,h]) => (
-              <a key={l} href={h} className="nav-link"
-                style={{
-                  fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: "1.1875rem",
-                  fontWeight: 600,
-                  letterSpacing: "0.03em",
-                  textTransform: "none",
-                  color: C.ink,
-                }}>{l}</a>
-            ))}
-          </div>
-
-          {/* Contact Us — right */}
-          <div className="justify-self-end">
-            <a href="#contact" className="btn-gold"
-              style={{
-                padding: "0.5rem 1.125rem",
-                fontSize: "0.65rem",
-                letterSpacing: "0.1em",
-                gap: "0.35rem",
-              }}>Contact Us →</a>
-          </div>
-        </div>
-      </div>
-
-      {open && (
-        <div style={{ background: C.white, borderTop: `1px solid ${C.borderL}` }}>
-          <div className="container py-6 flex flex-col gap-5">
-            {["Products","Science","Certifications","About","Contact"].map(item => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="nav-link" onClick={() => setOpen(false)}>{item}</a>
-            ))}
-            <a href="#contact" className="btn-gold text-center mt-2">Contact Us →</a>
-          </div>
-        </div>
-      )}
-    </nav>
-  );
-}
-
 /* ── Scroll backdrop — fixed full-screen brand imagery, crossfades as the
  * marker sections ([data-backdrop]) scroll into view. Solid sections in
  * between simply cover it; transparent bands reveal the current image. ──── */
@@ -347,7 +224,7 @@ function Hero() {
       }}/>
       {/* full-width wrapper (no centered container) hugs the copy to the left edge,
           into the calmer area of the mirrored video */}
-      <div className="relative z-10 w-full pl-6 md:pl-12 lg:pl-20 pr-6 pt-[120px] pb-[18vh] lg:pt-[140px]">
+      <div className="relative z-10 w-full pl-6 md:pl-12 lg:pl-20 pr-6 pt-16 pb-[18vh]">
         <p className="eyebrow mb-6">Cosmeceutical Solutions for Professionals</p>
         <h1 style={{
           fontFamily: "'Playfair Display', serif", fontWeight: 700,
@@ -1161,7 +1038,6 @@ export default function Home() {
   return (
     <div style={{ background: C.white }}>
       <ScrollBackdrop />
-      <Navbar />
       {/* content sits above the fixed backdrop; solid sections cover it */}
       <div className="relative" style={{ zIndex: 1 }}>
         <Hero />
