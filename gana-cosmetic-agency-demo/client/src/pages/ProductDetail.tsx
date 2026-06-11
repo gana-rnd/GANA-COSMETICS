@@ -40,7 +40,7 @@ function RelatedCard({ p }: { p: Product }) {
     <Link href={`/products/${p.id}`} style={{ textDecoration: "none", display: "block" }}>
       <div style={{ background: C.white, border: `1px solid ${C.borderL}`, transition: "transform .18s ease" }}
         className="product-card">
-        <div style={{ height: "150px", background: C.light, overflow: "hidden" }}>
+        <div style={{ height: "150px", background: p.img ? C.white : C.light, overflow: "hidden" }}>
           {p.img
             ? <img src={p.img} alt={p.name} className="w-full h-full object-contain p-5" />
             : <FlaskPlaceholder />}
@@ -95,7 +95,7 @@ export default function ProductDetail() {
         {/* Hero */}
         <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "3.5rem", alignItems: "start" }}>
           {/* Image */}
-          <div style={{ background: C.light, border: `1px solid ${C.borderL}`, height: "440px", position: "relative" }}>
+          <div style={{ background: product.img ? C.white : C.light, border: `1px solid ${C.borderL}`, height: "440px", position: "relative" }}>
             {product.img
               ? <img src={product.img} alt={product.name} className="w-full h-full object-contain p-12" />
               : <FlaskPlaceholder />}

@@ -14,18 +14,19 @@
  *  10. Footer
  */
 
+import { Award, Globe, Leaf, Microscope, ShieldCheck, FlaskConical } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { C, PRODUCTS, PROD_DMP } from "@/data/products";
 
-/* ── Assets ──────────────────────────────────────────────────────────────── */
-const HERO_IMG    = "https://d2xsxph8kpxj0f.cloudfront.net/310519663528899790/XvzYhBJDEkprN8oG2gCU4K/hero_lab_products-WBzLhbCjkt5eNHKAvqkqhU.webp";
-const FT_PURE     = "https://d2xsxph8kpxj0f.cloudfront.net/310519663528899790/XvzYhBJDEkprN8oG2gCU4K/feature_pure-TGSAXpVjYH6wUv6FDrSJ5H.webp";
-const FT_TESTED   = "https://d2xsxph8kpxj0f.cloudfront.net/310519663528899790/XvzYhBJDEkprN8oG2gCU4K/feature_tested-RPMVothLzK5z4BY26cu2KM.webp";
-const FT_CELLS    = "https://d2xsxph8kpxj0f.cloudfront.net/310519663528899790/XvzYhBJDEkprN8oG2gCU4K/feature_cells-m3bjqpjkUUFXoQJzoYujHe.webp";
-const FT_CLEAN    = "https://d2xsxph8kpxj0f.cloudfront.net/310519663528899790/XvzYhBJDEkprN8oG2gCU4K/feature_clean-HT5kAn5DGswFNwgUenaFQx.webp";
-const ABOUT_LAB   = "https://d2xsxph8kpxj0f.cloudfront.net/310519663528899790/XvzYhBJDEkprN8oG2gCU4K/about_lab-DwzkzCxKNYK9HeMQX4J5cs.webp";
-const HEX_CELLS   = "https://d2xsxph8kpxj0f.cloudfront.net/310519663528899790/XvzYhBJDEkprN8oG2gCU4K/section_hexcell-AVjrcqYiijdY3abeQR6BFU.webp";
+/* ── Assets — local files in client/public/images ────────────────────────── */
+const HERO_IMG    = "/images/hero-lab.webp";
+const FT_PURE     = "/images/feature-pure.webp";
+const FT_TESTED   = "/images/feature-tested.webp";
+const FT_CELLS    = "/images/feature-cells.webp";
+const FT_CLEAN    = "/images/feature-clean.webp";
+const ABOUT_LAB   = "/images/about-lab.webp";
+const HEX_CELLS   = "/images/section-hexcell.webp";
 
 /* ── SVG Icons ───────────────────────────────────────────────────────────── */
 const IconFlask = () => (
@@ -89,23 +90,23 @@ const FEATURES = [
 ];
 
 const STATS = [
-  { icon: "⚗️", label: "Developed with\nDermatologists" },
-  { icon: "🔬", label: "Clinically\nProven" },
+  { icon: <Microscope size={20} color={C.gold} strokeWidth={1.5} />, label: "Developed with\nDermatologists" },
+  { icon: <ShieldCheck size={20} color={C.gold} strokeWidth={1.5} />, label: "Clinically\nProven" },
   { icon: "97%", label: "Showed improvement\nin skin quality*", big: true },
-  { icon: "🌿", label: "Clean &\nConscious" },
-  { icon: "🏅", label: "GMP & ISO 13485\nCertified" },
+  { icon: <Leaf size={20} color={C.gold} strokeWidth={1.5} />, label: "Clean &\nConscious" },
+  { icon: <Award size={20} color={C.gold} strokeWidth={1.5} />, label: "GMP & ISO 13485\nCertified" },
 ];
 
 /* PRODUCTS data is imported from @/data/products (shared with ProductDetail) */
 
 const CERTS = [
-  { code:"FDA", title:"FDA Registration", icon:"🇺🇸",
+  { code:"FDA", title:"FDA Registration", icon:<ShieldCheck size={28} color={C.gold} strokeWidth={1.5} />,
     body:"GANA TOX registered under U.S. FDA cosmetic product notification." },
-  { code:"EU CPNP", title:"EU CPNP Compliant", icon:"🇪🇺",
+  { code:"EU CPNP", title:"EU CPNP Compliant", icon:<Globe size={28} color={C.gold} strokeWidth={1.5} />,
     body:"Selected products notified under EU Cosmetic Products Notification Portal." },
-  { code:"GMP", title:"GMP Certified", icon:"⚗️",
+  { code:"GMP", title:"GMP Certified", icon:<FlaskConical size={28} color={C.gold} strokeWidth={1.5} />,
     body:"Manufacturing facility operates under Good Manufacturing Practice standards." },
-  { code:"ISO 13485", title:"ISO 13485", icon:"🏅",
+  { code:"ISO 13485", title:"ISO 13485", icon:<Award size={28} color={C.gold} strokeWidth={1.5} />,
     body:"Quality management system certified for medical device design and production." },
 ];
 
@@ -173,10 +174,11 @@ function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled ? "rgba(255,255,255,0.97)" : "rgba(255,255,255,0.95)",
-        backdropFilter: "blur(12px)",
+        background: scrolled ? "rgba(255,255,255,0.97)" : "rgba(255,255,255,0.88)",
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
         borderBottom: `1px solid ${C.borderL}`,
-        boxShadow: scrolled ? "0 2px 16px rgba(30,28,26,0.06)" : "none",
+        boxShadow: scrolled ? "0 2px 16px rgba(20,24,30,0.06)" : "none",
       }}>
       <div className="container">
         {/* Top row — logo (center) + contact (right) */}
@@ -250,7 +252,7 @@ function Navbar() {
                   fontWeight: 600,
                   letterSpacing: "0.03em",
                   textTransform: "none",
-                  color: "#000",
+                  color: C.ink,
                 }}>{l}</a>
             ))}
           </div>
@@ -282,96 +284,49 @@ function Navbar() {
   );
 }
 
-/* ── Hero ────────────────────────────────────────────────────────────────── */
-function HeroSection() {
-  const textRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const card = textRef.current;
-    if (!card) return;
-    card.style.opacity = "0";
-    card.style.transform = "translateY(28px)";
-    card.style.transition = "opacity 0.9s cubic-bezier(0.23,1,0.32,1), transform 0.9s cubic-bezier(0.23,1,0.32,1)";
-    const raf = requestAnimationFrame(() => requestAnimationFrame(() => {
-      card.style.opacity = "1";
-      card.style.transform = "translateY(0)";
-    }));
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
+/* ── Clinical Beauty intro (image + statement) ───────────────────────────── */
+function ClinicalIntro() {
+  const ref = useSectionReveal();
   return (
-    <section className="relative overflow-hidden"
-      style={{
-        minHeight: "115vh",
-        backgroundImage: "url(/hero-fluid.png)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}>
-      {/* Top headline — sits in the open background space above the card */}
-      <div className="absolute z-10"
-        style={{ top: "clamp(130px, 17vh, 210px)", left: "clamp(2rem, 11vw, 12rem)", right: "2rem", maxWidth: "640px" }}>
-        <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.72rem", fontWeight: 700,
-          letterSpacing: "0.22em", textTransform: "uppercase", color: C.gold, marginBottom: "1.1rem" }}>
-          GANA Cosmetic · Made in Korea
-        </p>
-        <h2 style={{ fontFamily: "'Playfair Display',serif", fontWeight: 700,
-          fontSize: "clamp(2.4rem, 5vw, 4.25rem)", color: C.ink, lineHeight: 1.08, letterSpacing: "-0.01em" }}>
-          Cosmeceutical science,<br/>
-          <em style={{ fontStyle: "italic" }}>built for the world.</em>
-        </h2>
-        <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "1rem", color: C.ink70,
-          lineHeight: 1.7, maxWidth: "440px", marginTop: "1.5rem" }}>
-          High-purity PDRN, PLLA &amp; HA formulations — developed, manufactured, and
-          export-ready for distributors and aesthetic clinics worldwide.
-        </p>
-      </div>
+    // pt offsets the fixed navbar: 72px top row, +60px category row on lg
+    <section ref={ref} className="pt-[72px] lg:pt-[132px]" style={{ background: C.white, borderTop: `1px solid ${C.borderL}` }}>
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        {/* Product photo — left */}
+        <div className="relative overflow-hidden" style={{ minHeight: "440px" }}>
+          <img src={HERO_IMG} alt="GANA Cosmetic products"
+            className="absolute inset-0 w-full h-full object-cover"/>
+        </div>
 
-      <div className="relative flex items-end"
-        style={{ minHeight: "115vh", paddingTop: "120px", paddingBottom: "56px",
-          paddingLeft: "clamp(2rem, 11vw, 12rem)", paddingRight: "0" }}>
-
-        {/* Floating white card — flush to right edge, gap on the left */}
-        <div ref={textRef}
-          style={{ width: "100%", background: C.white, boxShadow: "0 30px 80px rgba(11,18,26,0.38)" }}>
-          <div className="grid grid-cols-1 md:grid-cols-2">
-
-            {/* Left — text */}
-            <div className="flex flex-col justify-center" style={{ padding: "3rem 3rem 3rem 3.25rem" }}>
-              <p className="eyebrow mb-4">Cosmeceutical Innovation · Korea</p>
-              <h1 style={{
-                fontFamily: "'Playfair Display', serif", fontWeight: 700,
-                fontSize: "clamp(2rem, 3.4vw, 3rem)", color: C.ink,
-                lineHeight: 1.12, marginBottom: "1.25rem",
-              }}>
-                Clinical Beauty,<br/>
-                <em style={{ fontStyle: "italic" }}>Refined by Science</em>
-              </h1>
-              <p style={{
-                fontFamily: "'DM Sans', sans-serif", fontSize: "0.95rem",
-                color: C.ink70, lineHeight: 1.7, maxWidth: "430px", marginBottom: "1.75rem",
-              }}>
-                Precision cosmeceutical formulas powered by clinical research and clean
-                actives — PDRN, PLLA, HA — to visibly transform skin health for
-                distributors and aesthetic clinics worldwide.
-              </p>
-              <div className="flex flex-wrap gap-3 mb-7">
-                <a href="#products" className="btn-gold">Discover Our Science →</a>
-                <a href="#contact" className="btn-outline-gold">B2B Inquiry</a>
+        {/* Statement — right */}
+        <div className="flex flex-col justify-center" style={{ padding: "clamp(3rem, 6vw, 6rem)" }}>
+          <p className="eyebrow mb-4">Cosmeceutical Innovation · Korea</p>
+          <h1 style={{
+            fontFamily: "'Playfair Display', serif", fontWeight: 700,
+            fontSize: "clamp(2rem, 3.4vw, 3rem)", color: C.ink,
+            lineHeight: 1.12, marginBottom: "1.25rem",
+          }}>
+            Clinical Beauty,<br/>
+            <em style={{ fontStyle: "italic" }}>Refined by Science</em>
+          </h1>
+          <p style={{
+            fontFamily: "'DM Sans', sans-serif", fontSize: "0.95rem",
+            color: C.ink70, lineHeight: 1.7, maxWidth: "430px", marginBottom: "1.75rem",
+          }}>
+            Precision cosmeceutical formulas powered by clinical research and clean
+            actives — PDRN, PLLA, HA — to visibly transform skin health for
+            distributors and aesthetic clinics worldwide.
+          </p>
+          <div className="flex flex-wrap gap-3 mb-7">
+            <a href="#products" className="btn-gold">Discover Our Science →</a>
+            <a href="#contact" className="btn-outline-gold">B2B Inquiry</a>
+          </div>
+          <div className="flex flex-wrap gap-4">
+            {["FDA Registered", "EU CPNP Compliant", "GMP Certified"].map(b => (
+              <div key={b} className="flex items-center gap-1.5">
+                <span style={{ color: C.gold, fontSize: "0.75rem" }}>✓</span>
+                <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.72rem", fontWeight:500, color:C.ink70 }}>{b}</span>
               </div>
-              <div className="flex flex-wrap gap-4">
-                {["FDA Registered", "EU CPNP Compliant", "GMP Certified"].map(b => (
-                  <div key={b} className="flex items-center gap-1.5">
-                    <span style={{ color: C.gold, fontSize: "0.75rem" }}>✓</span>
-                    <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.72rem", fontWeight:500, color:C.ink70 }}>{b}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Product photo — LEFT of card (matches reference) */}
-            <div className="relative overflow-hidden" style={{ minHeight: "340px", order: -1 }}>
-              <img src={HERO_IMG} alt="GANA Cosmetic products"
-                className="absolute inset-0 w-full h-full object-cover"/>
-            </div>
+            ))}
           </div>
         </div>
       </div>
@@ -430,7 +385,7 @@ function StatsBar() {
                 </div>
               ) : (
                 <div className="flex items-center gap-2.5">
-                  <span style={{ fontSize:"1.25rem" }}>{s.icon}</span>
+                  <span className="flex items-center">{s.icon}</span>
                   <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.7rem", fontWeight:600, color:C.ink, lineHeight:1.4, whiteSpace:"pre-line" }}>{s.label}</p>
                 </div>
               )}
@@ -486,7 +441,7 @@ function ProductsSection() {
               className="product-card"
               style={{ display:"block", textDecoration:"none", cursor:"pointer" }}>
               {/* Image */}
-              <div className="overflow-hidden" style={{ height:"180px", background:C.light }}>
+              <div className="overflow-hidden" style={{ height:"180px", background: p.img ? C.white : C.light }}>
                 {p.img
                   ? <img src={p.img} alt={p.name} className="card-img w-full h-full object-contain p-6"/>
                   : <div className="card-img w-full h-full flex items-center justify-center">
@@ -1130,7 +1085,7 @@ export default function Home() {
   return (
     <div style={{ background: C.white }}>
       <Navbar />
-      <HeroSection />
+      <ClinicalIntro />
       <FeatureStrip />
       <StatsBar />
       <ProductsSection />
