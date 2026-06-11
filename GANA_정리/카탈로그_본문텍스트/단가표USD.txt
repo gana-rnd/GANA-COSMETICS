@@ -1,0 +1,101 @@
+                                       Product Price List
+
+NO. Category       Product Name        Volume      Container  Retail Price 100+ Units Price 1000+ Units Price  Remarks
+                                                    Syringe
+                                                       Vial   (USD)  (USD)  (USD)
+                                                       Vial
+1                  GANA HA             1.2ml        Syringe   20     15     10
+                                                    Syringe
+2                  GANA DM             50mg * 1EA   Syringe   60     40     20
+                                                    Syringe
+                                       5ml * 1EA    Syringe
+                                                    Syringe
+3                  GANA BODY           50ml         Syringe   200    150    100
+                                                    Syringe
+4                  GANA Booster        2.5ml        Syringe   2      15     10
+                                                    Syringe
+5                  GANA Filler X       1.2ml         1Bottle  90     60     30
+                                                     1Bottle
+6                  GANA Filler X Plus  1.2ml         1Bottle  90     60     30
+                                                       Vial
+7 Medical Device   GANA PN             2.5ml*2EA       Vial   90     60     30
+                                                       Vial
+8                  GANA CH             1.2ml       Cosmetic   60     40     20
+                                                     bottle
+9                  GANA CH PLUS        1.2ml           Vial   60     40     20
+                                                       Vial
+10                 GANA MHS            1.2ml           Vial   60     40     20
+                                                       Vial
+11                 GANA PNS            1.2ml           Vial   60     40     20
+                                                       Vial
+12                 GANA PH             1.2ml           Vial   60     40     20
+                                                       Vial
+13                 GANA PH Plus        1.2ml          Tube    60     40     20
+                                                      Tube
+14                 GANA PATCH6         100*60         Tube    135    90     45
+
+15 Medical Device  GANA PATCH10        150*100                150    100    50
+
+16                 GANA PATCH25        250*200                210    140    70
+
+17                 GANA DA             5ml*10ea               150    100    50
+
+18                 GANA V LINE         2ml*5ea                90     60     30
+
+19                 GANA EYE            2ml*5ea                150    100    50
+
+20                 GANA GYNO           50ml                   60     60     30
+
+21                 GANA PHA/PHA PEEL   40ml                   60     45     30
+
+22                 GANA Cocktail       4ml*10EA               90     60     30
+
+23                 GANA Booster V      3ml*2EA                20     15     10
+
+24                 GANA HA V           3ml*2EA                60     40     20
+
+25                 GANA PNV            3ml*5EA                90     60     30
+
+26                 GANA PNV+           3ml*5EA                150    120    60
+
+27  Cosmetics      GANA PF             2ml*5EA                150    100    50
+
+28                 GANA SCALP          3ml*10EA               150    100    50
+
+29                 GANA TC             45g                    45     30     15
+
+30                 GANA TC+            45g                    90     60     30
+
+31                 GANA KA             45g                    30     30     15
+32             GANA BB           45g         Tube             30   30    15
+
+33             GANA TOX          5ml*10ea    Vial             150  100   50
+
+34             GANA PHV          10ml        Vial             150  100   50
+
+35             GINO BODY         45g         Tube             90   60    30
+
+36             GINO FACE         45g         Tube             90   60    30
+
+37             REGEN PEEL        30ml/50ml   Tube /           60   45    30
+
+                                             Cosmetic bottle
+
+38             GANA LIP+         1.2ml       Syringe          30   15    10  ODM only available
+
+39             GANA BLUE         1.2ml       Syringe          60   30    20  ODM only available
+
+40             GANA GREEN        1.2ml       Syringe          45   22.5  15  ODM only available
+
+41             GANA YELLOW       1.2ml       Syringe          36   18    12  ODM only available
+
+42  Cosmetics  GANA EYE BOOSTER  1.2ml       Syringe          30   15    10
+
+43             GANA NPHG         5ml * 1ea   Vial             15   10    5   ODM only available
+
+44             GANA EXO NPHG     5ml * 1ea   Vial             18   12    6   ODM only available
+
+45             GANA FISH COLLAGEN 5ml * 1ea  Vial             15   10    5   ODM only available
+
+46             GANA DMP+         3ml * 2ea   Vial             150  100   50
+
