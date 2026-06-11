@@ -39,6 +39,7 @@ export type Product = {
   price: string;          // USD retail
   img: string | null;
   badge: string;
+  certs?: string[];       // confirmed regulatory marks (exact name match only)
 };
 
 export const PRODUCTS: Product[] = [
@@ -53,16 +54,16 @@ export const PRODUCTS: Product[] = [
     ings:["PDRN","HA","Glutathione","Sodium DNA"], vol:"1.2ml syringe", price:"30", img:SYRINGE_G, badge:"2025 NEW" },
   { id:"tox", cat:"Meso Solution", name:"GANA TOX", tag:"Topical Neuromodulator",
     desc:"Argireline 100ppm + PDRN + HA. Spray-applied — no injection required. FDA & EU CPNP.",
-    ings:["Argireline 100ppm","PDRN","Adenosine","Glutathione"], vol:"5ml × 10ea", price:"150", img:"/products/tox.jpg", badge:"FDA + CPNP" },
+    ings:["Argireline 100ppm","PDRN","Adenosine","Glutathione"], vol:"5ml × 10ea", price:"150", img:"/products/tox.jpg", badge:"FDA + CPNP", certs:["FDA","EU CPNP"] },
   { id:"pnv-plus", cat:"Meso Solution", name:"GANA PNV+", tag:"High-Concentration PDRN",
     desc:"PDRN 2% — direct clinical alternative to Rejuran. With Glutathione and HA 10mg/cc.",
-    ings:["PDRN 2%","Glutathione","HA 10mg/cc"], vol:"3ml × 5ea", price:"150", img:"/products/pnv-plus.jpg", badge:"vs Rejuran" },
+    ings:["PDRN 2%","Glutathione","HA 10mg/cc"], vol:"3ml × 5ea", price:"150", img:"/products/pnv-plus.jpg", badge:"vs Rejuran", certs:["EU CPNP"] },
   { id:"scalp", cat:"Meso Solution", name:"GANA SCALP", tag:"Scalp Regeneration",
     desc:"PDRN + GHK-Cu targeting hair follicle regeneration and scalp microenvironment.",
-    ings:["PDRN","GHK-Cu"], vol:"3ml × 10ea", price:"150", img:"/products/scalp.jpg", badge:"Hair Specialist" },
+    ings:["PDRN","GHK-Cu"], vol:"3ml × 10ea", price:"150", img:"/products/scalp.jpg", badge:"Hair Specialist", certs:["EU CPNP"] },
   { id:"pnv", cat:"Meso Solution", name:"GANA PNV", tag:"Low-Concentration PDRN",
     desc:"Low-concentration PDRN (0.5%) mesotherapy solution with glutathione and cross-linked HA for skin regeneration, whitening, and hydration.",
-    ings:["PDRN 0.5%","Glutathione","HA 5mg/cc"], vol:"3ml × 5ea", price:"90", img:"/products/pnv.jpg", badge:"PDRN" },
+    ings:["PDRN 0.5%","Glutathione","HA 5mg/cc"], vol:"3ml × 5ea", price:"90", img:"/products/pnv.jpg", badge:"PDRN", certs:["EU CPNP"] },
   { id:"eye", cat:"Meso Solution", name:"GANA EYE", tag:"Eye Bag & Dark Circle Solution",
     desc:"Targeted meso solution for under-eye bags and dark circles, formulated with carnitine and acetyl tetrapeptide-5.",
     ings:["Carnitine 2%","Acetyl Tetrapeptide-5"], vol:"2ml × 5ea", price:"150", img:"/products/eye.jpg", badge:"Eye Care" },

@@ -294,27 +294,27 @@
   .form-label {
     display: block;
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.625rem;
+    font-size: 0.72rem;
     font-weight: 600;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--cl-ink-45);
-    margin-bottom: 0.375rem;
+    color: var(--cl-ink-70);
+    margin-bottom: 0.5rem;
   }
   .form-input {
     width: 100%;
     background: transparent;
     border: none;
     border-bottom: 1.5px solid var(--cl-border);
-    padding: 0.625rem 0;
+    padding: 0.7rem 0;
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
+    font-size: 1.0625rem;
     color: var(--cl-ink);
     outline: none;
     transition: border-color 0.22s ease;
   }
   .form-input:focus { border-color: var(--cl-gold); }
-  .form-input::placeholder { color: var(--cl-border); }
+  .form-input::placeholder { color: var(--cl-ink-45); }
 
   /* ── Scroll fade-up ── */
   .fade-up {

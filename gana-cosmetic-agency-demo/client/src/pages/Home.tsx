@@ -14,7 +14,7 @@
  *  10. Footer
  */
 
-import { Award, Globe, Leaf, Microscope, ShieldCheck, FlaskConical } from "lucide-react";
+import { Award, Globe, ShieldCheck, FlaskConical } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { C, PRODUCTS, PROD_DMP } from "@/data/products";
@@ -24,7 +24,6 @@ const FT_PURE     = "/images/feature-pure.webp";
 const FT_TESTED   = "/images/feature-tested.webp";
 const FT_CELLS    = "/images/feature-cells.webp";
 const FT_CLEAN    = "/images/feature-clean.webp";
-const ABOUT_LAB   = "/images/about-lab.webp";
 
 /* ── SVG Icons ───────────────────────────────────────────────────────────── */
 const IconFlask = () => (
@@ -85,14 +84,6 @@ const FEATURES = [
     text: "Full INCI disclosure on every product. No hidden blends. Transparent ingredient sourcing.",
     img: FT_CLEAN,
   },
-];
-
-const STATS = [
-  { icon: <Microscope size={20} color={C.gold} strokeWidth={1.5} />, label: "Developed with\nDermatologists" },
-  { icon: <ShieldCheck size={20} color={C.gold} strokeWidth={1.5} />, label: "Clinically\nProven" },
-  { icon: "97%", label: "Showed improvement\nin skin quality*", big: true },
-  { icon: <Leaf size={20} color={C.gold} strokeWidth={1.5} />, label: "Clean &\nConscious" },
-  { icon: <Award size={20} color={C.gold} strokeWidth={1.5} />, label: "GMP & ISO 13485\nCertified" },
 ];
 
 /* PRODUCTS data is imported from @/data/products (shared with ProductDetail) */
@@ -162,18 +153,16 @@ function useSectionReveal() {
 /* ── Logo bar — full logo centered (no menu) ─────────────────────────────── */
 function LogoBar() {
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 flex items-center"
+    <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center"
       style={{
         height: "76px",
-        background: "rgba(231,225,218,0.92)",
+        background: "rgba(255,253,246,0.96)",
         backdropFilter: "blur(8px)",
         WebkitBackdropFilter: "blur(8px)",
         borderBottom: `1px solid ${C.borderL}`,
       }}>
-      <a href="#" aria-label="GANA Cosmetics"
-        className="select-none flex items-center gap-3 pl-6 md:pl-10" style={{ textDecoration: "none" }}>
-        <img src="/images/logo-mark2.png" alt="" style={{ height: "50px", width: "auto", display: "block" }}/>
-        <img src="/images/logo-wordmark.png" alt="GANA Cosmetics" style={{ height: "30px", width: "auto", display: "block" }}/>
+      <a href="#" aria-label="GANA Cosmetics" className="select-none" style={{ textDecoration: "none" }}>
+        <img src="/images/logo-wordmark.png" alt="GANA Cosmetics" style={{ height: "46px", width: "auto", display: "block" }}/>
       </a>
     </div>
   );
@@ -260,9 +249,9 @@ function Hero() {
           fontFamily: "'DM Sans', sans-serif", fontSize: "1rem",
           color: C.ink70, lineHeight: 1.75, maxWidth: "520px", marginBottom: "2.25rem",
         }}>
-          Precision cosmeceutical formulas powered by clinical research and clean
-          actives — PDRN, PLLA, HA — to visibly transform skin health for
-          distributors and aesthetic clinics worldwide.
+          A U.S. FDA-registered manufacturer with EU CPNP-notified formulations —
+          GANA Cosmetic supplies PDRN, PLLA, and HA cosmeceuticals to distributors
+          and aesthetic clinics worldwide.
         </p>
         <div className="flex flex-wrap gap-3 mb-10">
           <a href="#products" className="btn-gold">Discover Our Science →</a>
@@ -282,59 +271,12 @@ function Hero() {
   );
 }
 
-/* ── Serum band — transparent over backdrop #2 (serum dropper) ───────────── */
-function SerumBand() {
-  return (
-    <section data-backdrop="1" className="relative flex items-center" style={{ minHeight: "60vh" }}>
-      <div className="absolute inset-0 pointer-events-none" style={{
-        background: "linear-gradient(95deg, rgba(245,248,250,0.85) 0%, rgba(245,248,250,0.35) 55%, rgba(245,248,250,0) 100%)",
-      }}/>
-      <div className="container relative z-10 py-24">
-        <p className="eyebrow mb-5">Formulation Philosophy</p>
-        <h2 style={{
-          fontFamily:"'Playfair Display',serif", fontWeight:700,
-          fontSize:"clamp(1.9rem,3.8vw,2.9rem)", color:C.ink, lineHeight:1.12, marginBottom:"1.25rem",
-        }}>
-          Pure actives.<br/>
-          <em style={{ fontStyle:"italic", color:C.gold }}>Visible results.</em>
-        </h2>
-        <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.95rem",
-          color:C.ink70, lineHeight:1.75, maxWidth:"460px" }}>
-          Every GANA formula discloses exact active concentrations —
-          no proprietary blends, no hidden fillers.
-        </p>
-      </div>
-    </section>
-  );
-}
-
-/* ── CTA band — transparent over backdrop #3 (pipette bubbles) ───────────── */
-function CtaBand() {
-  return (
-    <section data-backdrop="2" className="relative flex items-center" style={{ minHeight: "55vh" }}>
-      <div className="absolute inset-0 pointer-events-none" style={{
-        background: "linear-gradient(95deg, rgba(245,248,250,0.8) 0%, rgba(245,248,250,0.3) 55%, rgba(245,248,250,0) 100%)",
-      }}/>
-      <div className="container relative z-10 py-24">
-        <p className="eyebrow mb-5">From Seoul to Your Clinic</p>
-        <h2 style={{
-          fontFamily:"'Playfair Display',serif", fontWeight:700,
-          fontSize:"clamp(1.9rem,3.8vw,2.9rem)", color:C.ink, lineHeight:1.12, marginBottom:"1.75rem",
-        }}>
-          Global B2B supply,<br/>
-          <em style={{ fontStyle:"italic", color:C.gold }}>direct from the manufacturer.</em>
-        </h2>
-        <a href="#contact" className="btn-gold">Start a Conversation →</a>
-      </div>
-    </section>
-  );
-}
 
 /* ── Feature Strip ───────────────────────────────────────────────────────── */
 function FeatureStrip() {
   const ref = useSectionReveal();
   return (
-    <section style={{ background: "rgba(255,255,255,0.72)", borderTop: `1px solid ${C.borderL}` }} ref={ref}>
+    <section id="science" style={{ background: "rgba(255,255,255,0.72)", borderTop: `1px solid ${C.borderL}` }} ref={ref}>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         {FEATURES.map((f, i) => (
           <div key={f.title}
@@ -360,36 +302,46 @@ function FeatureStrip() {
           </div>
         ))}
       </div>
+
     </section>
   );
 }
 
-/* ── Stats Bar ───────────────────────────────────────────────────────────── */
+/* ── Certifications strip (absorbed regulatory standing) ─────────────────── */
 function StatsBar() {
   const ref = useSectionReveal();
   return (
-    <section ref={ref} style={{ background: "rgba(245,248,250,0.7)", borderTop: `1px solid ${C.borderL}`, borderBottom: `1px solid ${C.borderL}` }}>
-      <div className="container py-5">
-        <div className="flex flex-wrap justify-center items-center gap-0">
-          {STATS.map((s, i) => (
-            <div key={i} className="stat-item py-3 flex-1 min-w-[140px] justify-center"
-              style={{ borderRight: i < STATS.length - 1 ? `1px solid ${C.borderL}` : "none" }}>
-              {s.big ? (
-                <div>
-                  <span style={{ fontFamily:"'Playfair Display',serif", fontWeight:700, fontSize:"2rem", color:C.gold }}>{s.icon}</span>
-                  <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.7rem", color:C.ink70, lineHeight:1.4, whiteSpace:"pre-line", marginTop:"2px" }}>{s.label}</p>
-                </div>
-              ) : (
-                <div className="flex items-center gap-2.5">
-                  <span className="flex items-center">{s.icon}</span>
-                  <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.7rem", fontWeight:600, color:C.ink, lineHeight:1.4, whiteSpace:"pre-line" }}>{s.label}</p>
-                </div>
-              )}
+    <section id="certifications" ref={ref}
+      style={{ background: "rgba(245,248,250,0.7)", borderTop: `1px solid ${C.borderL}`, borderBottom: `1px solid ${C.borderL}` }}>
+      <div className="container py-14 md:py-16">
+        <div className="text-center mb-10">
+          <p className="eyebrow mb-3 fade-up d1 justify-center">Regulatory Standing</p>
+          <h3 className="fade-up d2" style={{
+            fontFamily:"'Playfair Display',serif", fontWeight:700,
+            fontSize:"clamp(1.4rem,2.6vw,2rem)", color:C.ink, lineHeight:1.15,
+          }}>Certified for Global Distribution</h3>
+        </div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px fade-up d3"
+          style={{ background:C.borderL, border:`1px solid ${C.borderL}` }}>
+          {CERTS.map(c => (
+            <div key={c.code} className="flex flex-col items-center text-center"
+              style={{ background:C.white, padding:"1.75rem 1.25rem" }}>
+              <div className="mb-3">{c.icon}</div>
+              <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.68rem", fontWeight:500,
+                letterSpacing:"0.12em", color:C.gold, textTransform:"uppercase", marginBottom:"0.35rem" }}>{c.code}</div>
+              <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.9rem",
+                fontWeight:700, color:C.ink, marginBottom:"0.5rem" }}>{c.title}</div>
+              <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.76rem", color:C.ink45, lineHeight:1.55 }}>{c.body}</p>
             </div>
           ))}
         </div>
-        <p style={{ textAlign:"center", fontFamily:"'DM Sans',sans-serif", fontSize:"0.6rem", color:C.ink45, marginTop:"0.5rem" }}>
-          *Based on a 4-week clinical study with professional aesthetic practitioners.
+
+        <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.75rem", color:C.ink45,
+          lineHeight:1.7, marginTop:"1.25rem", maxWidth:"760px" }}>
+          <strong style={{ color:C.ink70 }}>Regulatory Notice:</strong> REGEN PEEL (TCA 30%) is for licensed
+          medical professionals only. GANA KA (Kojic Acid 4%) exceeds EU Cosmetic Regulation 1223/2009 limits —
+          EU distribution requires reformulation. Certificates available upon request.
         </p>
       </div>
     </section>
@@ -437,7 +389,27 @@ function ProductsSection() {
             <Link key={p.id} href={`/products/${p.id}`}
               className="cat-item block"
               style={{ background:C.white, textDecoration:"none", cursor:"pointer" }}>
-              <div className="overflow-hidden flex items-center justify-center" style={{ height:"min(28vw, 420px)" }}>
+              <div className="relative overflow-hidden flex items-center justify-center" style={{ height:"min(28vw, 420px)" }}>
+                {p.certs && (
+                  <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
+                    {p.certs.map(c => (
+                      <div key={c} className="flex flex-col items-center justify-center"
+                        style={{ width:"60px", height:"60px", borderRadius:"50%",
+                          background:C.gold, border:"2px solid #fff",
+                          boxShadow:"0 2px 10px rgba(19,38,46,0.28)" }}>
+                        <span style={{ fontFamily:"'DM Mono',monospace", fontWeight:700,
+                          fontSize: c==="FDA" ? "0.95rem" : "0.82rem", color:"#fff", lineHeight:1, letterSpacing:"0.01em" }}>
+                          {c==="EU CPNP" ? "CPNP" : c}
+                        </span>
+                        <span style={{ fontFamily:"'DM Sans',sans-serif", fontWeight:600,
+                          fontSize:"0.38rem", letterSpacing:"0.12em", textTransform:"uppercase",
+                          color:"rgba(255,255,255,0.92)", marginTop:"2px" }}>
+                          {c==="FDA" ? "US Reg." : "EU"}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 {p.img
                   ? <img src={p.img} alt={p.name} className="card-img w-full h-full object-contain p-8"/>
                   : <div className="card-img w-full h-full flex items-center justify-center">
@@ -456,195 +428,23 @@ function ProductsSection() {
               </div>
             </Link>
           ))}
+
+          {/* CTA tile — fills the catalogue's trailing empty cells */}
+          <a href="#contact" className="col-span-2 relative flex flex-col justify-center overflow-hidden"
+            style={{ textDecoration:"none", minHeight:"min(28vw, 420px)",
+              backgroundImage:`linear-gradient(120deg, rgba(19,38,46,0.78) 0%, rgba(19,38,46,0.45) 100%), url(/images/brand-serum.jpg)`,
+              backgroundSize:"cover", backgroundPosition:"center", padding:"clamp(2rem,4vw,3.5rem)" }}>
+            <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.68rem", fontWeight:600,
+              letterSpacing:"0.22em", textTransform:"uppercase", color:C.goldH, marginBottom:"1rem" }}>From Seoul to Your Clinic</p>
+            <h3 style={{ fontFamily:"'Playfair Display',serif", fontWeight:700,
+              fontSize:"clamp(1.4rem,2.4vw,2rem)", color:"#fff", lineHeight:1.15, marginBottom:"1.5rem", maxWidth:"460px" }}>
+              Global B2B supply,<br/>
+              <em style={{ fontStyle:"italic", color:C.goldH }}>direct from the manufacturer.</em>
+            </h3>
+            <span className="btn-gold" style={{ alignSelf:"flex-start" }}>Start a Conversation →</span>
+          </a>
         </div>
 
-        <div className="text-center mt-14 fade-up d4">
-          <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.875rem", color:C.ink45, marginBottom:"1.25rem" }}>
-            Retail prices shown. Dealer &amp; distributor pricing available separately upon inquiry,
-            along with full specifications and regulatory documentation.
-          </p>
-          <a href="#contact" className="btn-gold">Request Full Catalogue →</a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ── Science ─────────────────────────────────────────────────────────────── */
-function ScienceSection() {
-  const ref = useSectionReveal();
-  const ACTIVES = [
-    { abbr:"PDRN",   full:"Polydeoxyribonucleotide",  role:"DNA repair · cellular regeneration · wound healing" },
-    { abbr:"PLLA",   full:"Poly-L-Lactic Acid",        role:"Collagen biostimulation · long-term volumisation" },
-    { abbr:"HA",     full:"Hyaluronic Acid",            role:"Deep hydration matrix · tissue scaffolding" },
-    { abbr:"GSH",    full:"Glutathione",                role:"Master antioxidant · melanin inhibition · brightening" },
-    { abbr:"GHK-Cu", full:"Copper Tripeptide-1",        role:"Wound contraction · angiogenesis · follicle activation" },
-  ];
-
-  return (
-    <section id="science" className="py-24 md:py-32 relative overflow-hidden"
-      style={{ background: "rgba(245,248,250,0.6)" }} ref={ref}>
-
-      <div className="container relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          <div>
-            <p className="eyebrow mb-5 fade-up d1">Key Actives</p>
-            <h2 className="fade-up d2" style={{
-              fontFamily:"'Playfair Display',serif", fontWeight:700,
-              fontSize:"clamp(1.75rem,3.5vw,2.75rem)", color:C.ink,
-              lineHeight:1.15, marginBottom:"1.25rem",
-            }}>
-              Clinical-Grade Ingredients<br/>
-              <em style={{ fontStyle:"italic", color:C.gold }}>at Verified Concentrations</em>
-            </h2>
-            <p className="fade-up d3" style={{
-              fontFamily:"'DM Sans',sans-serif", fontSize:"0.9375rem",
-              color:C.ink70, lineHeight:1.75, marginBottom:"2.5rem", maxWidth:"460px",
-            }}>
-              Every GANA formulation discloses exact active concentrations — no proprietary blends,
-              no hidden fillers. Clinicians can verify efficacy before recommending to patients.
-            </p>
-
-            <div className="fade-up d4">
-              {ACTIVES.map((a, i) => (
-                <div key={a.abbr} className="flex items-start gap-5 py-4"
-                  style={{
-                    borderBottom:`1px solid ${C.borderL}`,
-                    borderTop: i===0 ? `1px solid ${C.borderL}` : "none",
-                  }}>
-                  <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.75rem",
-                    fontWeight:500, color:C.gold, minWidth:"56px", paddingTop:"2px" }}>{a.abbr}</div>
-                  <div>
-                    <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.8125rem",
-                      fontWeight:600, color:C.ink, marginBottom:"0.15rem" }}>{a.full}</div>
-                    <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.75rem",
-                      color:C.ink45 }}>{a.role}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="relative fade-up d2">
-            <img src={PROD_DMP} alt="GANA DMP+" className="w-full object-contain" style={{ maxHeight:"440px" }}/>
-            <div className="absolute -bottom-4 -left-4 p-5 hidden md:block"
-              style={{ background:C.white, border:`1px solid rgba(168,144,90,0.35)`, width:"200px",
-                boxShadow:"0 8px 28px rgba(22,34,44,0.10)" }}>
-              <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.6rem", color:C.gold,
-                letterSpacing:"0.15em", textTransform:"uppercase", marginBottom:"0.5rem" }}>GANA DMP+</div>
-              <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.75rem",
-                color:C.ink70, lineHeight:1.5 }}>
-                PLLA + HA + PDRN + Glutathione<br/>3ml prefilled vial
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ── Certifications ──────────────────────────────────────────────────────── */
-function CertificationsSection() {
-  const ref = useSectionReveal();
-  return (
-    <section id="certifications" className="py-24 md:py-32"
-      style={{ background: "rgba(255,255,255,0.72)", borderTop: `1px solid ${C.borderL}` }} ref={ref}>
-      <div className="container">
-        <div className="max-w-2xl mx-auto text-center mb-14">
-          <p className="eyebrow mb-4 fade-up d1 justify-center">Regulatory Standing</p>
-          <h2 className="fade-up d2" style={{
-            fontFamily:"'Playfair Display',serif", fontWeight:700,
-            fontSize:"clamp(1.75rem,3.5vw,2.5rem)", color:C.ink,
-            lineHeight:1.15, marginBottom:"1rem",
-          }}>Certified for Global Distribution</h2>
-          <p className="fade-up d3" style={{
-            fontFamily:"'DM Sans',sans-serif", fontSize:"0.9375rem", color:C.ink45, lineHeight:1.75,
-          }}>
-            GANA Cosmetic products meet international regulatory requirements for
-            cosmeceutical and medical-aesthetic markets across the US, EU, and Asia-Pacific.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {CERTS.map((c, i) => (
-            <div key={c.code} className={`cert-card fade-up d${i+2}`}>
-              <div style={{ fontSize:"1.75rem", marginBottom:"0.75rem" }}>{c.icon}</div>
-              <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.7rem", fontWeight:500,
-                letterSpacing:"0.12em", color:C.gold, textTransform:"uppercase", marginBottom:"0.375rem" }}>{c.code}</div>
-              <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.9375rem",
-                fontWeight:700, color:C.ink, marginBottom:"0.625rem" }}>{c.title}</div>
-              <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.8rem", color:C.ink45, lineHeight:1.6 }}>{c.body}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-10 p-5 fade-up d5"
-          style={{ background:C.off, border:`1px solid ${C.borderL}` }}>
-          <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.8rem", color:C.ink, lineHeight:1.7, opacity:0.7 }}>
-            <strong>Regulatory Notice:</strong> REGEN PEEL (TCA 30%) is for licensed medical professionals only.
-            GANA KA (Kojic Acid 4%) exceeds EU Cosmetic Regulation 1223/2009 limits — EU distribution requires reformulation.
-            Certificates available upon request.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ── About ───────────────────────────────────────────────────────────────── */
-function AboutSection() {
-  const ref = useSectionReveal();
-  return (
-    <section id="about" className="py-24 md:py-32 overflow-hidden"
-      style={{ background: "rgba(245,248,250,0.6)", borderTop: `1px solid ${C.borderL}` }} ref={ref}>
-      <div className="container">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="relative fade-up d1 order-2 lg:order-1">
-            <img src={ABOUT_LAB} alt="GANA Cosmetic laboratory"
-              className="w-full object-cover" style={{ aspectRatio:"4/3" }}/>
-            <div className="absolute -bottom-3 -right-3 w-full h-full pointer-events-none"
-              style={{ border:`1px solid ${C.gold}30`, zIndex:-1 }}/>
-          </div>
-
-          <div className="order-1 lg:order-2">
-            <p className="eyebrow mb-5 fade-up d1">About GANA Cosmetic</p>
-            <h2 className="fade-up d2" style={{
-              fontFamily:"'Playfair Display',serif", fontWeight:700,
-              fontSize:"clamp(1.75rem,3.5vw,2.5rem)", color:C.ink,
-              lineHeight:1.15, marginBottom:"1.5rem",
-            }}>
-              Korean Precision,<br/>
-              <em style={{ fontStyle:"italic", color:C.gold }}>Global Distribution</em>
-            </h2>
-            <p className="fade-up d3" style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.9375rem",
-              color:C.ink70, lineHeight:1.75, marginBottom:"1.25rem" }}>
-              GANA Cosmetic Co., Ltd. is a Korean cosmeceutical manufacturer operating within
-              the GANA Group — alongside GANA R&D (medical devices, dermal fillers) and
-              Dr. PARK Co., Ltd. (gene therapy R&D). Our GMP-certified facility in Seongnam-si,
-              Gyeonggi-do operates under ISO 13485 quality management.
-            </p>
-            <p className="fade-up d4" style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.9375rem",
-              color:C.ink70, lineHeight:1.75, marginBottom:"2.5rem" }}>
-              We partner with distributors, aesthetic clinics, and ODM clients across 30+ countries.
-              Every product ships with full INCI disclosure, regulatory documentation, and dedicated export support.
-            </p>
-
-            <div className="fade-up d5 space-y-3" style={{ borderTop:`1px solid ${C.borderL}`, paddingTop:"1.5rem" }}>
-              {[
-                ["Address","555 Dunchon-daero, Jungwon-gu, Seongnam-si, Gyeonggi-do, South Korea"],
-                ["Tel","+82-31-732-0242"],
-                ["Email","contact@gana-cosmetics.com"],
-              ].map(([l,v]) => (
-                <div key={l} className="flex gap-4">
-                  <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.625rem", color:C.gold,
-                    minWidth:"52px", paddingTop:"2px", letterSpacing:"0.08em", textTransform:"uppercase" }}>{l}</span>
-                  <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.8125rem", color:C.ink70, lineHeight:1.5 }}>{v}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
@@ -733,7 +533,8 @@ function ContactSection() {
             ) : (
               <form onSubmit={onSubmit}
                 className="p-8 md:p-10 space-y-6"
-                style={{ background:C.off, border:`1px solid ${C.borderL}` }}>
+                style={{ background:"rgba(141,150,158,0.14)", border:`1px solid ${C.border}`,
+                  backdropFilter:"blur(2px)", WebkitBackdropFilter:"blur(2px)" }}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {[["name","Name","text"],["company","Company / Clinic","text"],
                     ["email","Email","email"],["phone","Phone","tel"]].map(([k,l,t]) => (
@@ -993,50 +794,74 @@ function GanaGroupSection() {
 function Footer() {
   return (
     <footer style={{ background:C.deep, borderTop:`1px solid rgba(255,255,255,0.06)` }}>
-      <div className="container py-12">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-8">
-          <div className="flex items-center gap-3">
-            <svg width="32" height="32" viewBox="0 0 36 36" fill="none">
-              <path d="M18 2.5 L31 9.75 L31 26.25 L18 33.5 L5 26.25 L5 9.75 Z"
-                stroke={C.gold} strokeWidth="1.25" fill="none"/>
-              <path d="M18 8 L25 12 L25 20 L18 24 L11 20 L11 12 Z"
-                fill={C.gold} opacity="0.08"/>
-              <text x="18" y="22" textAnchor="middle" fill={C.gold}
-                fontSize="14" fontFamily="'Playfair Display','Cormorant Garamond',serif"
-                fontWeight="700" fontStyle="italic">G</text>
-            </svg>
-            <div>
-              <div style={{ fontFamily:"'Playfair Display',serif", fontWeight:700, fontSize:"1rem",
-                letterSpacing:"0.08em", color:"#fff" }}>GANA Cosmetic</div>
-              <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.5rem", fontWeight:600,
-                letterSpacing:"0.25em", textTransform:"uppercase", color:C.gold }}>Co., Ltd.</div>
+      <div className="container py-16">
+        <div className="grid grid-cols-1 md:grid-cols-[1.3fr_1fr_1fr] gap-12 mb-12">
+          {/* Brand + tagline — same wordmark as the top bar (inverted to white) */}
+          <div>
+            <img src="/images/logo-full.png" alt="GANA Cosmetics" className="mb-5"
+              style={{ height:"72px", width:"auto", display:"block", filter:"invert(1) brightness(2)" }}/>
+            <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.8rem", lineHeight:1.7,
+              color:"rgba(255,255,255,0.5)", maxWidth:"320px" }}>
+              U.S. FDA-registered cosmeceutical manufacturer within the GANA Group.
+              Supplying distributors and aesthetic clinics worldwide.
+            </p>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.62rem", color:C.gold,
+              letterSpacing:"0.18em", textTransform:"uppercase", marginBottom:"1rem" }}>Contact</div>
+            <div className="space-y-3">
+              {[
+                ["Address","555 Dunchon-daero, Jungwon-gu,\nSeongnam-si, Gyeonggi-do, South Korea"],
+                ["Tel","+82-31-732-0242"],
+                ["Email","contact@gana-cosmetics.com"],
+              ].map(([l,v]) => (
+                <div key={l}>
+                  <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.56rem", color:"rgba(255,255,255,0.4)",
+                    letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:"0.2rem" }}>{l}</div>
+                  <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.8rem",
+                    color:"rgba(255,255,255,0.7)", lineHeight:1.55, whiteSpace:"pre-line" }}>{v}</div>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-6">
-            {["Products","Science","Certifications","About","Contact"].map(item => (
-              <a key={item} href={`#${item.toLowerCase()}`}
-                style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.7rem", fontWeight:500,
-                  letterSpacing:"0.08em", textTransform:"uppercase",
-                  color:"rgba(255,255,255,0.40)", textDecoration:"none", transition:"color 0.2s" }}
-                onMouseEnter={e=>(e.currentTarget.style.color="#fff")}
-                onMouseLeave={e=>(e.currentTarget.style.color="rgba(255,255,255,0.40)")}>{item}</a>
-            ))}
-          </div>
-
-          <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.7rem",
-            color:"rgba(255,255,255,0.30)", textAlign:"right" }}>
-            © 2026 GANA Cosmetic Co., Ltd.<br/>All rights reserved.
+          {/* Company details */}
+          <div>
+            <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.62rem", color:C.gold,
+              letterSpacing:"0.18em", textTransform:"uppercase", marginBottom:"1rem" }}>Company</div>
+            <div className="space-y-3">
+              {[
+                ["Manufacturer","GANA Cosmetic Co., Ltd."],
+                ["FDA Reg. No.","1007236"],
+                ["Group","GANA R&D · Dr. PARK Co., Ltd."],
+                ["Hours","Mon–Fri 09:00–18:00 KST"],
+              ].map(([l,v]) => (
+                <div key={l}>
+                  <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.56rem", color:"rgba(255,255,255,0.4)",
+                    letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:"0.2rem" }}>{l}</div>
+                  <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.8rem",
+                    color:"rgba(255,255,255,0.7)", lineHeight:1.55 }}>{v}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div style={{ borderTop:"1px solid rgba(255,255,255,0.08)", paddingTop:"1.5rem",
-          fontFamily:"'DM Sans',sans-serif", fontSize:"0.7rem",
-          color:"rgba(255,255,255,0.20)", lineHeight:1.7 }}>
-          For professional use only. Products may not be available in all markets.
-          REGEN PEEL is for licensed medical professionals only.
-          GANA KA (Kojic Acid 4%) may not comply with EU cosmetic regulations.
-          Product images sourced from official GANA Cosmetic catalogues.
+        <div style={{ borderTop:"1px solid rgba(255,255,255,0.08)", paddingTop:"1.5rem" }}
+          className="flex flex-col md:flex-row justify-between gap-4">
+          <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.68rem",
+            color:"rgba(255,255,255,0.22)", lineHeight:1.7, maxWidth:"680px" }}>
+            For professional use only. Products may not be available in all markets.
+            REGEN PEEL is for licensed medical professionals only.
+            GANA KA (Kojic Acid 4%) may not comply with EU cosmetic regulations.
+            Product images sourced from official GANA Cosmetic catalogues.
+          </p>
+          <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.68rem",
+            color:"rgba(255,255,255,0.3)", whiteSpace:"nowrap" }}>
+            © 2026 GANA Cosmetic Co., Ltd.
+          </p>
         </div>
       </div>
     </footer>
@@ -1065,13 +890,8 @@ export default function Home() {
       <div className="relative" style={{ zIndex: 1 }}>
         <Hero />
         <ProductsSection />
-        <FeatureStrip />
         <StatsBar />
-        <SerumBand />
-        <ScienceSection />
-        <CertificationsSection />
-        <AboutSection />
-        <CtaBand />
+        <FeatureStrip />
         <ContactSection />
         <GanaGroupSection />
         <Footer />
