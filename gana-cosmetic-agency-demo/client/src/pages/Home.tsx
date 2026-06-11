@@ -159,6 +159,33 @@ function useSectionReveal() {
   return ref as React.RefObject<HTMLElement>;
 }
 
+/* ── Logo bar — mark centered big, wordmark right (no menu) ──────────────── */
+function LogoBar() {
+  return (
+    <div className="fixed top-0 left-0 right-0 z-50"
+      style={{
+        height: "84px",
+        background: "rgba(141,150,158,0.35)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
+        borderBottom: "1px solid rgba(255,255,255,0.25)",
+      }}>
+      {/* centered group — mark with the wordmark right beside it */}
+      <a href="#" aria-label="GANA Cosmetics"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none flex items-center gap-4"
+        style={{ textDecoration: "none" }}>
+        <img src="/images/logo-mark-gold.png" alt="" style={{ height: "66px", width: "auto", display: "block" }}/>
+        <span className="flex items-baseline gap-3">
+          <span style={{ fontFamily:"'Playfair Display',serif", fontWeight:700, fontSize:"1.75rem",
+            color:C.ink, letterSpacing:"0.08em", lineHeight:1 }}>GANA</span>
+          <span style={{ fontFamily:"'DM Sans',sans-serif", fontWeight:600, fontSize:"1.05rem",
+            color:C.gold, letterSpacing:"0.28em", textTransform:"uppercase", lineHeight:1 }}>Cosmetics</span>
+        </span>
+      </a>
+    </div>
+  );
+}
+
 /* ── Scroll backdrop — fixed full-screen brand imagery, crossfades as the
  * marker sections ([data-backdrop]) scroll into view. Solid sections in
  * between simply cover it; transparent bands reveal the current image. ──── */
@@ -210,7 +237,9 @@ function Hero() {
   }, []);
   return (
     <header className="relative flex items-center overflow-hidden"
-      style={{ minHeight: "100vh", background: C.off }}>
+      // height follows the video's aspect ratio so nothing gets cropped;
+      // on narrow screens content stretches it and cover-crop returns gracefully
+      style={{ aspectRatio: "1920 / 1077", background: C.off }}>
       {/* mirrored so the video's empty area sits behind the left-side copy;
           no loop — playback ends frozen on the final frame */}
       <video ref={vidRef} autoPlay muted playsInline
@@ -224,7 +253,7 @@ function Hero() {
       }}/>
       {/* full-width wrapper (no centered container) hugs the copy to the left edge,
           into the calmer area of the mirrored video */}
-      <div className="relative z-10 w-full pl-6 md:pl-12 lg:pl-20 pr-6 pt-16 pb-[18vh]">
+      <div className="relative z-10 w-full pl-6 md:pl-12 lg:pl-20 pr-6 pt-[110px] pb-[18vh]">
         <p className="eyebrow mb-6">Cosmeceutical Solutions for Professionals</p>
         <h1 style={{
           fontFamily: "'Playfair Display', serif", fontWeight: 700,
@@ -1038,6 +1067,7 @@ export default function Home() {
   return (
     <div style={{ background: C.white }}>
       <ScrollBackdrop />
+      <LogoBar />
       {/* content sits above the fixed backdrop; solid sections cover it */}
       <div className="relative" style={{ zIndex: 1 }}>
         <Hero />

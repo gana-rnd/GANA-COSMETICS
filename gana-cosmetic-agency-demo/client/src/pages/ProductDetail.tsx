@@ -22,9 +22,7 @@ function Header() {
     <header style={{ background: C.white, borderBottom: `1px solid ${C.borderL}` }}>
       <div className="container flex items-center justify-between" style={{ height: "68px" }}>
         <Link href="/" style={{ textDecoration: "none" }}>
-          <span style={{ fontFamily: serif, fontWeight: 700, fontSize: "1.5rem", color: C.ink, letterSpacing: "0.06em" }}>
-            GANA
-          </span>
+          <img src="/images/logo.png" alt="GANA Cosmetics" style={{ height: "48px", width: "auto", display: "block" }}/>
         </Link>
         <Link href="/#products" style={{ fontFamily: sans, fontSize: "0.75rem", fontWeight: 600,
           letterSpacing: "0.1em", textTransform: "uppercase", color: C.gold, textDecoration: "none" }}>
