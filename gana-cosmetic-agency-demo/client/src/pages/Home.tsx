@@ -159,28 +159,21 @@ function useSectionReveal() {
   return ref as React.RefObject<HTMLElement>;
 }
 
-/* ── Logo bar — mark centered big, wordmark right (no menu) ──────────────── */
+/* ── Logo bar — full logo centered (no menu) ─────────────────────────────── */
 function LogoBar() {
   return (
-    <div className="fixed top-0 left-0 right-0 z-50"
+    <div className="fixed top-0 left-0 right-0 z-50 flex items-center"
       style={{
-        height: "84px",
-        background: "rgba(141,150,158,0.35)",
-        backdropFilter: "blur(10px)",
-        WebkitBackdropFilter: "blur(10px)",
-        borderBottom: "1px solid rgba(255,255,255,0.25)",
+        height: "76px",
+        background: "rgba(231,225,218,0.92)",
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
+        borderBottom: `1px solid ${C.borderL}`,
       }}>
-      {/* centered group — mark with the wordmark right beside it */}
       <a href="#" aria-label="GANA Cosmetics"
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none flex items-center gap-4"
-        style={{ textDecoration: "none" }}>
-        <img src="/images/logo-mark-gold.png" alt="" style={{ height: "66px", width: "auto", display: "block" }}/>
-        <span className="flex items-baseline gap-3">
-          <span style={{ fontFamily:"'Playfair Display',serif", fontWeight:700, fontSize:"1.75rem",
-            color:C.ink, letterSpacing:"0.08em", lineHeight:1 }}>GANA</span>
-          <span style={{ fontFamily:"'DM Sans',sans-serif", fontWeight:600, fontSize:"1.05rem",
-            color:C.gold, letterSpacing:"0.28em", textTransform:"uppercase", lineHeight:1 }}>Cosmetics</span>
-        </span>
+        className="select-none flex items-center gap-3 pl-6 md:pl-10" style={{ textDecoration: "none" }}>
+        <img src="/images/logo-mark2.png" alt="" style={{ height: "50px", width: "auto", display: "block" }}/>
+        <img src="/images/logo-wordmark.png" alt="GANA Cosmetics" style={{ height: "30px", width: "auto", display: "block" }}/>
       </a>
     </div>
   );
@@ -411,7 +404,7 @@ function ProductsSection() {
   const list = filter === "All" ? PRODUCTS : PRODUCTS.filter(p => p.cat === filter);
 
   return (
-    <section id="products" data-backdrop="0" style={{ background: C.white, borderTop: `1px solid ${C.borderL}` }} className="py-12 md:py-16" ref={ref}>
+    <section id="products" data-backdrop="0" style={{ background: C.white, borderTop: `1px solid ${C.borderL}` }} className="pt-6 pb-12 md:pt-8 md:pb-16" ref={ref}>
       {/* full-bleed wrapper — the grid spans the whole viewport width */}
       <div className="w-full px-5 md:px-8">
         {/* parent category label */}
