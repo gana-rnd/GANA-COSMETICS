@@ -102,9 +102,6 @@ export default function ProductDetail() {
   /* certification pill labels */
   const certPill = (c: string) => (c === "EU CPNP" ? "CPNP" : c);
 
-  /* download stubs — files served on request via the inquiry form */
-  const downloads = [t.detail.downloadInci, t.detail.downloadCoa, t.detail.downloadCatalogue];
-
   return (
     <div style={{ background: C.off, minHeight: "100vh" }}>
       <Header />
@@ -227,31 +224,22 @@ export default function ProductDetail() {
           </div>
         </div>
 
-        {/* (3) How to Use  +  (5) Documents */}
-        <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "3.5rem", marginTop: "4rem" }}>
-          {copy.usage && (
-            <div>
-              <Eyebrow>{t.detail.protocolTitle}</Eyebrow>
-              <p style={{ fontFamily: sans, fontSize: "0.92rem", color: C.ink70, lineHeight: 1.75 }}>{copy.usage}</p>
-            </div>
-          )}
-
-          <div>
-            <Eyebrow>{t.detail.downloadsTitle}</Eyebrow>
-            <div className="space-y-2">
-              {downloads.map((label) => (
-                <a key={label} href={inquireHref} className="flex items-center justify-between"
-                  style={{ background: C.white, border: `1px solid ${C.borderL}`, padding: "0.75rem 1rem",
-                    textDecoration: "none", transition: "border-color .18s ease" }}>
-                  <span style={{ fontFamily: sans, fontSize: "0.82rem", fontWeight: 500, color: C.ink }}>{label}</span>
-                  <span style={{ fontFamily: sans, fontSize: "0.7rem", color: C.gold }}>↓</span>
-                </a>
-              ))}
-            </div>
-            <p style={{ fontFamily: sans, fontSize: "0.72rem", color: C.ink45, lineHeight: 1.55, marginTop: "0.9rem" }}>
-              {t.detail.requestNote}
-            </p>
+        {/* (3) How to Use */}
+        {copy.usage && (
+          <div style={{ marginTop: "4rem", maxWidth: "760px" }}>
+            <Eyebrow>{t.detail.protocolTitle}</Eyebrow>
+            <p style={{ fontFamily: sans, fontSize: "0.92rem", color: C.ink70, lineHeight: 1.75 }}>{copy.usage}</p>
           </div>
+        )}
+
+        {/* (5) Catalogue page — laid directly onto the page */}
+        <div style={{ marginTop: "4rem" }}>
+          <Eyebrow>{t.detail.cataloguePage}</Eyebrow>
+          <img src={`/products/pages/${product.id}.jpg`} alt={`${product.name} catalogue`}
+            loading="lazy"
+            style={{ width: "100%", maxWidth: "820px", display: "block", background: C.white,
+              border: `1px solid ${C.borderL}`, boxShadow: "0 6px 28px rgba(19,38,46,0.08)" }}
+            onError={(e) => { const el = e.currentTarget.parentElement as HTMLElement | null; if (el) el.style.display = "none"; }} />
         </div>
 
         {/* Related */}

@@ -61,7 +61,7 @@ export interface Dict {
     specCategory: string; specVolume: string; specRetail: string; specLabel: string;
     specNote: string; relatedIn: string;
     indicationsTitle: string; protocolTitle: string;
-    downloadsTitle: string; downloadInci: string; downloadCoa: string; downloadCatalogue: string; requestNote: string;
+    downloadsTitle: string; downloadInci: string; downloadCoa: string; downloadCatalogue: string; requestNote: string; cataloguePage: string;
   };
   cats: Record<string, string>;
   badges: Record<string, string>;
@@ -152,6 +152,7 @@ const en: Dict = {
     indicationsTitle: "Indications", protocolTitle: "How to Use",
     downloadsTitle: "Documents", downloadInci: "INCI / Full Ingredients", downloadCoa: "COA / Regulatory", downloadCatalogue: "Catalogue (PDF)",
     requestNote: "Available to verified B2B partners on request.",
+    cataloguePage: "Catalogue",
   },
   cats: {
     "Skin Booster": "Skin Booster", "Meso Solution": "Meso Solution", "Chemical Peel": "Chemical Peel",
@@ -279,6 +280,7 @@ const zh: Dict = {
     indicationsTitle: "适应症", protocolTitle: "使用方法",
     downloadsTitle: "资料下载", downloadInci: "INCI / 全成分", downloadCoa: "COA / 法规文件", downloadCatalogue: "产品目录（PDF）",
     requestNote: "经认证的 B2B 合作伙伴可应要求获取。",
+    cataloguePage: "产品目录",
   },
   cats: {
     "Skin Booster": "皮肤水光", "Meso Solution": "美塑（Meso）", "Chemical Peel": "化学焕肤",
@@ -405,6 +407,7 @@ const th: Dict = {
     indicationsTitle: "ข้อบ่งใช้", protocolTitle: "วิธีใช้",
     downloadsTitle: "เอกสาร", downloadInci: "INCI / ส่วนผสมทั้งหมด", downloadCoa: "COA / เอกสารกฎระเบียบ", downloadCatalogue: "แคตตาล็อก (PDF)",
     requestNote: "มีให้สำหรับพันธมิตร B2B ที่ผ่านการยืนยันเมื่อร้องขอ",
+    cataloguePage: "แคตตาล็อก",
   },
   cats: {
     "Skin Booster": "สกินบูสเตอร์", "Meso Solution": "เมโสเทอราพี", "Chemical Peel": "เคมิคอลพีล",
@@ -531,6 +534,7 @@ const vi: Dict = {
     indicationsTitle: "Chỉ định", protocolTitle: "Cách dùng",
     downloadsTitle: "Tài liệu", downloadInci: "INCI / Thành phần đầy đủ", downloadCoa: "COA / Pháp lý", downloadCatalogue: "Catalogue (PDF)",
     requestNote: "Cung cấp cho đối tác B2B đã xác minh khi có yêu cầu.",
+    cataloguePage: "Catalogue",
   },
   cats: {
     "Skin Booster": "Skin Booster", "Meso Solution": "Dung dịch Meso", "Chemical Peel": "Tẩy da hóa học",
