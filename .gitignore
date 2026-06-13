@@ -1,0 +1,7 @@
+# Office temp lock files
+~$*
+
+# build / tooling artifacts
+.vite/
+.vite-dev.log
+.claude-tmp-eval/
