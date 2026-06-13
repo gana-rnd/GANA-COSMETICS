@@ -344,7 +344,7 @@ function ProductsSection() {
   const ref = useSectionReveal();
   const [filter, setFilter] = useState("All");
   // filter state holds the canonical English category key; labels are localized
-  const filters = ["All","Skin Booster","Meso Solution","Chemical Peel","Topical","Intimate Care"];
+  const filters = ["All","Skin Booster","Meso Solution","Chemical Peel","Intimate Care","Clinic Care","Peptide"];
   const filterLabel = (key: string) => (key === "All" ? t.products.allLabel : t.cats[key] ?? key);
   const list = filter === "All" ? PRODUCTS : PRODUCTS.filter(p => p.cat === filter);
 
@@ -416,7 +416,7 @@ function ProductsSection() {
                 <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.85rem", fontWeight:500,
                   color:C.ink, marginBottom:"0.3rem" }}>{p.name}</p>
                 <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.75rem", color:C.ink70 }}>
-                  USD {p.price}
+                  {p.price ? `USD ${p.price}` : t.detail.inquiryPrice}
                 </p>
               </div>
             </Link>
