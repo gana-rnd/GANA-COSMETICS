@@ -214,9 +214,11 @@ function Hero() {
   }, []);
   return (
     <header className="relative flex items-center overflow-hidden"
-      // height follows the video's aspect ratio so nothing gets cropped;
-      // on narrow screens content stretches it and cover-crop returns gracefully
-      style={{ aspectRatio: "1920 / 1077", background: C.off }}>
+      // min-height (not a locked aspect ratio) keeps the hero tall on wide
+      // screens but lets it grow with its content on narrow ones — otherwise the
+      // aspect-ratio height shrinks below the copy and clips the first headline
+      // line under the logo bar. The object-cover video fills any resulting height.
+      style={{ minHeight: "min(100svh, 800px)", background: C.off }}>
       {/* mirrored so the video's empty area sits behind the left-side copy;
           no loop — playback ends frozen on the final frame */}
       <video ref={vidRef} autoPlay muted playsInline
