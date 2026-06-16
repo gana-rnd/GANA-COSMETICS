@@ -214,11 +214,12 @@ function Hero() {
   }, []);
   return (
     <header className="relative flex items-center overflow-hidden"
-      // min-height (not a locked aspect ratio) keeps the hero tall on wide
-      // screens but lets it grow with its content on narrow ones — otherwise the
-      // aspect-ratio height shrinks below the copy and clips the first headline
-      // line under the logo bar. The object-cover video fills any resulting height.
-      style={{ minHeight: "min(100svh, 800px)", background: C.off }}>
+      // fill the viewport on entry (hero → catalogue sits right at the fold).
+      // min-height (not a locked aspect ratio / not a fixed height) means short
+      // landscape screens, where the copy is taller than the viewport, grow the
+      // hero instead of clipping the first headline line under the logo bar.
+      // The object-cover video fills whatever height results.
+      style={{ minHeight: "100svh", background: C.off }}>
       {/* mirrored so the video's empty area sits behind the left-side copy;
           no loop — playback ends frozen on the final frame */}
       <video ref={vidRef} autoPlay muted playsInline
@@ -359,6 +360,13 @@ function ProductsSection() {
   const filterLabel = (key: string) => (key === "All" ? t.products.allLabel : t.cats[key] ?? key);
   const list = filter === "All" ? PRODUCTS : PRODUCTS.filter(p => p.cat === filter);
 
+  // CTA 타일이 그리드의 남은 칸을 정확히 채우도록 — 데스크탑(4칸) 기준 동적 span.
+  // 남는 칸 = 4 − (제품수 % 4)  (4의 배수면 한 줄 전체 = 4)
+  const ctaSpanLg = 4 - (list.length % 4);
+  const LG_SPAN: Record<number, string> = {
+    1: "lg:col-span-1", 2: "lg:col-span-2", 3: "lg:col-span-3", 4: "lg:col-span-4",
+  };
+
   return (
     <section id="products" data-backdrop="0" style={{ background: C.white, borderTop: `1px solid ${C.borderL}` }} className="pt-6 pb-0 md:pt-8" ref={ref}>
       {/* full-bleed wrapper — the grid spans the whole viewport width */}
@@ -395,21 +403,20 @@ function ProductsSection() {
               style={{ background:C.white, textDecoration:"none", cursor:"pointer" }}>
               <div className="relative overflow-hidden flex items-center justify-center" style={{ height:"min(28vw, 420px)" }}>
                 {p.certs && (
-                  <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
+                  <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1.5">
                     {p.certs.map(c => (
-                      <div key={c} className="flex flex-col items-center justify-center"
-                        style={{ width:"60px", height:"60px", borderRadius:"50%",
-                          background:C.gold, border:"2px solid #fff",
-                          boxShadow:"0 2px 10px rgba(19,38,46,0.28)" }}>
-                        <span style={{ fontFamily:"'DM Mono',monospace", fontWeight:700,
-                          fontSize: c==="FDA" ? "0.95rem" : "0.82rem", color:"#fff", lineHeight:1, letterSpacing:"0.01em" }}>
-                          {c==="EU CPNP" ? "CPNP" : c}
-                        </span>
-                        <span style={{ fontFamily:"'DM Sans',sans-serif", fontWeight:600,
-                          fontSize:"0.38rem", letterSpacing:"0.12em", textTransform:"uppercase",
-                          color:"rgba(255,255,255,0.92)", marginTop:"2px" }}>
-                          {c==="FDA" ? "US Reg." : "EU"}
-                        </span>
+                      <div key={c} className="flex items-center justify-center"
+                        style={{ height:"36px", padding:"0 12px", background:"#fff",
+                          borderRadius:"8px", border:`1px solid ${C.border}`,
+                          boxShadow:"0 3px 10px rgba(19,38,46,0.18)" }}>
+                        {c==="FDA"
+                          ? <img src="/certs/fda-badge.png" alt="FDA — USA"
+                              style={{ height:"20px", width:"auto", display:"block" }} />
+                          : <span style={{ fontFamily:"'DM Mono',monospace", fontWeight:700,
+                              fontSize:"0.8rem", letterSpacing:"0.04em", color:C.deep,
+                              lineHeight:1, whiteSpace:"nowrap" }}>
+                              {c==="EU CPNP" ? "EU CPNP" : c}
+                            </span>}
                       </div>
                     ))}
                   </div>
@@ -433,8 +440,8 @@ function ProductsSection() {
             </Link>
           ))}
 
-          {/* CTA tile — fills the catalogue's trailing empty cells */}
-          <a href="#contact" className="col-span-2 relative flex flex-col justify-center overflow-hidden"
+          {/* CTA tile — fills the catalogue's trailing empty cells (dynamic span) */}
+          <a href="#contact" className={`col-span-2 ${LG_SPAN[ctaSpanLg]} relative flex flex-col justify-center overflow-hidden`}
             style={{ textDecoration:"none", minHeight:"min(28vw, 420px)",
               backgroundImage:`linear-gradient(120deg, rgba(19,38,46,0.78) 0%, rgba(19,38,46,0.45) 100%), url(/images/brand-serum.jpg)`,
               backgroundSize:"cover", backgroundPosition:"center", padding:"clamp(2rem,4vw,3.5rem)" }}>
