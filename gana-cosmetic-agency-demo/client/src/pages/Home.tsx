@@ -84,7 +84,7 @@ const CERTS = [
 
 // 섹션 내 .fade-up 자식 요소들을 일괄 트리거
 function useFadeUp() {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -353,7 +353,9 @@ function StatsBar() {
 /* ── Products ────────────────────────────────────────────────────────────── */
 function ProductsSection() {
   const t = useT();
-  const ref = useSectionReveal();
+  // 히어로 바로 다음 섹션이라 섹션 자체를 translateY로 띄우면 그 틈으로 고정 배경이 비친다.
+  // 섹션은 고정(불투명 흰색)으로 두고 자식 .fade-up만 페이드 → 세포벽 배경 누출 제거.
+  const ref = useFadeUp();
   const [filter, setFilter] = useState("All");
   // filter state holds the canonical English category key; labels are localized
   const filters = ["All","Skin Booster","Meso Solution","Chemical Peel","Intimate Care","Clinic Care","Peptide"];
@@ -403,18 +405,16 @@ function ProductsSection() {
               style={{ background:C.white, textDecoration:"none", cursor:"pointer" }}>
               <div className="relative overflow-hidden flex items-center justify-center" style={{ height:"min(28vw, 420px)" }}>
                 {p.certs && (
-                  <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-1.5">
+                  <div className="absolute top-2.5 left-2.5 lg:top-4 lg:left-4 z-10 flex flex-col items-start gap-1 lg:gap-1.5">
                     {p.certs.map(c => (
-                      <div key={c} className="flex items-center justify-center"
-                        style={{ height:"36px", padding:"0 12px", background:"#fff",
-                          borderRadius:"8px", border:`1px solid ${C.border}`,
+                      <div key={c} className="cert-chip flex items-center justify-center"
+                        style={{ background:"#fff", border:`1px solid ${C.border}`,
                           boxShadow:"0 3px 10px rgba(19,38,46,0.18)" }}>
                         {c==="FDA"
                           ? <img src="/certs/fda-badge.png" alt="FDA — USA"
-                              style={{ height:"20px", width:"auto", display:"block" }} />
-                          : <span style={{ fontFamily:"'DM Mono',monospace", fontWeight:700,
-                              fontSize:"0.8rem", letterSpacing:"0.04em", color:C.deep,
-                              lineHeight:1, whiteSpace:"nowrap" }}>
+                              className="cert-chip-img" style={{ width:"auto", display:"block" }} />
+                          : <span className="cert-chip-txt" style={{ fontFamily:"'DM Mono',monospace", fontWeight:700,
+                              letterSpacing:"0.04em", color:C.deep, lineHeight:1, whiteSpace:"nowrap" }}>
                               {c==="EU CPNP" ? "EU CPNP" : c}
                             </span>}
                       </div>

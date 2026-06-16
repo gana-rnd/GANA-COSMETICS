@@ -338,3 +338,17 @@
     .fade-up, .product-card, .card-img, .btn-gold, .btn-outline-gold, .nav-link::after { transition: none !important; }
   }
 }
+
+/* ── Product-card certification chips — readable on desktop, compact on mobile ── */
+.cert-chip {
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 8px;
+}
+.cert-chip-img { height: 20px; }
+.cert-chip-txt { font-size: 0.8rem; }
+@media (max-width: 1023px) {
+  .cert-chip { height: 21px; padding: 0 6px; border-radius: 5px; }
+  .cert-chip-img { height: 11px; }
+  .cert-chip-txt { font-size: 0.55rem; letter-spacing: 0.02em; }
+}
