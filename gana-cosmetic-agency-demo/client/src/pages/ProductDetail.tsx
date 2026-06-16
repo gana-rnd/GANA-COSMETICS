@@ -1,7 +1,7 @@
 /* ── Product detail page  /products/:id ──────────────────────────────────── */
 import { useEffect } from "react";
 import { Link, useRoute } from "wouter";
-import { C, getProduct, getRelated, type Product } from "@/data/products";
+import { C, getProduct, getRelated, CATALOG_PAGES, BEFORE_AFTER, type Product } from "@/data/products";
 import { useT } from "@/i18n/LanguageContext";
 import { fmt, ingredientBlurb } from "@/i18n/translations";
 import LanguageSwitcher from "@/i18n/LanguageSwitcher";
@@ -232,15 +232,35 @@ export default function ProductDetail() {
           </div>
         )}
 
-        {/* (5) Catalogue page — laid directly onto the page */}
+        {/* (5) Catalogue spreads — every page laid directly onto the detail */}
         <div style={{ marginTop: "4rem" }}>
           <Eyebrow>{t.detail.cataloguePage}</Eyebrow>
-          <img src={`/products/pages/${product.id}.jpg`} alt={`${product.name} catalogue`}
-            loading="lazy"
-            style={{ width: "100%", maxWidth: "820px", display: "block", background: C.white,
-              border: `1px solid ${C.borderL}`, boxShadow: "0 6px 28px rgba(19,38,46,0.08)" }}
-            onError={(e) => { const el = e.currentTarget.parentElement as HTMLElement | null; if (el) el.style.display = "none"; }} />
+          <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", maxWidth: "820px" }}>
+            {Array.from({ length: CATALOG_PAGES[product.id] ?? 1 }, (_, i) => (
+              <img key={i} src={`/products/pages/${product.id}-${i + 1}.png`} alt={`${product.name} catalogue ${i + 1}`}
+                loading="lazy"
+                style={{ width: "100%", display: "block", background: C.white,
+                  border: `1px solid ${C.borderL}`, boxShadow: "0 6px 28px rgba(19,38,46,0.08)" }}
+                onError={(e) => { e.currentTarget.style.display = "none"; }} />
+            ))}
+          </div>
         </div>
+
+        {/* (6) Clinical before/after — placed last so the close-up imagery sits below all copy */}
+        {(BEFORE_AFTER[product.id] ?? 0) > 0 && (
+          <div style={{ marginTop: "4rem" }}>
+            <Eyebrow>{t.detail.beforeAfter}</Eyebrow>
+            <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: "1.25rem", maxWidth: "820px" }}>
+              {Array.from({ length: BEFORE_AFTER[product.id] }, (_, i) => (
+                <img key={i} src={`/products/ba/${product.id}-${i + 1}.jpg`} alt={`${product.name} clinical result ${i + 1}`}
+                  loading="lazy"
+                  style={{ width: "100%", display: "block", background: C.white,
+                    border: `1px solid ${C.borderL}`, boxShadow: "0 6px 28px rgba(19,38,46,0.08)" }}
+                  onError={(e) => { e.currentTarget.style.display = "none"; }} />
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Related */}
         {related.length > 0 && (

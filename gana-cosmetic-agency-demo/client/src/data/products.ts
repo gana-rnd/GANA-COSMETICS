@@ -2,7 +2,9 @@
  * Single source of truth used by both Home (catalogue grid) and ProductDetail.
  * Prices are USD Retail (단가표 기준). Dealer/volume pricing = inquiry only.
  * 2026-06 curation (박소정): fillers / tube cosmetics(연고·크림·튜브필링) / R&D excluded.
- * Clinic Care kept except LIFT·PDO·PATCH. Peptides ×9 added. → 26 SKUs.
+ * Clinic Care kept except LIFT·PDO·PATCH. Peptides ×9 added.
+ * 2026-06 +3: GANA TM·MASK (masks → Clinic Care) + GANA AM (telomerase → Skin Booster). → 29 SKUs.
+ * 2026-06 +3: 2024-new-products boosters NPHG·EXO NPHG·Fish Collagen → Skin Booster. RAINBOW(HA filler) excluded. → 32 SKUs.
  * Translatable copy (tag/desc/usage/category/badge/indication) lives in i18n.
  * ------------------------------------------------------------------------- */
 
@@ -57,6 +59,22 @@ export const PRODUCTS: Product[] = [
     desc:"PDRN + Sodium DNA + Glutathione. Targets cellular regeneration across the full face.",
     ings:["PDRN","Sodium DNA","Glutathione","HA"], vol:"1.2ml syringe", price:"30", img:SYRINGE_G, badge:"2025 NEW",
     indications:["Regeneration","Brightening","Elasticity"] },
+  { id:"am", cat:"Skin Booster", name:"GANA AM", tag:"Telomerase Anti-Aging Activator",
+    desc:"Astragalus membranaceus root extract (100ppm) — TA-65-class telomerase activation for cellular anti-aging.",
+    ings:["Astragalus Membranaceus Root Extract 100ppm"], vol:"3ml × 2 vials", price:"", img:"/products/am.png", badge:"Anti-Aging",
+    indications:["Anti-aging","Regeneration"] },
+  { id:"nphg", cat:"Skin Booster", name:"GANA NPHG", tag:"NMN Anti-Aging Booster",
+    desc:"Non-crosslinked HA booster with NMN, PDRN and glutathione — raises NAD+ and activates sirtuin genes for anti-aging, hydration and brightening.",
+    ings:["Nicotinamide Mononucleotide (NMN)","Hyaluronic Acid","Sodium DNA","Glutathione"], vol:"Vial", price:"", img:"/products/nphg.png", badge:"NMN",
+    indications:["Anti-aging","Hydration","Brightening","Regeneration"] },
+  { id:"exo-nphg", cat:"Skin Booster", name:"GANA EXO NPHG", tag:"Exosome NMN Booster",
+    desc:"Centella-derived exosome (extracellular vesicles) booster with NMN, PDRN and glutathione — soothing, regeneration and anti-aging in a non-crosslinked vial.",
+    ings:["Centella Asiatica Exosome","Nicotinamide Mononucleotide (NMN)","Hyaluronic Acid","Sodium DNA","Glutathione"], vol:"Vial", price:"", img:"/products/exo-nphg.png", badge:"Exosome",
+    indications:["Anti-aging","Regeneration","Soothing","Hydration"] },
+  { id:"fish-collagen", cat:"Skin Booster", name:"GANA Fish Collagen", tag:"Marine Collagen Booster",
+    desc:"Pure marine (fish) collagen solution — improves skin hydration, elasticity and wrinkles while supporting tissue repair.",
+    ings:["Marine Collagen"], vol:"Vial", price:"", img:"/products/fish-collagen.png", badge:"Marine Collagen",
+    indications:["Hydration","Elasticity","Wrinkles","Regeneration"] },
 
   /* ── Meso Solution ── */
   { id:"tox", cat:"Meso Solution", name:"GANA TOX", tag:"Topical Neuromodulator",
@@ -121,6 +139,14 @@ export const PRODUCTS: Product[] = [
     desc:"Deoxycholic acid lipolysis solution for double chin and body fat. Not for facial use.",
     ings:["Deoxycholic Acid 10mg/cc"], vol:"5ml × 10ea", price:"150", img:"/products/da.jpg", badge:"Lipolysis", certs:["EU CPNP"],
     indications:["Lipolysis"] },
+  { id:"tm", cat:"Clinic Care", name:"GANA TM", tag:"FDA-Registered Mask Pack",
+    desc:"Multi-active sheet mask — PDRN, PHA, Acetyl Hexapeptide-8, cross-linked HA and alpha arbutin. FDA-registered formulation.",
+    ings:["PDRN","Polyhydroxy Acid","Acetyl Hexapeptide-8","Cross-linked HA","Alpha Arbutin"], vol:"3 packs / box", price:"", img:"/products/tm.png", badge:"FDA Mask", certs:["FDA"],
+    indications:["Regeneration","Brightening","Hydration"] },
+  { id:"mask", cat:"Clinic Care", name:"GANA MASK", tag:"Post-Procedure Recovery Mask",
+    desc:"Bio-cellulose recovery mask with PLLA, cross-linked HA and PDRN — soothes and regenerates burned or post-treatment skin.",
+    ings:["Bio Cellulose","PLLA","Cross-linked HA","PDRN"], vol:"1 sheet / pack", price:"", img:"/products/mask.png", badge:"Recovery",
+    indications:["Soothing","Regeneration","Hydration"] },
 
   /* ── Peptide (pure raw-material solutions, 3ml × 2 vials, inquiry-priced) ── */
   { id:"pep-apdn", cat:"Peptide", name:"GANA Peptide APDN", tag:"SYN-AKE Relaxing Peptide",
@@ -160,6 +186,20 @@ export const PRODUCTS: Product[] = [
     ings:["Nonapeptide-1 500ppm"], vol:"3ml × 2 vials", price:"", img:"/products/pep-np1.jpg", badge:"Peptide",
     indications:["Brightening"] },
 ];
+
+/* Catalogue spreads per product → /products/pages/{id}-{n}.png (1-based).
+ * Sourced from GANA_정리/제품별_상세/<folder>/페이지_N.png (full catalogue pages). */
+export const CATALOG_PAGES: Record<string, number> = {
+  "dmp-plus":7, phv:2, "eye-booster":2, am:1, nphg:2, "exo-nphg":2, "fish-collagen":2,
+  tox:3, "pnv-plus":4, pnv:3, scalp:2, eye:1, cocktail:2, dm:3, "v-line":1,
+  pha:2, gyno:1, booster:2, "booster-v":1, "ha-v":1, da:1, tm:4, mask:3,
+  "pep-apdn":1, "pep-carnosine":1, "pep-ah8":1, "pep-pp3":1, "pep-pt1":1,
+  "pep-mp17":1, "pep-agh1":1, "pep-at5":1, "pep-np1":1,
+};
+
+/* Clinical before/after photos → /products/ba/{id}-{n}.jpg. Only where the
+ * catalogue actually carries clinical imagery. */
+export const BEFORE_AFTER: Record<string, number> = { dm:5, "pnv-plus":6, pnv:4 };
 
 export function getProduct(id: string | undefined): Product | undefined {
   return PRODUCTS.find((p) => p.id === id);

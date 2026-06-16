@@ -61,7 +61,7 @@ export interface Dict {
     specCategory: string; specVolume: string; specRetail: string; specLabel: string;
     specNote: string; relatedIn: string;
     indicationsTitle: string; protocolTitle: string;
-    downloadsTitle: string; downloadInci: string; downloadCoa: string; downloadCatalogue: string; requestNote: string; cataloguePage: string;
+    downloadsTitle: string; downloadInci: string; downloadCoa: string; downloadCatalogue: string; requestNote: string; cataloguePage: string; beforeAfter: string;
   };
   cats: Record<string, string>;
   badges: Record<string, string>;
@@ -152,7 +152,7 @@ const en: Dict = {
     indicationsTitle: "Indications", protocolTitle: "How to Use",
     downloadsTitle: "Documents", downloadInci: "INCI / Full Ingredients", downloadCoa: "COA / Regulatory", downloadCatalogue: "Catalogue (PDF)",
     requestNote: "Available to verified B2B partners on request.",
-    cataloguePage: "Catalogue",
+    cataloguePage: "Catalogue", beforeAfter: "Before & After",
   },
   cats: {
     "Skin Booster": "Skin Booster", "Meso Solution": "Meso Solution", "Chemical Peel": "Chemical Peel",
@@ -163,12 +163,14 @@ const en: Dict = {
     "Hair Specialist": "Hair Specialist", "PDRN": "PDRN", "Eye Care": "Eye Care", "Whitening": "Whitening",
     "Sensitive Skin": "Sensitive Skin", "Intimate Care": "Intimate Care",
     "PLLA Meso": "PLLA Meso", "Lipolysis": "Lipolysis", "Biorevital": "Biorevital", "Hydration": "Hydration", "Peptide": "Peptide",
+    "FDA Mask": "FDA Mask", "Recovery": "Recovery", "Anti-Aging": "Anti-Aging",
+    "NMN": "NMN", "Exosome": "Exosome", "Marine Collagen": "Marine Collagen",
   },
   indicationLabels: {
     "Regeneration": "Regeneration", "Hydration": "Hydration", "Brightening": "Brightening", "Elasticity": "Elasticity",
     "Volume": "Volume", "Wrinkles": "Wrinkles", "Scars": "Scars", "Hair": "Hair / Scalp", "Eye bags": "Eye Bags",
     "Dark circles": "Dark Circles", "Anti-aging": "Anti-Aging", "Exfoliation": "Exfoliation", "Sensitive skin": "Sensitive Skin",
-    "pH care": "pH Care", "Lipolysis": "Lipolysis", "Lash growth": "Lash Growth",
+    "pH care": "pH Care", "Lipolysis": "Lipolysis", "Lash growth": "Lash Growth", "Soothing": "Soothing",
   },
   ingredientInfo: {
     "Cross-linked HA": "Long-lasting hydration & volume", "PDRN": "DNA fragment — cell regeneration & repair",
@@ -182,6 +184,8 @@ const en: Dict = {
     "Dipeptide Diaminobutyroyl": "SYN-AKE muscle relaxer", "L-Carnosine": "Anti-aging geroprotector",
     "Palmitoyl Pentapeptide-3": "Collagen-boosting (Matrixyl)", "Palmitoyl Tripeptide-1": "Skin-repair peptide",
     "Myristoyl Pentapeptide-17": "Eyelash growth peptide", "Acetyl Glutamyl Heptapeptide-1": "SNAP-8 wrinkle peptide", "Nonapeptide-1": "Tyrosinase-inhibiting whitening",
+    "Bio Cellulose": "Bio-cellulose sheet — soothing", "Astragalus": "Telomerase-activating root extract",
+    "Nicotinamide Mononucleotide": "NMN — NAD+ & sirtuin anti-aging", "Centella Asiatica": "Exosome — soothing & repair", "Marine Collagen": "Skin structure & elasticity",
   },
   prod: {
     "dmp-plus": { tag: "High-End Multi-Active Booster", desc: "PLLA + HA + PDRN + Glutathione. Multi-active booster in a ready-to-use prefilled vial.", usage: "Ready-to-use prefilled vial — apply by meso gun or MTS." },
@@ -210,6 +214,12 @@ const en: Dict = {
     "pep-agh1": { tag: "SNAP-8 Wrinkle Peptide", desc: "Pure Acetyl glutamyl heptapeptide-1 (SNAP-8) solution — an elongated Argireline for Botox-like wrinkle relaxation.", usage: PEP_USE_EN },
     "pep-at5": { tag: "Anti-Eyebag Peptide", desc: "Pure Acetyl tetrapeptide-5 solution — reduces puffy under-eye bags.", usage: PEP_USE_EN },
     "pep-np1": { tag: "Whitening Peptide", desc: "Pure Nonapeptide-1 solution — inhibits tyrosinase activation for whitening and spot correction.", usage: PEP_USE_EN },
+    "am": { tag: "Telomerase Anti-Aging Activator", desc: "Astragalus membranaceus root extract (100ppm) — TA-65-class telomerase activation for cellular anti-aging.", usage: "Meso / MTS / topical, biweekly." },
+    "tm": { tag: "FDA-Registered Mask Pack", desc: "Multi-active sheet mask — PDRN, PHA, Acetyl Hexapeptide-8, cross-linked HA and alpha arbutin. FDA-registered formulation.", usage: "Apply one sheet to cleansed skin for 15–20 min, 2–3×/week." },
+    "mask": { tag: "Post-Procedure Recovery Mask", desc: "Bio-cellulose recovery mask with PLLA, cross-linked HA and PDRN — soothes and regenerates burned or post-treatment skin.", usage: "Apply one sheet to the affected area after a procedure or burn. Single use." },
+    "nphg": { tag: "NMN Anti-Aging Booster", desc: "Non-crosslinked HA booster with NMN, PDRN and glutathione — raises NAD+ and activates sirtuin genes for anti-aging, hydration and brightening.", usage: "Meso / MTS / topical." },
+    "exo-nphg": { tag: "Exosome NMN Booster", desc: "Centella-derived exosome (extracellular vesicles) booster with NMN, PDRN and glutathione — soothing, regeneration and anti-aging in a non-crosslinked vial.", usage: "Meso / MTS / topical." },
+    "fish-collagen": { tag: "Marine Collagen Booster", desc: "Pure marine (fish) collagen solution — improves skin hydration, elasticity and wrinkles while supporting tissue repair.", usage: "Meso / MTS / topical." },
   },
 };
 
@@ -280,7 +290,7 @@ const zh: Dict = {
     indicationsTitle: "适应症", protocolTitle: "使用方法",
     downloadsTitle: "资料下载", downloadInci: "INCI / 全成分", downloadCoa: "COA / 法规文件", downloadCatalogue: "产品目录（PDF）",
     requestNote: "经认证的 B2B 合作伙伴可应要求获取。",
-    cataloguePage: "产品目录",
+    cataloguePage: "产品目录", beforeAfter: "前后对比",
   },
   cats: {
     "Skin Booster": "皮肤水光", "Meso Solution": "美塑（Meso）", "Chemical Peel": "化学焕肤",
@@ -291,12 +301,14 @@ const zh: Dict = {
     "Hair Specialist": "头皮专研", "PDRN": "PDRN", "Eye Care": "眼部护理", "Whitening": "美白",
     "Sensitive Skin": "敏感肌", "Intimate Care": "私密护理",
     "PLLA Meso": "PLLA 美塑", "Lipolysis": "溶脂", "Biorevital": "活肤", "Hydration": "保湿", "Peptide": "多肽",
+    "FDA Mask": "FDA 面膜", "Recovery": "术后修复", "Anti-Aging": "抗衰",
+    "NMN": "NMN", "Exosome": "外泌体", "Marine Collagen": "海洋胶原",
   },
   indicationLabels: {
     "Regeneration": "再生", "Hydration": "保湿", "Brightening": "提亮", "Elasticity": "弹力", "Volume": "丰盈",
     "Wrinkles": "皱纹", "Scars": "疤痕", "Hair": "头皮·毛发", "Eye bags": "眼袋", "Dark circles": "黑眼圈",
     "Anti-aging": "抗衰", "Exfoliation": "去角质", "Sensitive skin": "敏感肌", "pH care": "pH 护理",
-    "Lipolysis": "溶脂", "Lash growth": "睫毛增长",
+    "Lipolysis": "溶脂", "Lash growth": "睫毛增长", "Soothing": "舒缓",
   },
   ingredientInfo: {
     "Cross-linked HA": "持久保湿与丰盈", "PDRN": "DNA 片段 — 细胞再生与修复", "PLLA": "胶原蛋白刺激剂",
@@ -309,6 +321,8 @@ const zh: Dict = {
     "Dipeptide Diaminobutyroyl": "SYN-AKE 肌肉松弛", "L-Carnosine": "抗衰老保护剂",
     "Palmitoyl Pentapeptide-3": "促胶原（Matrixyl）", "Palmitoyl Tripeptide-1": "皮肤修复肽",
     "Myristoyl Pentapeptide-17": "睫毛增长肽", "Acetyl Glutamyl Heptapeptide-1": "SNAP-8 抗皱肽", "Nonapeptide-1": "抑制酪氨酸酶美白",
+    "Bio Cellulose": "生物纤维膜 — 舒缓", "Astragalus": "激活端粒酶的根萃取",
+    "Nicotinamide Mononucleotide": "NMN — NAD+ 与抗衰", "Centella Asiatica": "外泌体 — 舒缓与修复", "Marine Collagen": "皮肤结构与弹力",
   },
   prod: {
     "dmp-plus": { tag: "高端复合活性水光", desc: "PLLA + HA + PDRN + 谷胱甘肽。预填充即用安瓶，多重活性水光。", usage: "预填充即用安瓶 —— 美塑枪或 MTS 导入。" },
@@ -337,6 +351,12 @@ const zh: Dict = {
     "pep-agh1": { tag: "SNAP-8 抗皱肽", desc: "纯 Acetyl glutamyl heptapeptide-1（SNAP-8）溶液 —— Argireline 的延长肽，类肉毒抗皱。", usage: PEP_USE_ZH },
     "pep-at5": { tag: "抗眼袋肽", desc: "纯 Acetyl tetrapeptide-5 溶液 —— 减轻眼下浮肿眼袋。", usage: PEP_USE_ZH },
     "pep-np1": { tag: "美白肽", desc: "纯 Nonapeptide-1 溶液 —— 抑制酪氨酸酶活化，美白并改善色斑。", usage: PEP_USE_ZH },
+    "am": { tag: "端粒酶抗衰激活", desc: "黄芪根萃取（100ppm）—— TA-65 类端粒酶激活，细胞级抗衰。", usage: "美塑 / MTS / 外涂，每两周一次。" },
+    "tm": { tag: "FDA 注册面膜", desc: "多重活性面膜 —— PDRN、PHA、Acetyl Hexapeptide-8、交联 HA 与 Alpha Arbutin。FDA 注册配方。", usage: "洁面后敷一片 15–20 分钟，每周 2–3 次。" },
+    "mask": { tag: "术后修复面膜", desc: "生物纤维修复面膜，含 PLLA、交联 HA 与 PDRN —— 舒缓并修复烧伤或术后肌肤。", usage: "术后或烧伤后将一片敷于患处。一次性使用。" },
+    "nphg": { tag: "NMN 抗衰水光", desc: "非交联 HA 水光，含 NMN、PDRN 与谷胱甘肽 —— 提升 NAD+、激活长寿蛋白基因，抗衰、保湿与提亮。", usage: "美塑 / MTS / 外涂。" },
+    "exo-nphg": { tag: "外泌体 NMN 水光", desc: "积雪草来源外泌体（细胞外囊泡）水光，含 NMN、PDRN 与谷胱甘肽 —— 舒缓、再生与抗衰，非交联安瓶。", usage: "美塑 / MTS / 外涂。" },
+    "fish-collagen": { tag: "海洋胶原水光", desc: "纯海洋（鱼）胶原溶液 —— 改善皮肤保湿、弹力与皱纹，支持组织修复。", usage: "美塑 / MTS / 外涂。" },
   },
 };
 
@@ -407,7 +427,7 @@ const th: Dict = {
     indicationsTitle: "ข้อบ่งใช้", protocolTitle: "วิธีใช้",
     downloadsTitle: "เอกสาร", downloadInci: "INCI / ส่วนผสมทั้งหมด", downloadCoa: "COA / เอกสารกฎระเบียบ", downloadCatalogue: "แคตตาล็อก (PDF)",
     requestNote: "มีให้สำหรับพันธมิตร B2B ที่ผ่านการยืนยันเมื่อร้องขอ",
-    cataloguePage: "แคตตาล็อก",
+    cataloguePage: "แคตตาล็อก", beforeAfter: "ก่อน / หลัง",
   },
   cats: {
     "Skin Booster": "สกินบูสเตอร์", "Meso Solution": "เมโสเทอราพี", "Chemical Peel": "เคมิคอลพีล",
@@ -418,12 +438,14 @@ const th: Dict = {
     "Hair Specialist": "ผู้เชี่ยวชาญเส้นผม", "PDRN": "PDRN", "Eye Care": "ดูแลรอบดวงตา", "Whitening": "ผิวกระจ่างใส",
     "Sensitive Skin": "ผิวแพ้ง่าย", "Intimate Care": "ดูแลจุดซ่อนเร้น",
     "PLLA Meso": "PLLA เมโส", "Lipolysis": "สลายไขมัน", "Biorevital": "ฟื้นบำรุง", "Hydration": "เพิ่มความชุ่มชื้น", "Peptide": "เปปไทด์",
+    "FDA Mask": "มาส์ก FDA", "Recovery": "ฟื้นฟูหลังหัตถการ", "Anti-Aging": "ชะลอวัย",
+    "NMN": "NMN", "Exosome": "เอ็กโซโซม", "Marine Collagen": "คอลลาเจนทะเล",
   },
   indicationLabels: {
     "Regeneration": "ฟื้นฟู", "Hydration": "เพิ่มความชุ่มชื้น", "Brightening": "กระจ่างใส", "Elasticity": "ความยืดหยุ่น",
     "Volume": "เพิ่มวอลุ่ม", "Wrinkles": "ริ้วรอย", "Scars": "แผลเป็น", "Hair": "เส้นผม/หนังศีรษะ", "Eye bags": "ถุงใต้ตา",
     "Dark circles": "รอยคล้ำ", "Anti-aging": "ชะลอวัย", "Exfoliation": "ผลัดเซลล์ผิว", "Sensitive skin": "ผิวแพ้ง่าย",
-    "pH care": "ดูแลค่า pH", "Lipolysis": "สลายไขมัน", "Lash growth": "ขนตายาว",
+    "pH care": "ดูแลค่า pH", "Lipolysis": "สลายไขมัน", "Lash growth": "ขนตายาว", "Soothing": "ปลอบประโลม",
   },
   ingredientInfo: {
     "Cross-linked HA": "ชุ่มชื้นและวอลุ่มยาวนาน", "PDRN": "ชิ้นส่วน DNA — ฟื้นฟูและซ่อมแซมเซลล์", "PLLA": "กระตุ้นคอลลาเจน",
@@ -436,6 +458,8 @@ const th: Dict = {
     "Dipeptide Diaminobutyroyl": "SYN-AKE คลายกล้ามเนื้อ", "L-Carnosine": "สารชะลอวัย",
     "Palmitoyl Pentapeptide-3": "กระตุ้นคอลลาเจน (Matrixyl)", "Palmitoyl Tripeptide-1": "เปปไทด์ซ่อมแซมผิว",
     "Myristoyl Pentapeptide-17": "เปปไทด์ขนตายาว", "Acetyl Glutamyl Heptapeptide-1": "SNAP-8 ลดริ้วรอย", "Nonapeptide-1": "ยับยั้งไทโรซิเนสเพื่อความกระจ่างใส",
+    "Bio Cellulose": "แผ่นไบโอเซลลูโลส — ปลอบประโลม", "Astragalus": "สารสกัดรากกระตุ้นเทโลเมอเรส",
+    "Nicotinamide Mononucleotide": "NMN — NAD+ และชะลอวัย", "Centella Asiatica": "เอ็กโซโซม — ปลอบประโลมและซ่อมแซม", "Marine Collagen": "โครงสร้างผิวและความยืดหยุ่น",
   },
   prod: {
     "dmp-plus": { tag: "บูสเตอร์มัลติแอคทีฟระดับไฮเอนด์", desc: "PLLA + HA + PDRN + Glutathione บูสเตอร์มัลติแอคทีฟในไวอัลพร้อมใช้แบบเติมสำเร็จ", usage: "ไวอัลพร้อมใช้ — ลงด้วยเมโสกันหรือ MTS" },
@@ -464,6 +488,9 @@ const th: Dict = {
     "pep-agh1": { tag: "SNAP-8 เปปไทด์ลดริ้วรอย", desc: "Acetyl glutamyl heptapeptide-1 (SNAP-8) บริสุทธิ์ — Argireline แบบยาว ลดริ้วรอยคล้ายโบทอกซ์", usage: PEP_USE_TH },
     "pep-at5": { tag: "เปปไทด์ลดถุงใต้ตา", desc: "Acetyl tetrapeptide-5 บริสุทธิ์ — ลดถุงใต้ตาบวม", usage: PEP_USE_TH },
     "pep-np1": { tag: "เปปไทด์กระจ่างใส", desc: "Nonapeptide-1 บริสุทธิ์ — ยับยั้งการทำงานของไทโรซิเนสเพื่อความกระจ่างใสและลดจุดด่างดำ", usage: PEP_USE_TH },
+    "am": { tag: "กระตุ้นเทโลเมอเรสชะลอวัย", desc: "สารสกัดรากแอสตรากาลัส (100ppm) — กระตุ้นเทโลเมอเรสระดับ TA-65 เพื่อชะลอวัยระดับเซลล์", usage: "เมโส / MTS / ทาภายนอก ทุก 2 สัปดาห์" },
+    "tm": { tag: "มาส์กลงทะเบียน FDA", desc: "ชีตมาส์กมัลติแอคทีฟ — PDRN, PHA, Acetyl Hexapeptide-8, ครอสลิงก์ HA และ Alpha Arbutin สูตรลงทะเบียน FDA", usage: "แปะหนึ่งแผ่นบนผิวที่ทำความสะอาดแล้ว 15–20 นาที 2–3 ครั้ง/สัปดาห์" },
+    "mask": { tag: "มาส์กฟื้นฟูหลังหัตถการ", desc: "มาส์กไบโอเซลลูโลสฟื้นฟู พร้อม PLLA, ครอสลิงก์ HA และ PDRN — ปลอบประโลมและฟื้นฟูผิวที่ถูกไฟไหม้หรือหลังหัตถการ", usage: "แปะหนึ่งแผ่นบนบริเวณที่ต้องการหลังหัตถการหรือแผลไหม้ ใช้ครั้งเดียว" },
   },
 };
 
@@ -534,7 +561,7 @@ const vi: Dict = {
     indicationsTitle: "Chỉ định", protocolTitle: "Cách dùng",
     downloadsTitle: "Tài liệu", downloadInci: "INCI / Thành phần đầy đủ", downloadCoa: "COA / Pháp lý", downloadCatalogue: "Catalogue (PDF)",
     requestNote: "Cung cấp cho đối tác B2B đã xác minh khi có yêu cầu.",
-    cataloguePage: "Catalogue",
+    cataloguePage: "Catalogue", beforeAfter: "Trước & Sau",
   },
   cats: {
     "Skin Booster": "Skin Booster", "Meso Solution": "Dung dịch Meso", "Chemical Peel": "Tẩy da hóa học",
@@ -545,12 +572,14 @@ const vi: Dict = {
     "Hair Specialist": "Chuyên gia tóc", "PDRN": "PDRN", "Eye Care": "Chăm sóc mắt", "Whitening": "Làm trắng",
     "Sensitive Skin": "Da nhạy cảm", "Intimate Care": "Chăm sóc vùng kín",
     "PLLA Meso": "PLLA Meso", "Lipolysis": "Tan mỡ", "Biorevital": "Tái tạo sinh học", "Hydration": "Cấp ẩm", "Peptide": "Peptide",
+    "FDA Mask": "Mặt nạ FDA", "Recovery": "Phục hồi", "Anti-Aging": "Chống lão hóa",
+    "NMN": "NMN", "Exosome": "Exosome", "Marine Collagen": "Collagen biển",
   },
   indicationLabels: {
     "Regeneration": "Tái tạo", "Hydration": "Cấp ẩm", "Brightening": "Làm sáng", "Elasticity": "Đàn hồi", "Volume": "Tạo khối",
     "Wrinkles": "Nếp nhăn", "Scars": "Sẹo", "Hair": "Tóc/da đầu", "Eye bags": "Bọng mắt", "Dark circles": "Quầng thâm",
     "Anti-aging": "Chống lão hóa", "Exfoliation": "Tẩy tế bào chết", "Sensitive skin": "Da nhạy cảm", "pH care": "Chăm sóc pH",
-    "Lipolysis": "Tan mỡ", "Lash growth": "Dài mi",
+    "Lipolysis": "Tan mỡ", "Lash growth": "Dài mi", "Soothing": "Làm dịu",
   },
   ingredientInfo: {
     "Cross-linked HA": "Cấp ẩm & tạo khối bền lâu", "PDRN": "Mảnh DNA — tái tạo & sửa chữa tế bào", "PLLA": "Kích thích sinh collagen",
@@ -563,6 +592,8 @@ const vi: Dict = {
     "Dipeptide Diaminobutyroyl": "SYN-AKE giãn cơ", "L-Carnosine": "Chống lão hóa",
     "Palmitoyl Pentapeptide-3": "Tăng collagen (Matrixyl)", "Palmitoyl Tripeptide-1": "Peptide phục hồi da",
     "Myristoyl Pentapeptide-17": "Peptide dài mi", "Acetyl Glutamyl Heptapeptide-1": "SNAP-8 giảm nhăn", "Nonapeptide-1": "Ức chế tyrosinase làm trắng",
+    "Bio Cellulose": "Màng bio-cellulose — làm dịu", "Astragalus": "Chiết xuất rễ kích hoạt telomerase",
+    "Nicotinamide Mononucleotide": "NMN — NAD+ & chống lão hóa", "Centella Asiatica": "Exosome — làm dịu & phục hồi", "Marine Collagen": "Cấu trúc da & đàn hồi",
   },
   prod: {
     "dmp-plus": { tag: "Booster đa hoạt chất cao cấp", desc: "PLLA + HA + PDRN + Glutathione. Booster đa hoạt chất trong lọ nạp sẵn, dùng ngay.", usage: "Lọ nạp sẵn dùng ngay — dùng meso gun hoặc MTS." },
@@ -591,6 +622,12 @@ const vi: Dict = {
     "pep-agh1": { tag: "Peptide nếp nhăn SNAP-8", desc: "Dung dịch Acetyl glutamyl heptapeptide-1 (SNAP-8) nguyên chất — Argireline kéo dài, giãn nếp nhăn kiểu Botox.", usage: PEP_USE_VI },
     "pep-at5": { tag: "Peptide chống bọng mắt", desc: "Dung dịch Acetyl tetrapeptide-5 nguyên chất — giảm bọng mắt dưới mắt.", usage: PEP_USE_VI },
     "pep-np1": { tag: "Peptide làm trắng", desc: "Dung dịch Nonapeptide-1 nguyên chất — ức chế kích hoạt tyrosinase để làm trắng và mờ đốm.", usage: PEP_USE_VI },
+    "am": { tag: "Kích hoạt telomerase chống lão hóa", desc: "Chiết xuất rễ hoàng kỳ (Astragalus, 100ppm) — kích hoạt telomerase kiểu TA-65 để chống lão hóa cấp tế bào.", usage: "Meso / MTS / bôi ngoài, hai tuần một lần." },
+    "tm": { tag: "Mặt nạ đăng ký FDA", desc: "Mặt nạ giấy đa hoạt chất — PDRN, PHA, Acetyl Hexapeptide-8, HA liên kết chéo và alpha arbutin. Công thức đăng ký FDA.", usage: "Đắp một miếng lên da đã làm sạch 15–20 phút, 2–3 lần/tuần." },
+    "mask": { tag: "Mặt nạ phục hồi sau thủ thuật", desc: "Mặt nạ bio-cellulose phục hồi với PLLA, HA liên kết chéo và PDRN — làm dịu và tái tạo da bị bỏng hoặc sau điều trị.", usage: "Đắp một miếng lên vùng cần thiết sau thủ thuật hoặc bỏng. Dùng một lần." },
+    "nphg": { tag: "Booster NMN chống lão hóa", desc: "Booster HA không liên kết chéo với NMN, PDRN và glutathione — tăng NAD+, kích hoạt gen sirtuin để chống lão hóa, cấp ẩm và làm sáng.", usage: "Meso / MTS / bôi ngoài." },
+    "exo-nphg": { tag: "Booster Exosome NMN", desc: "Booster exosome từ rau má (túi ngoại bào) với NMN, PDRN và glutathione — làm dịu, tái tạo và chống lão hóa trong lọ không liên kết chéo.", usage: "Meso / MTS / bôi ngoài." },
+    "fish-collagen": { tag: "Booster Collagen biển", desc: "Dung dịch collagen biển (cá) nguyên chất — cải thiện cấp ẩm, đàn hồi và nếp nhăn, hỗ trợ phục hồi mô.", usage: "Meso / MTS / bôi ngoài." },
   },
 };
 
