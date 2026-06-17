@@ -31,6 +31,7 @@ export interface Dict {
   };
   products: {
     label: string; allLabel: string; items: string;
+    searchPlaceholder: string; searchEmpty: string;
     ctaEyebrow: string; ctaTitle1: string; ctaTitleEm: string; ctaButton: string;
   };
   contact: {
@@ -107,6 +108,7 @@ const en: Dict = {
   },
   products: {
     label: "Cosmeceuticals", allLabel: "All", items: "{n} items",
+    searchPlaceholder: "Search products", searchEmpty: "No products found",
     ctaEyebrow: "From Seoul to Your Clinic",
     ctaTitle1: "Global B2B supply,", ctaTitleEm: "direct from the manufacturer.", ctaButton: "Start a Conversation →",
   },
@@ -248,6 +250,7 @@ const zh: Dict = {
   },
   products: {
     label: "药妆系列", allLabel: "全部", items: "{n} 件",
+    searchPlaceholder: "搜索产品", searchEmpty: "未找到产品",
     ctaEyebrow: "从首尔直达您的诊所", ctaTitle1: "全球 B2B 供应，", ctaTitleEm: "由制造商直供。", ctaButton: "开始洽谈 →",
   },
   contact: {
@@ -385,6 +388,7 @@ const th: Dict = {
   },
   products: {
     label: "เวชสำอาง", allLabel: "ทั้งหมด", items: "{n} รายการ",
+    searchPlaceholder: "ค้นหาผลิตภัณฑ์", searchEmpty: "ไม่พบผลิตภัณฑ์",
     ctaEyebrow: "จากโซลถึงคลินิกของคุณ", ctaTitle1: "การจัดส่ง B2B ทั่วโลก", ctaTitleEm: "ตรงจากผู้ผลิต", ctaButton: "เริ่มพูดคุย →",
   },
   contact: {
@@ -519,6 +523,7 @@ const vi: Dict = {
   },
   products: {
     label: "Dược mỹ phẩm", allLabel: "Tất cả", items: "{n} sản phẩm",
+    searchPlaceholder: "Tìm sản phẩm", searchEmpty: "Không tìm thấy sản phẩm",
     ctaEyebrow: "Từ Seoul đến phòng khám của bạn", ctaTitle1: "Cung ứng B2B toàn cầu,", ctaTitleEm: "trực tiếp từ nhà sản xuất.", ctaButton: "Bắt đầu trao đổi →",
   },
   contact: {

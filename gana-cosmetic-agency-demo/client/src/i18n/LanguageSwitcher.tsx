@@ -40,15 +40,15 @@ export default function LanguageSwitcher() {
         onClick={() => setOpen(o => !o)}
         style={{
           display: "flex", alignItems: "center", gap: "0.4rem",
-          fontFamily: "'DM Sans',sans-serif", fontSize: "0.78rem", fontWeight: 500,
+          fontFamily: "'DM Sans',sans-serif", fontSize: "0.86rem", fontWeight: 500,
           color: C.ink, background: "none", border: `1px solid ${C.border}`,
-          borderRadius: "999px", padding: "0.34rem 0.7rem", cursor: "pointer",
+          borderRadius: "999px", padding: "0.42rem 0.85rem", cursor: "pointer",
           lineHeight: 1, transition: "border-color 0.18s ease, color 0.18s ease",
         }}
         onMouseEnter={e => { e.currentTarget.style.borderColor = C.gold; e.currentTarget.style.color = C.gold; }}
         onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.color = C.ink; }}
       >
-        <Globe size={14} strokeWidth={1.6} />
+        <Globe size={16} strokeWidth={1.6} />
         <span>{current.short}</span>
         <span style={{ fontSize: "0.6rem", opacity: 0.6 }}>▾</span>
       </button>

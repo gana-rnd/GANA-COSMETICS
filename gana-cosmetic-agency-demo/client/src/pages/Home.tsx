@@ -14,7 +14,7 @@
  *  10. Footer
  */
 
-import { Award, Globe, ShieldCheck, FlaskConical } from "lucide-react";
+import { Award, Globe, ShieldCheck, FlaskConical, Search, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { C, PRODUCTS, PROD_DMP } from "@/data/products";
@@ -357,10 +357,35 @@ function ProductsSection() {
   // 섹션은 고정(불투명 흰색)으로 두고 자식 .fade-up만 페이드 → 세포벽 배경 누출 제거.
   const ref = useFadeUp();
   const [filter, setFilter] = useState("All");
+  const [query, setQuery] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
+  // close the suggestion dropdown on any click outside the search box
+  useEffect(() => {
+    const onDown = (e: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) setSearchOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, []);
   // filter state holds the canonical English category key; labels are localized
   const filters = ["All","Skin Booster","Meso Solution","Chemical Peel","Intimate Care","Clinic Care","Peptide"];
   const filterLabel = (key: string) => (key === "All" ? t.products.allLabel : t.cats[key] ?? key);
-  const list = filter === "All" ? PRODUCTS : PRODUCTS.filter(p => p.cat === filter);
+  const norm = (s: string) => s.toLowerCase().replace(/\s+/g, " ").trim();
+  const q = norm(query);
+  // a typed query searches the whole catalogue (takes precedence over the active
+  // category tab) so the named product always surfaces; empty query → category
+  // On the "All" tab only, demote the unbranded empty-vial shots to the end
+  // (no real sort key exists; this is a manual visual ordering). Category tabs keep source order.
+  const DEMOTE = new Set(["nphg", "exo-nphg", "fish-collagen"]);
+  const list = q
+    ? PRODUCTS.filter(p => norm(p.name).includes(q))
+    : (filter === "All"
+        ? [...PRODUCTS].sort((a, b) => (DEMOTE.has(a.id) ? 1 : 0) - (DEMOTE.has(b.id) ? 1 : 0))
+        : PRODUCTS.filter(p => p.cat === filter));
+  // typeahead suggestions — only once 2+ chars are typed, capped at 6 names
+  const suggestions = q.length >= 2 ? PRODUCTS.filter(p => norm(p.name).includes(q)).slice(0, 6) : [];
+  const showSuggest = searchOpen && suggestions.length > 0;
 
   // CTA 타일이 그리드의 남은 칸을 정확히 채우도록 — 데스크탑(4칸) 기준 동적 span.
   // 남는 칸 = 4 − (제품수 % 4)  (4의 배수면 한 줄 전체 = 4)
@@ -379,18 +404,69 @@ function ProductsSection() {
           textDecoration:"underline", textUnderlineOffset:"5px", marginBottom:"1.1rem",
         }}>{t.products.label}</p>
 
-        {/* Category tabs — plain text, active = bold + ink underline (Gucci-style) */}
-        <div className="flex flex-wrap gap-x-8 gap-y-3 fade-up d1" style={{ borderBottom:`1px solid ${C.borderL}` }}>
-          {filters.map(f => (
-            <button key={f} onClick={() => setFilter(f)} style={{
-              fontFamily:"'DM Sans',sans-serif", fontSize:"0.8125rem",
-              fontWeight: filter===f ? 700 : 400,
-              color: C.ink, background:"none", border:"none", cursor:"pointer",
-              padding:"0 0 0.8rem 0", marginBottom:"-1px",
-              borderBottom: filter===f ? `2px solid ${C.ink}` : "2px solid transparent",
-              transition:"border-color 0.18s ease, font-weight 0.1s ease",
-            }}>{filterLabel(f)}</button>
-          ))}
+        {/* Category tabs (left) + product search (right) — Gucci-style underline row */}
+        <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-3 fade-up d1" style={{ borderBottom:`1px solid ${C.borderL}` }}>
+          <div className="flex flex-wrap gap-x-8 gap-y-3">
+            {filters.map(f => (
+              <button key={f} onClick={() => { setFilter(f); setQuery(""); }} style={{
+                fontFamily:"'DM Sans',sans-serif", fontSize:"0.8125rem",
+                fontWeight: filter===f && !q ? 700 : 400,
+                color: C.ink, background:"none", border:"none", cursor:"pointer",
+                padding:"0 0 0.8rem 0", marginBottom:"-1px",
+                borderBottom: filter===f && !q ? `2px solid ${C.ink}` : "2px solid transparent",
+                transition:"border-color 0.18s ease, font-weight 0.1s ease",
+              }}>{filterLabel(f)}</button>
+            ))}
+          </div>
+
+          {/* Search box — filters the grid live + typeahead dropdown */}
+          <div ref={searchRef} className="relative" style={{ marginBottom:"0.5rem" }}>
+            <div className="flex items-center" style={{
+              border:`1px solid ${C.border}`, borderRadius:"999px", height:"34px",
+              padding:"0 0.5rem 0 0.75rem", background:C.white,
+              width:"clamp(160px, 20vw, 230px)",
+            }}>
+              <Search size={14} style={{ color:C.ink45, flexShrink:0 }} />
+              <input
+                value={query}
+                onChange={e => { setQuery(e.target.value); setSearchOpen(true); }}
+                onFocus={() => setSearchOpen(true)}
+                placeholder={t.products.searchPlaceholder}
+                style={{
+                  border:"none", outline:"none", background:"transparent", width:"100%",
+                  fontFamily:"'DM Sans',sans-serif", fontSize:"0.8rem", color:C.ink,
+                  padding:"0 0.4rem",
+                }}
+              />
+              {query && (
+                <button onClick={() => { setQuery(""); setSearchOpen(false); }} aria-label="Clear search"
+                  style={{ border:"none", background:"none", cursor:"pointer", color:C.ink45,
+                    display:"flex", padding:0, flexShrink:0 }}>
+                  <X size={14} />
+                </button>
+              )}
+            </div>
+
+            {showSuggest && (
+              <div className="absolute right-0 z-30" style={{
+                top:"calc(100% + 6px)", width:"clamp(220px, 26vw, 300px)",
+                background:C.white, border:`1px solid ${C.borderL}`, borderRadius:"10px",
+                boxShadow:"0 10px 28px rgba(19,38,46,0.14)", overflow:"hidden",
+              }}>
+                {suggestions.map((p, i) => (
+                  <Link key={p.id} href={`/products/${p.id}`} onClick={() => setSearchOpen(false)}
+                    className="flex items-center justify-between"
+                    onMouseEnter={e => e.currentTarget.style.background = C.off}
+                    onMouseLeave={e => e.currentTarget.style.background = C.white}
+                    style={{ padding:"0.6rem 0.85rem", textDecoration:"none", background:C.white,
+                      borderBottom: i < suggestions.length - 1 ? `1px solid ${C.borderL}` : "none" }}>
+                    <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.82rem", color:C.ink }}>{p.name}</span>
+                    <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.68rem", color:C.ink45, whiteSpace:"nowrap", marginLeft:"0.75rem" }}>{filterLabel(p.cat)}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* item count — centered, Gucci-style */}
@@ -399,6 +475,14 @@ function ProductsSection() {
 
         {/* Hairline grid — items float on plain white, name + price only */}
         <div className="grid grid-cols-2 lg:grid-cols-4" style={{ gap:"1px", background:C.borderL }}>
+          {q && list.length === 0 && (
+            <div className="col-span-2 lg:col-span-4 flex items-center justify-center"
+              style={{ background:C.white, padding:"3.5rem 1rem" }}>
+              <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.85rem", color:C.ink45 }}>
+                {t.products.searchEmpty}
+              </span>
+            </div>
+          )}
           {list.map(p => (
             <Link key={p.id} href={`/products/${p.id}`}
               className="cat-item block"
@@ -624,9 +708,9 @@ function GanaGroupSection() {
   // brand identity (names / colours / site) is static; tag + desc are localized
   // via t.group.brands by matching array index
   const BRANDS = [
-    { part1: "GANA", c1: "#2A2A2A", part2: "R&D",      c2: "#1B3A6B", site: "www.ganarnd.co.kr" },
-    { part1: "GANA", c1: "#2A2A2A", part2: "COSMETIC", c2: "#2A2A2A", site: "" },
-    { part1: "Dr.",  c1: "#2A2A2A", part2: "PARK",     c2: "#2A2A2A", site: "" },
+    { part1: "GANA", c1: "#2A2A2A", part2: "R&D",      c2: "#2A2A2A", site: "www.ganarnd.co.kr", logo: "" },
+    { part1: "GANA", c1: "#2A2A2A", part2: "COSMETIC", c2: "#2A2A2A", site: "", logo: "/images/logo-wordmark.png" },
+    { part1: "Dr.",  c1: "#2A2A2A", part2: "PARK",     c2: "#2A2A2A", site: "", logo: "" },
   ];
 
   // real certification marks lifted from the GANA catalogue cover (client asset)
@@ -695,16 +779,27 @@ function GanaGroupSection() {
                 e.currentTarget.style.transform = "translateY(0)";
                 e.currentTarget.style.boxShadow = "none";
               }}>
-              {/* Logo (two-tone text) */}
-              <div style={{ marginBottom: "1rem" }}>
-                <span style={{
-                  fontFamily:"'Playfair Display',serif", fontWeight:700,
-                  fontSize:"1.625rem", color: b.c1, letterSpacing:"0.04em",
-                }}>{b.part1} </span>
-                <span style={{
-                  fontFamily:"'Playfair Display',serif", fontWeight:700,
-                  fontSize:"1.625rem", color: b.c2, letterSpacing:"0.04em",
-                }}>{b.part2}</span>
+              {/* Brand wordmark — official logo image where available, else two-tone serif text */}
+              <div className="flex items-center justify-center" style={{ marginBottom: "1rem", minHeight: "44px" }}>
+                {b.logo ? (
+                  <img src={b.logo} alt={`${b.part1} ${b.part2}`}
+                    style={{ height: "44px", width: "auto", display: "block" }} />
+                ) : (
+                  <span>
+                    <span style={{
+                      fontFamily:"'Playfair Display',serif", fontWeight:700,
+                      fontSize:"1.625rem", color: b.c1, letterSpacing:"0.04em",
+                    }}>{b.part1} </span>
+                    <span style={{
+                      fontFamily:"'Playfair Display',serif", fontWeight:700,
+                      fontSize:"1.625rem", color: b.c2, letterSpacing:"0.04em",
+                    }}>{b.part2.split("&").flatMap((seg, idx, arr) =>
+                      idx < arr.length - 1
+                        ? [seg, <span key={"amp" + idx} style={{ fontFamily:"'DM Sans',sans-serif", fontWeight:600 }}>{"&"}</span>]
+                        : [seg]
+                    )}</span>
+                  </span>
+                )}
               </div>
 
               <p style={{
