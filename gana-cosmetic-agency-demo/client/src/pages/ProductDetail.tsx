@@ -79,6 +79,35 @@ export default function ProductDetail() {
 
   useEffect(() => { window.scrollTo(0, 0); }, [params?.id]);
 
+  // 제품별 메타(title/description/og) — 구글은 각 URL을 개별 렌더하므로 SEO에 반영됨.
+  // (카톡·페북 언퍼러는 SSR이 없어 미반영 — 완전 대응은 prerender 필요)
+  useEffect(() => {
+    if (!product) return;
+    const head = document.head;
+    const title = `${product.name} — GANA Cosmetic`;
+    const targets: [string, string, string][] = [
+      ['meta[name="description"]', "content", product.desc],
+      ['meta[property="og:title"]', "content", title],
+      ['meta[property="og:description"]', "content", product.desc],
+      ['meta[property="og:url"]', "content", `https://www.gana-cosmetics.com/products/${product.id}`],
+    ];
+    if (product.img) targets.push(['meta[property="og:image"]', "content", `https://www.gana-cosmetics.com${product.img}`]);
+    const prevTitle = document.title;
+    const prev: [string, string, string | null][] = [];
+    document.title = title;
+    for (const [sel, attr, val] of targets) {
+      const el = head.querySelector(sel);
+      if (el) { prev.push([sel, attr, el.getAttribute(attr)]); el.setAttribute(attr, val); }
+    }
+    return () => {
+      document.title = prevTitle;
+      for (const [sel, attr, val] of prev) {
+        const el = head.querySelector(sel);
+        if (el && val != null) el.setAttribute(attr, val);
+      }
+    };
+  }, [product]);
+
   if (!product) {
     return (
       <div style={{ background: C.off, minHeight: "100vh" }}>
