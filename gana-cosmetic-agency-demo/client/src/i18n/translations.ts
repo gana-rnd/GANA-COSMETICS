@@ -30,14 +30,14 @@ export interface Dict {
     noticeLabel: string; notice: string;
   };
   products: {
-    label: string; allLabel: string; items: string;
+    label: string; allLabel: string; items: string; priceNote: string;
     searchPlaceholder: string; searchEmpty: string;
     ctaEyebrow: string; ctaTitle1: string; ctaTitleEm: string; ctaButton: string;
   };
   contact: {
     eyebrow: string; h2pre: string; h2em: string; body: string;
     list: [string, string, string, string];
-    thankTitle: string; thankBody: string;
+    thankTitle: string; thankBody: string; thankFallback: string;
     labels: { name: string; company: string; email: string; phone: string; country: string; type: string; message: string };
     selectPlaceholder: string;
     typeOptions: { distributor: string; clinic: string; odm: string; general: string };
@@ -107,7 +107,7 @@ const en: Dict = {
     notice: "GANA DA and GANA V LINE are lipolysis solutions for trained professionals only. Certificates available upon request.",
   },
   products: {
-    label: "Cosmeceuticals", allLabel: "All", items: "{n} items",
+    label: "Cosmeceuticals", allLabel: "All", items: "{n} items", priceNote: "All prices are retail (USD). Dealer pricing & shipping quoted separately on inquiry.",
     searchPlaceholder: "Search products", searchEmpty: "No products found",
     ctaEyebrow: "From Seoul to Your Clinic",
     ctaTitle1: "Global B2B supply,", ctaTitleEm: "direct from the manufacturer.", ctaButton: "Start a Conversation →",
@@ -116,7 +116,7 @@ const en: Dict = {
     eyebrow: "Get in Touch", h2pre: "Partner with", h2em: "GANA Cosmetic",
     body: "Whether you are a distributor seeking exclusive territory rights, a clinic looking for reliable supply, or an ODM partner — we respond to every inquiry within 48 hours.",
     list: ["Distributor Partnership", "Clinic Supply", "ODM / Private Label", "General Inquiry"],
-    thankTitle: "Thank You", thankBody: "Your inquiry has been received. We will respond within 48 hours.",
+    thankTitle: "Thank You", thankBody: "Your inquiry has been received. We will respond within 48 hours.", thankFallback: "No reply within 24 hours? Email us directly at contact@gana-cosmetics.com.",
     labels: { name: "Name", company: "Company / Clinic", email: "Email", phone: "Phone", country: "Country", type: "Inquiry Type", message: "Message" },
     selectPlaceholder: "Select type",
     typeOptions: { distributor: "Distributor Partnership", clinic: "Clinic Supply", odm: "ODM / Private Label", general: "General Inquiry" },
@@ -145,7 +145,7 @@ const en: Dict = {
   detail: {
     allProducts: "← All Products", home: "Home", productsCrumb: "Products",
     notFound: "Product not found", backToCatalogue: "← Back to catalogue",
-    retailNote: "Retail price shown. Dealer & distributor pricing available separately upon inquiry.",
+    retailNote: "Retail price shown (USD). Dealer & distributor pricing on separate inquiry. Shipping not included.",
     inquireBtn: "Inquire about this product →", inquiryPrice: "Inquiry",
     keyActives: "Key Actives", specifications: "Specifications",
     specCategory: "Category", specVolume: "Volume / Packaging", specRetail: "Retail (USD)", specLabel: "Label",
@@ -249,7 +249,7 @@ const zh: Dict = {
     noticeLabel: "法规提示：", notice: "GANA DA 与 GANA V LINE 为溶脂产品，仅限受训专业人员使用。证书可应要求提供。",
   },
   products: {
-    label: "药妆系列", allLabel: "全部", items: "{n} 件",
+    label: "药妆系列", allLabel: "全部", items: "{n} 件", priceNote: "所有价格为零售价（USD）。经销商价格与运费请另行咨询。",
     searchPlaceholder: "搜索产品", searchEmpty: "未找到产品",
     ctaEyebrow: "从首尔直达您的诊所", ctaTitle1: "全球 B2B 供应，", ctaTitleEm: "由制造商直供。", ctaButton: "开始洽谈 →",
   },
@@ -257,7 +257,7 @@ const zh: Dict = {
     eyebrow: "联系我们", h2pre: "携手", h2em: "GANA Cosmetic",
     body: "无论您是寻求独家区域代理的经销商、寻找稳定供货的诊所，还是 ODM 合作伙伴 —— 我们都会在 48 小时内回复每一封咨询。",
     list: ["经销代理合作", "诊所供货", "ODM / 贴牌代工", "一般咨询"],
-    thankTitle: "感谢您", thankBody: "我们已收到您的咨询，将在 48 小时内回复。",
+    thankTitle: "感谢您", thankBody: "我们已收到您的咨询，将在 48 小时内回复。", thankFallback: "24 小时内未收到回复？请直接发送邮件至 contact@gana-cosmetics.com。",
     labels: { name: "姓名", company: "公司 / 诊所", email: "邮箱", phone: "电话", country: "国家", type: "咨询类型", message: "留言" },
     selectPlaceholder: "请选择类型",
     typeOptions: { distributor: "经销代理合作", clinic: "诊所供货", odm: "ODM / 贴牌代工", general: "一般咨询" },
@@ -285,7 +285,7 @@ const zh: Dict = {
   detail: {
     allProducts: "← 全部产品", home: "首页", productsCrumb: "产品",
     notFound: "未找到该产品", backToCatalogue: "← 返回目录",
-    retailNote: "所示为零售价。经销商与代理价格可另行咨询。",
+    retailNote: "所示为零售价（USD）。经销商与代理价格请另行咨询。运费另计。",
     inquireBtn: "咨询此产品 →", inquiryPrice: "询价",
     keyActives: "核心活性成分", specifications: "规格参数",
     specCategory: "类别", specVolume: "容量 / 包装", specRetail: "零售价（USD）", specLabel: "标签",
@@ -387,7 +387,7 @@ const th: Dict = {
     noticeLabel: "ประกาศด้านกฎระเบียบ:", notice: "GANA DA และ GANA V LINE เป็นโซลูชันสลายไขมัน สำหรับผู้เชี่ยวชาญที่ผ่านการฝึกอบรมเท่านั้น มีใบรับรองให้เมื่อร้องขอ",
   },
   products: {
-    label: "เวชสำอาง", allLabel: "ทั้งหมด", items: "{n} รายการ",
+    label: "เวชสำอาง", allLabel: "ทั้งหมด", items: "{n} รายการ", priceNote: "ราคาทั้งหมดเป็นราคาขายปลีก (USD) ราคาตัวแทนจำหน่ายและค่าจัดส่งสอบถามแยกต่างหาก",
     searchPlaceholder: "ค้นหาผลิตภัณฑ์", searchEmpty: "ไม่พบผลิตภัณฑ์",
     ctaEyebrow: "จากโซลถึงคลินิกของคุณ", ctaTitle1: "การจัดส่ง B2B ทั่วโลก", ctaTitleEm: "ตรงจากผู้ผลิต", ctaButton: "เริ่มพูดคุย →",
   },
@@ -395,7 +395,7 @@ const th: Dict = {
     eyebrow: "ติดต่อเรา", h2pre: "ร่วมเป็นพันธมิตรกับ", h2em: "GANA Cosmetic",
     body: "ไม่ว่าคุณจะเป็นผู้จัดจำหน่ายที่มองหาสิทธิ์ในพื้นที่แต่เพียงผู้เดียว คลินิกที่ต้องการแหล่งจัดหาที่เชื่อถือได้ หรือพันธมิตร ODM — เราตอบทุกคำถามภายใน 48 ชั่วโมง",
     list: ["พันธมิตรผู้จัดจำหน่าย", "จัดส่งให้คลินิก", "ODM / Private Label", "สอบถามทั่วไป"],
-    thankTitle: "ขอบคุณ", thankBody: "เราได้รับคำถามของคุณแล้ว และจะตอบกลับภายใน 48 ชั่วโมง",
+    thankTitle: "ขอบคุณ", thankBody: "เราได้รับคำถามของคุณแล้ว และจะตอบกลับภายใน 48 ชั่วโมง", thankFallback: "ไม่ได้รับการตอบกลับใน 24 ชั่วโมง? อีเมลถึงเราโดยตรงที่ contact@gana-cosmetics.com",
     labels: { name: "ชื่อ", company: "บริษัท / คลินิก", email: "อีเมล", phone: "โทรศัพท์", country: "ประเทศ", type: "ประเภทการสอบถาม", message: "ข้อความ" },
     selectPlaceholder: "เลือกประเภท",
     typeOptions: { distributor: "พันธมิตรผู้จัดจำหน่าย", clinic: "จัดส่งให้คลินิก", odm: "ODM / Private Label", general: "สอบถามทั่วไป" },
@@ -423,7 +423,7 @@ const th: Dict = {
   detail: {
     allProducts: "← ผลิตภัณฑ์ทั้งหมด", home: "หน้าแรก", productsCrumb: "ผลิตภัณฑ์",
     notFound: "ไม่พบผลิตภัณฑ์", backToCatalogue: "← กลับไปที่แคตตาล็อก",
-    retailNote: "ราคาที่แสดงเป็นราคาขายปลีก ราคาสำหรับตัวแทนจำหน่ายและผู้จัดจำหน่ายสอบถามแยกต่างหาก",
+    retailNote: "ราคาที่แสดงเป็นราคาขายปลีก (USD) ราคาสำหรับตัวแทนจำหน่ายสอบถามแยกต่างหาก ไม่รวมค่าจัดส่ง",
     inquireBtn: "สอบถามผลิตภัณฑ์นี้ →", inquiryPrice: "สอบถามราคา",
     keyActives: "สารออกฤทธิ์หลัก", specifications: "ข้อมูลจำเพาะ",
     specCategory: "หมวดหมู่", specVolume: "ปริมาตร / บรรจุภัณฑ์", specRetail: "ขายปลีก (USD)", specLabel: "ป้ายกำกับ",
@@ -522,7 +522,7 @@ const vi: Dict = {
     noticeLabel: "Lưu ý pháp lý:", notice: "GANA DA và GANA V LINE là dung dịch tan mỡ, chỉ dành cho chuyên gia được đào tạo. Có thể cung cấp chứng nhận khi có yêu cầu.",
   },
   products: {
-    label: "Dược mỹ phẩm", allLabel: "Tất cả", items: "{n} sản phẩm",
+    label: "Dược mỹ phẩm", allLabel: "Tất cả", items: "{n} sản phẩm", priceNote: "Tất cả giá là giá bán lẻ (USD). Giá đại lý & phí vận chuyển báo riêng khi có yêu cầu.",
     searchPlaceholder: "Tìm sản phẩm", searchEmpty: "Không tìm thấy sản phẩm",
     ctaEyebrow: "Từ Seoul đến phòng khám của bạn", ctaTitle1: "Cung ứng B2B toàn cầu,", ctaTitleEm: "trực tiếp từ nhà sản xuất.", ctaButton: "Bắt đầu trao đổi →",
   },
@@ -530,7 +530,7 @@ const vi: Dict = {
     eyebrow: "Liên hệ", h2pre: "Hợp tác cùng", h2em: "GANA Cosmetic",
     body: "Dù bạn là nhà phân phối tìm kiếm quyền khu vực độc quyền, phòng khám cần nguồn cung đáng tin cậy, hay đối tác ODM — chúng tôi phản hồi mọi yêu cầu trong vòng 48 giờ.",
     list: ["Hợp tác phân phối", "Cung ứng phòng khám", "ODM / Nhãn hàng riêng", "Liên hệ chung"],
-    thankTitle: "Cảm ơn bạn", thankBody: "Chúng tôi đã nhận được yêu cầu của bạn và sẽ phản hồi trong vòng 48 giờ.",
+    thankTitle: "Cảm ơn bạn", thankBody: "Chúng tôi đã nhận được yêu cầu của bạn và sẽ phản hồi trong vòng 48 giờ.", thankFallback: "Không nhận được phản hồi trong 24 giờ? Email trực tiếp đến contact@gana-cosmetics.com.",
     labels: { name: "Họ tên", company: "Công ty / Phòng khám", email: "Email", phone: "Điện thoại", country: "Quốc gia", type: "Loại yêu cầu", message: "Lời nhắn" },
     selectPlaceholder: "Chọn loại",
     typeOptions: { distributor: "Hợp tác phân phối", clinic: "Cung ứng phòng khám", odm: "ODM / Nhãn hàng riêng", general: "Liên hệ chung" },
@@ -558,7 +558,7 @@ const vi: Dict = {
   detail: {
     allProducts: "← Tất cả sản phẩm", home: "Trang chủ", productsCrumb: "Sản phẩm",
     notFound: "Không tìm thấy sản phẩm", backToCatalogue: "← Quay lại danh mục",
-    retailNote: "Giá hiển thị là giá bán lẻ. Giá cho đại lý và nhà phân phối được cung cấp riêng khi có yêu cầu.",
+    retailNote: "Giá hiển thị là giá bán lẻ (USD). Giá đại lý & nhà phân phối vui lòng hỏi riêng. Chưa bao gồm phí vận chuyển.",
     inquireBtn: "Hỏi về sản phẩm này →", inquiryPrice: "Liên hệ giá",
     keyActives: "Hoạt chất chính", specifications: "Thông số kỹ thuật",
     specCategory: "Danh mục", specVolume: "Dung tích / Quy cách", specRetail: "Bán lẻ (USD)", specLabel: "Nhãn",

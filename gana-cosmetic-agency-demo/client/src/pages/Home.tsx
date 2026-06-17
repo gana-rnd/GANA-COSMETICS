@@ -378,13 +378,17 @@ function ProductsSection() {
   // On the "All" tab only, demote the unbranded empty-vial shots to the end
   // (no real sort key exists; this is a manual visual ordering). Category tabs keep source order.
   const DEMOTE = new Set(["nphg", "exo-nphg", "fish-collagen"]);
+  // a search matches the name, key actives (ings) or the English description,
+  // so ingredient queries like "PDRN" / "glutathione" surface every product
+  const matches = (p: typeof PRODUCTS[number]) =>
+    norm(p.name).includes(q) || norm(p.desc).includes(q) || p.ings.some(i => norm(i).includes(q));
   const list = q
-    ? PRODUCTS.filter(p => norm(p.name).includes(q))
+    ? PRODUCTS.filter(matches)
     : (filter === "All"
         ? [...PRODUCTS].sort((a, b) => (DEMOTE.has(a.id) ? 1 : 0) - (DEMOTE.has(b.id) ? 1 : 0))
         : PRODUCTS.filter(p => p.cat === filter));
-  // typeahead suggestions — only once 2+ chars are typed, capped at 6 names
-  const suggestions = q.length >= 2 ? PRODUCTS.filter(p => norm(p.name).includes(q)).slice(0, 6) : [];
+  // typeahead suggestions — only once 2+ chars are typed, capped at 6
+  const suggestions = q.length >= 2 ? PRODUCTS.filter(matches).slice(0, 6) : [];
   const showSuggest = searchOpen && suggestions.length > 0;
 
   // CTA 타일이 그리드의 남은 칸을 정확히 채우도록 — 데스크탑(4칸) 기준 동적 span.
@@ -420,7 +424,7 @@ function ProductsSection() {
           </div>
 
           {/* Search box — filters the grid live + typeahead dropdown */}
-          <div ref={searchRef} className="relative" style={{ marginBottom:"0.5rem" }}>
+          <div ref={searchRef} className="relative z-40" style={{ marginBottom:"0.5rem" }}>
             <div className="flex items-center" style={{
               border:`1px solid ${C.border}`, borderRadius:"999px", height:"34px",
               padding:"0 0.5rem 0 0.75rem", background:C.white,
@@ -448,7 +452,7 @@ function ProductsSection() {
             </div>
 
             {showSuggest && (
-              <div className="absolute right-0 z-30" style={{
+              <div className="absolute right-0 z-50" style={{
                 top:"calc(100% + 6px)", width:"clamp(220px, 26vw, 300px)",
                 background:C.white, border:`1px solid ${C.borderL}`, borderRadius:"10px",
                 boxShadow:"0 10px 28px rgba(19,38,46,0.14)", overflow:"hidden",
@@ -471,7 +475,10 @@ function ProductsSection() {
 
         {/* item count — centered, Gucci-style */}
         <p style={{ textAlign:"center", fontFamily:"'DM Sans',sans-serif", fontSize:"0.78rem",
-          color:C.ink45, margin:"1.4rem 0" }}>{fmt(t.products.items, { n: list.length })}</p>
+          color:C.ink45, margin:"1.4rem 0 0.4rem" }}>{fmt(t.products.items, { n: list.length })}</p>
+        {/* pricing policy — retail / dealer-on-inquiry / shipping separate (client request) */}
+        <p style={{ textAlign:"center", fontFamily:"'DM Sans',sans-serif", fontSize:"0.72rem",
+          color:C.ink45, margin:"0 auto 1.4rem", maxWidth:"560px", lineHeight:1.5 }}>{t.products.priceNote}</p>
 
         {/* Hairline grid — items float on plain white, name + price only */}
         <div className="grid grid-cols-2 lg:grid-cols-4" style={{ gap:"1px", background:C.borderL }}>
@@ -640,6 +647,9 @@ function ContactSection() {
                   fontSize:"2rem", color:C.gold, marginBottom:"1rem" }}>{c.thankTitle}</div>
                 <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.9rem", color:C.ink45 }}>
                   {c.thankBody}
+                </p>
+                <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.78rem", color:C.ink45, marginTop:"0.9rem", lineHeight:1.6 }}>
+                  {c.thankFallback}
                 </p>
               </div>
             ) : (

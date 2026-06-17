@@ -15,8 +15,8 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path={"/products/:id"} component={ProductDetail} />
       <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
+      {/* Unknown paths (e.g. a shared /zh deep link) fall back to Home, not a 404 */}
+      <Route component={Home} />
     </Switch>
   );
 }

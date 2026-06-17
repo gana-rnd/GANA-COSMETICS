@@ -307,7 +307,7 @@ export default function ProductDetail() {
       {/* Footer */}
       <footer style={{ background: C.deep, padding: "2.5rem 0" }}>
         <div className="container flex flex-col md:flex-row items-center justify-between" style={{ gap: "1rem" }}>
-          <Link href="\" style={{ textDecoration: "none" }}>
+          <Link href="/" style={{ textDecoration: "none" }}>
             <img src="/images/logo-full.png" alt="GANA Cosmetic"
               style={{ height: "48px", width: "auto", display: "block", filter: "invert(1) brightness(2)" }}/>
           </Link>
