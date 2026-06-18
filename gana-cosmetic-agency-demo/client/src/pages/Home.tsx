@@ -220,11 +220,12 @@ function Hero() {
       // hero instead of clipping the first headline line under the logo bar.
       // The object-cover video fills whatever height results.
       style={{ minHeight: "100svh", background: C.off }}>
-      {/* still poster frame behind the video — same fluid macro, mirrored to match
-          the video — so the first paint shows imagery, not a white flash. The video
-          fades in over it once playable, so there's no jarring image→video swap. */}
+      {/* still poster = the video's actual first frame (extracted from hero-seq.mp4),
+          mirrored exactly like the video. First paint shows this frame, the video
+          fades in starting from the identical frame, so there's no visible swap —
+          no white flash and no jarring old-image→video jump. */}
       <div className="absolute inset-0" aria-hidden="true" style={{
-        backgroundImage: "url('/hero-fluid.png')", backgroundSize: "cover",
+        backgroundImage: "url('/images/hero-poster.jpg')", backgroundSize: "cover",
         backgroundPosition: "center", transform: "scaleX(-1)",
       }}/>
       {/* mirrored so the video's empty area sits behind the left-side copy;
