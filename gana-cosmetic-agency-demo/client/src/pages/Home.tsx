@@ -213,13 +213,20 @@ function Hero() {
     if (v.readyState >= 3) setVidReady(true);
   }, []);
   return (
-    <header className="relative flex items-center overflow-hidden"
+    <header className="relative flex items-start md:items-center overflow-hidden"
       // fill the viewport on entry (hero → catalogue sits right at the fold).
       // min-height (not a locked aspect ratio / not a fixed height) means short
       // landscape screens, where the copy is taller than the viewport, grow the
       // hero instead of clipping the first headline line under the logo bar.
       // The object-cover video fills whatever height results.
       style={{ minHeight: "100svh", background: C.off }}>
+      {/* still poster frame behind the video — same fluid macro, mirrored to match
+          the video — so the first paint shows imagery, not a white flash. The video
+          fades in over it once playable, so there's no jarring image→video swap. */}
+      <div className="absolute inset-0" aria-hidden="true" style={{
+        backgroundImage: "url('/hero-fluid.png')", backgroundSize: "cover",
+        backgroundPosition: "center", transform: "scaleX(-1)",
+      }}/>
       {/* mirrored so the video's empty area sits behind the left-side copy;
           no loop — playback ends frozen on the final frame */}
       <video ref={vidRef} autoPlay muted playsInline
