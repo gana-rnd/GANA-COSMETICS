@@ -123,7 +123,8 @@ export default function ProductDetail() {
   }
 
   const related = getRelated(product);
-  const copy = t.prod[product.id] ?? { tag: product.tag, desc: product.desc, usage: "" };
+  const pc = t.prod[product.id];
+  const copy = pc ?? { tag: product.tag, desc: product.desc, usage: "" };
   const catLabel = t.cats[product.cat] ?? product.cat;
   const badgeLabel = t.badges[product.badge] ?? product.badge;
   const inquireHref = `/?product=${encodeURIComponent(product.name)}#contact`;
@@ -258,6 +259,20 @@ export default function ProductDetail() {
           <div style={{ marginTop: "4rem", maxWidth: "760px" }}>
             <Eyebrow>{t.detail.protocolTitle}</Eyebrow>
             <p style={{ fontFamily: sans, fontSize: "0.92rem", color: C.ink70, lineHeight: 1.75 }}>{copy.usage}</p>
+          </div>
+        )}
+
+        {/* (3b) Home / Clinic application — richer per-product protocol (peptides) */}
+        {pc?.home && (
+          <div style={{ marginTop: "3rem", maxWidth: "760px" }}>
+            <Eyebrow>{t.detail.homeUse}</Eyebrow>
+            <p style={{ fontFamily: sans, fontSize: "0.92rem", color: C.ink70, lineHeight: 1.75 }}>{pc.home}</p>
+          </div>
+        )}
+        {pc?.clinic && (
+          <div style={{ marginTop: "2.5rem", maxWidth: "760px" }}>
+            <Eyebrow>{t.detail.clinicUse}</Eyebrow>
+            <p style={{ fontFamily: sans, fontSize: "0.92rem", color: C.ink70, lineHeight: 1.75 }}>{pc.clinic}</p>
           </div>
         )}
 
