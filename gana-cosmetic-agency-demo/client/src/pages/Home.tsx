@@ -872,7 +872,8 @@ function Footer() {
               {[
                 [t.footer.labelAddress,"555 Dunchon-daero, Jungwon-gu,\nSeongnam-si, Gyeonggi-do, South Korea"],
                 [t.footer.labelTel,"+82-31-732-0242"],
-                [t.footer.labelEmail,"contact@gana-cosmetics.com"],
+                [t.footer.labelEmail,"contact@gana-cosmetics.com\njsm4885@ganarnd.co.kr"],
+                [t.footer.labelWhatsapp,"+82 10-2274-4885"],
               ].map(([l,v]) => (
                 <div key={l}>
                   <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.56rem", color:"rgba(255,255,255,0.4)",

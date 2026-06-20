@@ -167,7 +167,7 @@ export const PRODUCTS: Product[] = [
     indications:["Wrinkles","Anti-aging"] },
   { id:"pep-pt1", cat:"Peptide", name:"GANA Peptide PT1", tag:"Skin-Repair Peptide",
     desc:"Pure Palmitoyl tripeptide-1 (pal-GHK) solution — repairs visible damage and strengthens skin's support structures.",
-    ings:["Palmitoyl Tripeptide-1 100ppm"], vol:"3ml × 2 vials", price:"", img:"/products/pep-pt1.jpg", badge:"Peptide",
+    ings:["Palmitoyl Tripeptide-1 (pal-GHK)"], vol:"3ml × 2 vials", price:"", img:"/products/pep-pt1.jpg", badge:"Peptide",
     indications:["Regeneration","Anti-aging"] },
   { id:"pep-mp17", cat:"Peptide", name:"GANA Peptide MP17", tag:"Eyelash Growth Peptide",
     desc:"Pure Myristoyl pentapeptide-17 solution — stimulates keratin genes to thicken and grow eyelashes.",

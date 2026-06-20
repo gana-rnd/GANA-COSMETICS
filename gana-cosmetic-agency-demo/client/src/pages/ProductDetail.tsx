@@ -10,6 +10,15 @@ const serif = "'Playfair Display',serif";
 const sans  = "'DM Sans',sans-serif";
 const mono  = "'DM Mono',monospace";
 
+/* render "&" in DM Sans so Playfair's ornate serif ampersand never shows in headings */
+function ampSans(s: string) {
+  return s.split("&").flatMap((seg, i, arr) =>
+    i < arr.length - 1
+      ? [seg, <span key={i} style={{ fontFamily: sans, fontWeight: 600 }}>{"&"}</span>]
+      : [seg]
+  );
+}
+
 function FlaskPlaceholder() {
   return (
     <div className="w-full h-full flex items-center justify-center">
@@ -124,6 +133,7 @@ export default function ProductDetail() {
 
   const related = getRelated(product);
   const pc = t.prod[product.id];
+  const pt = t.peptideTitles[product.id];
   const copy = pc ?? { tag: product.tag, desc: product.desc, usage: "" };
   const catLabel = t.cats[product.cat] ?? product.cat;
   const badgeLabel = t.badges[product.badge] ?? product.badge;
@@ -262,16 +272,19 @@ export default function ProductDetail() {
           </div>
         )}
 
-        {/* (3b) Home / Clinic application — richer per-product protocol (peptides) */}
+        {/* (3b) Home / Clinic application — richer per-product protocol (peptides),
+             each with the PDF's effect headline as a sub-title */}
         {pc?.home && (
           <div style={{ marginTop: "3rem", maxWidth: "760px" }}>
             <Eyebrow>{t.detail.homeUse}</Eyebrow>
+            {pt?.home && <h4 style={{ fontFamily: serif, fontWeight: 700, fontSize: "1.2rem", color: C.ink, marginTop: "-0.5rem", marginBottom: "0.7rem" }}>{ampSans(pt.home)}</h4>}
             <p style={{ fontFamily: sans, fontSize: "0.92rem", color: C.ink70, lineHeight: 1.75 }}>{pc.home}</p>
           </div>
         )}
         {pc?.clinic && (
           <div style={{ marginTop: "2.5rem", maxWidth: "760px" }}>
             <Eyebrow>{t.detail.clinicUse}</Eyebrow>
+            {pt?.clinic && <h4 style={{ fontFamily: serif, fontWeight: 700, fontSize: "1.2rem", color: C.ink, marginTop: "-0.5rem", marginBottom: "0.7rem" }}>{ampSans(pt.clinic)}</h4>}
             <p style={{ fontFamily: sans, fontSize: "0.92rem", color: C.ink70, lineHeight: 1.75 }}>{pc.clinic}</p>
           </div>
         )}
