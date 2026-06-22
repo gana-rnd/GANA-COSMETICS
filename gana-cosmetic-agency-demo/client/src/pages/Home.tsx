@@ -560,7 +560,7 @@ function ProductsSection() {
   );
 }
 
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbytHJ4DwQ7oO30bvksLFWSAW-IVia-Omd9srUZ31LFYMiMfTMQtFDTiwMyGgkiwPfca/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEqxA99gF3sGHC8Z13sPaSRcHheNnNK1GUzQWZDp_lHVcYquiLeBL4RkbW6wdXWnXN/exec";
 
 function ContactSection() {
   const t = useT();
