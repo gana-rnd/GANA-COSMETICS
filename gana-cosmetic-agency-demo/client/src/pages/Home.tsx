@@ -502,7 +502,7 @@ function ProductsSection() {
             <Link key={p.id} href={`/products/${p.id}`}
               className="cat-item block"
               style={{ background:C.white, textDecoration:"none", cursor:"pointer" }}>
-              <div className="relative overflow-hidden flex items-center justify-center" style={{ height:"min(28vw, 420px)" }}>
+              <div className="relative overflow-hidden flex items-center justify-center h-[46vw] lg:h-[min(28vw,420px)]">
                 {p.certs && (
                   <div className="absolute top-2.5 left-2.5 lg:top-4 lg:left-4 z-10 flex flex-col items-start gap-1 lg:gap-1.5">
                     {p.certs.map(c => (
@@ -521,7 +521,7 @@ function ProductsSection() {
                   </div>
                 )}
                 {p.img
-                  ? <img src={p.img} alt={p.name} className="card-img w-full h-full object-contain p-8"/>
+                  ? <img src={p.img} alt={p.name} className="card-img w-full h-full object-contain p-4 lg:p-8"/>
                   : <div className="card-img w-full h-full flex items-center justify-center">
                       <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke={C.border} strokeWidth="1">
                         <path d="M9 3h6M9 3v7l-4 8a1 1 0 0 0 .9 1.5h12.2A1 1 0 0 0 19 18l-4-8V3"/>
