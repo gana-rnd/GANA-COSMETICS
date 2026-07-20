@@ -1,6 +1,6 @@
 /* ── Shared product data + design tokens ─────────────────────────────────────
  * Single source of truth used by both Home (catalogue grid) and ProductDetail.
- * Prices are USD Retail (단가표 기준). Dealer/volume pricing = inquiry only.
+ * All pricing = inquiry only (2026-07 정책: 가격 비공개).
  * 2026-06 curation (박소정): fillers / tube cosmetics(연고·크림·튜브필링) / R&D excluded.
  * Clinic Care kept except LIFT·PDO·PATCH. Peptides ×9 added.
  * 2026-06 +3: GANA TM·MASK (masks → Clinic Care) + GANA AM (telomerase → Skin Booster). → 29 SKUs.
@@ -38,7 +38,7 @@ export type Product = {
   desc: string;           // EN source (i18n overrides per language)
   ings: string[];         // key actives / INCI — kept in English
   vol: string;            // package / volume — kept in English
-  price: string;          // USD retail ("" = inquiry only)
+  price: string;          // always "" → renders as "Inquiry"
   img: string | null;
   badge: string;          // i18n badges key
   certs?: string[];       // confirmed regulatory marks (exact name match only)
@@ -49,15 +49,15 @@ export const PRODUCTS: Product[] = [
   /* ── Skin Booster ── */
   { id:"dmp-plus", cat:"Skin Booster", name:"GANA DMP+", tag:"High-End Multi-Active Booster",
     desc:"PLLA + HA + PDRN + Glutathione. Multi-active booster in a ready-to-use prefilled vial.",
-    ings:["PLLA 1mg/ml","HA 3mg/ml","PDRN 2mg/ml","Glutathione 0.5mg"], vol:"3ml × 2 vials", price:"150", img:PROD_DMP, badge:"2024 NEW",
+    ings:["PLLA 1mg/ml","HA 3mg/ml","PDRN 2mg/ml","Glutathione 0.5mg"], vol:"3ml × 2 vials", price:"", img:PROD_DMP, badge:"2024 NEW",
     indications:["Regeneration","Hydration","Brightening","Elasticity"] },
   { id:"phv", cat:"Skin Booster", name:"GANA PHV", tag:"2-Year Lasting Hydration",
     desc:"High-molecular HA + PLLA biostimulator. Hyaluronidase-correctable for precise control.",
-    ings:["HA 20mg/ml","PLLA 1mg/ml"], vol:"10ml vial", price:"150", img:SYRINGE_B, badge:"2024 NEW",
+    ings:["HA 20mg/ml","PLLA 1mg/ml"], vol:"10ml vial", price:"", img:SYRINGE_B, badge:"2024 NEW",
     indications:["Hydration","Volume","Elasticity"] },
   { id:"eye-booster", cat:"Skin Booster", name:"GANA EYE BOOSTER", tag:"Full-Face PDRN Revitalizer",
     desc:"PDRN + Sodium DNA + Glutathione. Targets cellular regeneration across the full face.",
-    ings:["PDRN","Sodium DNA","Glutathione","HA"], vol:"1.2ml syringe", price:"30", img:SYRINGE_G, badge:"2025 NEW",
+    ings:["PDRN","Sodium DNA","Glutathione","HA"], vol:"1.2ml syringe", price:"", img:SYRINGE_G, badge:"2025 NEW",
     indications:["Regeneration","Brightening","Elasticity"] },
   { id:"am", cat:"Skin Booster", name:"GANA AM", tag:"Telomerase Anti-Aging Activator",
     desc:"Astragalus membranaceus root extract (100ppm) — TA-65-class telomerase activation for cellular anti-aging.",
@@ -79,65 +79,65 @@ export const PRODUCTS: Product[] = [
   /* ── Meso Solution ── */
   { id:"tox", cat:"Meso Solution", name:"GANA TOX", tag:"Topical Neuromodulator",
     desc:"Argireline 100ppm + PDRN + HA. Spray-applied — no injection required. FDA & EU CPNP.",
-    ings:["Argireline 100ppm","PDRN","Adenosine","Glutathione","Niacinamide"], vol:"5ml × 10ea", price:"150", img:"/products/tox.jpg", badge:"FDA + CPNP", certs:["FDA","EU CPNP"],
+    ings:["Argireline 100ppm","PDRN","Adenosine","Glutathione","Niacinamide"], vol:"5ml × 10ea", price:"", img:"/products/tox.jpg", badge:"FDA + CPNP", certs:["FDA","EU CPNP"],
     indications:["Wrinkles","Regeneration","Brightening","Scars"] },
   { id:"pnv-plus", cat:"Meso Solution", name:"GANA PNV+", tag:"High-Concentration PDRN",
     desc:"PDRN 2% — direct clinical alternative to Rejuran. With Glutathione and HA 10mg/cc.",
-    ings:["PDRN 2%","Glutathione 2mg/cc","HA 10mg/cc"], vol:"3ml × 5ea", price:"150", img:"/products/pnv-plus.jpg", badge:"vs Rejuran", certs:["EU CPNP"],
+    ings:["PDRN 2%","Glutathione 2mg/cc","HA 10mg/cc"], vol:"3ml × 5ea", price:"", img:"/products/pnv-plus.jpg", badge:"vs Rejuran", certs:["EU CPNP"],
     indications:["Regeneration","Scars","Wrinkles","Brightening"] },
   { id:"pnv", cat:"Meso Solution", name:"GANA PNV", tag:"Low-Concentration PDRN",
     desc:"Low-concentration PDRN (0.5%) mesotherapy with glutathione and cross-linked HA for regeneration, whitening, and hydration.",
-    ings:["PDRN 0.5%","Glutathione 2mg/cc","HA 5mg/cc"], vol:"3ml × 5ea", price:"90", img:"/products/pnv.jpg", badge:"PDRN", certs:["EU CPNP"],
+    ings:["PDRN 0.5%","Glutathione 2mg/cc","HA 5mg/cc"], vol:"3ml × 5ea", price:"", img:"/products/pnv.jpg", badge:"PDRN", certs:["EU CPNP"],
     indications:["Regeneration","Brightening","Hydration"] },
   { id:"scalp", cat:"Meso Solution", name:"GANA SCALP", tag:"Scalp Regeneration",
     desc:"PDRN + GHK-Cu targeting hair follicle regeneration and scalp microenvironment.",
-    ings:["PDRN","GHK-Cu"], vol:"3ml × 10ea", price:"150", img:"/products/scalp.jpg", badge:"Hair Specialist", certs:["EU CPNP"],
+    ings:["PDRN","GHK-Cu"], vol:"3ml × 10ea", price:"", img:"/products/scalp.jpg", badge:"Hair Specialist", certs:["EU CPNP"],
     indications:["Hair","Regeneration"] },
   { id:"eye", cat:"Meso Solution", name:"GANA EYE", tag:"Eye Bag & Dark Circle Solution",
     desc:"Targeted meso solution for under-eye bags and dark circles, with carnitine and acetyl tetrapeptide-5.",
-    ings:["Carnitine 2%","Acetyl Tetrapeptide-5 50ppm"], vol:"2ml × 5ea", price:"150", img:"/products/eye.jpg", badge:"Eye Care", certs:["EU CPNP"],
+    ings:["Carnitine 2%","Acetyl Tetrapeptide-5 50ppm"], vol:"2ml × 5ea", price:"", img:"/products/eye.jpg", badge:"Eye Care", certs:["EU CPNP"],
     indications:["Eye bags","Dark circles"] },
   { id:"cocktail", cat:"Meso Solution", name:"GANA Cocktail", tag:"Whitening Meso Cocktail",
     desc:"Dual-vial whitening program — glutathione and vitamin C (ascorbic acid), applied on alternating weeks. Never mixed together.",
-    ings:["Glutathione","Vitamin C"], vol:"4ml × 5+5ea", price:"90", img:"/products/cocktail.jpg", badge:"Whitening",
+    ings:["Glutathione","Vitamin C"], vol:"4ml × 5+5ea", price:"", img:"/products/cocktail.jpg", badge:"Whitening",
     indications:["Brightening","Anti-aging"] },
   { id:"dm", cat:"Meso Solution", name:"GANA DM", tag:"PLLA Collagen Meso",
     desc:"Freeze-dried PLLA powder + cross-linked HA two-part set. Collagen stimulation for acne scars, stretch marks, and lifting. Not a filler.",
-    ings:["PLLA 50mg/5ml","Cross-linked HA 5ml"], vol:"PLLA 50mg + HA 5ml set", price:"60", img:"/products/dm.jpg", badge:"PLLA Meso", certs:["EU CPNP"],
+    ings:["PLLA 50mg/5ml","Cross-linked HA 5ml"], vol:"PLLA 50mg + HA 5ml set", price:"", img:"/products/dm.jpg", badge:"PLLA Meso", certs:["EU CPNP"],
     indications:["Scars","Regeneration","Volume","Elasticity"] },
   { id:"v-line", cat:"Meso Solution", name:"GANA V LINE", tag:"Facial Lipolysis",
     desc:"PPC + deoxycholic acid lipolysis solution with peptide and glutathione for facial contouring.",
-    ings:["Phosphatidylcholine","Deoxycholic Acid","Acetyl Hexapeptide-8","Glutathione"], vol:"5ml × 10ea", price:"90", img:"/products/v-line.jpg", badge:"Lipolysis",
+    ings:["Phosphatidylcholine","Deoxycholic Acid","Acetyl Hexapeptide-8","Glutathione"], vol:"5ml × 10ea", price:"", img:"/products/v-line.jpg", badge:"Lipolysis",
     indications:["Lipolysis","Wrinkles","Brightening"] },
 
   /* ── Chemical Peel ── */
   { id:"pha", cat:"Chemical Peel", name:"GANA PHA", tag:"Gentle PHA Peel",
     desc:"Polyhydroxy acid peel (PHA 10%) with alpha arbutin — gentle, low-irritation exfoliation and brightening for sensitive, rosacea, and atopic skin.",
-    ings:["Polyhydroxy Acid 10%","Alpha Arbutin 1%"], vol:"40ml", price:"60", img:"/products/pha.jpg", badge:"Sensitive Skin",
+    ings:["Polyhydroxy Acid 10%","Alpha Arbutin 1%"], vol:"40ml", price:"", img:"/products/pha.jpg", badge:"Sensitive Skin",
     indications:["Exfoliation","Brightening","Sensitive skin"] },
 
   /* ── Intimate Care ── */
   { id:"gyno", cat:"Intimate Care", name:"GANA GYNO", tag:"Intimate Brightening & pH Care",
     desc:"Intimate area brightening and pH-balance care with glutathione and soy isoflavone. Also soothes dryness.",
-    ings:["Glutathione","Soy Isoflavone","Lactic Acid"], vol:"50ml", price:"60", img:"/products/gyno.jpg", badge:"Intimate Care",
+    ings:["Glutathione","Soy Isoflavone","Lactic Acid"], vol:"50ml", price:"", img:"/products/gyno.jpg", badge:"Intimate Care",
     indications:["Brightening","pH care","Hydration"] },
 
   /* ── Clinic Care (LIFT·PDO·PATCH excluded) ── */
   { id:"booster", cat:"Clinic Care", name:"GANA Booster", tag:"HA Biorevitalization",
     desc:"Cross-linked HA gel with lidocaine for biorevitalization (water-glow). Applied by meso gun.",
-    ings:["Cross-linked HA","Lidocaine"], vol:"2.5ml syringe", price:"20", img:"/products/booster.jpg", badge:"Biorevital",
+    ings:["Cross-linked HA","Lidocaine"], vol:"2.5ml syringe", price:"", img:"/products/booster.jpg", badge:"Biorevital",
     indications:["Hydration","Regeneration"] },
   { id:"booster-v", cat:"Clinic Care", name:"GANA Booster V", tag:"Biorevitalization Vial",
     desc:"Cross-linked HA + glutathione biorevitalization solution in vial form.",
-    ings:["Cross-linked HA 10mg/cc","Glutathione 1mg/cc"], vol:"3/5ml × 2ea", price:"20", img:"/products/booster-v.jpg", badge:"Biorevital",
+    ings:["Cross-linked HA 10mg/cc","Glutathione 1mg/cc"], vol:"3/5ml × 2ea", price:"", img:"/products/booster-v.jpg", badge:"Biorevital",
     indications:["Hydration","Brightening"] },
   { id:"ha-v", cat:"Clinic Care", name:"GANA HA V", tag:"High-Concentration HA",
     desc:"High-concentration cross-linked HA (22mg/cc) for hydration and volume, vial form.",
-    ings:["Cross-linked HA 22mg/cc"], vol:"3/5ml × 2ea", price:"60", img:"/products/ha-v.jpg", badge:"Hydration",
+    ings:["Cross-linked HA 22mg/cc"], vol:"3/5ml × 2ea", price:"", img:"/products/ha-v.jpg", badge:"Hydration",
     indications:["Hydration","Volume"] },
   { id:"da", cat:"Clinic Care", name:"GANA DA", tag:"Body & Chin Lipolysis",
     desc:"Deoxycholic acid lipolysis solution for double chin and body fat. Not for facial use.",
-    ings:["Deoxycholic Acid 10mg/cc"], vol:"5ml × 10ea", price:"150", img:"/products/da.jpg", badge:"Lipolysis", certs:["EU CPNP"],
+    ings:["Deoxycholic Acid 10mg/cc"], vol:"5ml × 10ea", price:"", img:"/products/da.jpg", badge:"Lipolysis", certs:["EU CPNP"],
     indications:["Lipolysis"] },
   { id:"tm", cat:"Clinic Care", name:"GANA TM", tag:"FDA-Registered Mask Pack",
     desc:"Multi-active sheet mask — PDRN, PHA, Acetyl Hexapeptide-8, cross-linked HA and alpha arbutin. FDA-registered formulation.",
