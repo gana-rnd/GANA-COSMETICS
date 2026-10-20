@@ -529,9 +529,12 @@ function ProductsSection() {
                         {c==="FDA"
                           ? <img src="/certs/fda-badge.png" alt="FDA — USA"
                               className="cert-chip-img" style={{ width:"auto", display:"block" }} />
+                          : c==="EU CPNP"
+                          ? <img src="/certs/eu-cpnp-badge.svg" alt="EU CPNP"
+                              className="cert-chip-img" style={{ width:"auto", display:"block" }} />
                           : <span className="cert-chip-txt" style={{ fontFamily:"'DM Mono',monospace", fontWeight:700,
                               letterSpacing:"0.04em", color:C.deep, lineHeight:1, whiteSpace:"nowrap" }}>
-                              {c==="EU CPNP" ? "EU CPNP" : c}
+                              {c}
                             </span>}
                       </div>
                     ))}
