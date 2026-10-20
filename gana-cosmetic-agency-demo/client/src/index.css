@@ -42,7 +42,7 @@
   --cl-light:    #E9EFF3;   /* card / section bg */
   --cl-ink:      #16222C;   /* primary text — blue ink */
   --cl-ink-70:   rgba(22,34,44,0.70);
-  --cl-ink-45:   rgba(22,34,44,0.45);
+  --cl-ink-45:   rgba(22,34,44,0.58);
   --cl-gold:     #A8905A;   /* primary accent — warm gold */
   --cl-gold-h:   #BFA570;   /* hover */
   --cl-gold-10:  rgba(168,144,90,0.10);
@@ -78,6 +78,8 @@
 @layer base {
   * { @apply border-border outline-ring/50; }
   html { scroll-behavior: smooth; }
+  /* anchor jumps land below the 76px fixed logo bar */
+  section[id], header[id] { scroll-margin-top: 76px; }
 
   /* no focus ring on mouse clicks; thin gold line for keyboard navigation only */
   :focus:not(:focus-visible) { outline: none; }
@@ -128,7 +130,7 @@
   /* ── Eyebrow ── */
   .eyebrow {
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.6875rem;
+    font-size: 0.78rem;
     font-weight: 600;
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -145,7 +147,7 @@
     border: 1.5px solid var(--cl-gold);
     padding: 0.875rem 2rem;
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.84rem;
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -169,7 +171,7 @@
     border: 1.5px solid var(--cl-border);
     padding: 0.875rem 2rem;
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.84rem;
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -192,7 +194,7 @@
     border: 1.5px solid rgba(255,255,255,0.45);
     padding: 0.875rem 2rem;
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.84rem;
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -208,7 +210,7 @@
   /* ── Nav ── */
   .nav-link {
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -283,7 +285,7 @@
   .chip {
     display: inline-block;
     font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     letter-spacing: 0.06em;
     padding: 0.2rem 0.55rem;
     border: 1px solid var(--cl-border);
@@ -294,7 +296,7 @@
   .form-label {
     display: block;
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.72rem;
+    font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -346,7 +348,7 @@
   border-radius: 8px;
 }
 .cert-chip-img { height: 20px; }
-.cert-chip-txt { font-size: 0.8rem; }
+.cert-chip-txt { font-size: 0.875rem; }
 @media (max-width: 1023px) {
   .cert-chip { height: 21px; padding: 0 6px; border-radius: 5px; }
   .cert-chip-img { height: 11px; }

@@ -19,10 +19,11 @@ export const SYRINGE_G = "/products/eye-booster.png";
 export const C = {
   white:   "#FFFFFF",
   off:     "#F5F8FA",
+  neutral: "#F6F6F5",   // warm-neutral off-white (detail page) — `off` read too blue there
   light:   "#E9EFF3",
   ink:     "#16222C",
   ink70:   "rgba(22,34,44,0.70)",
-  ink45:   "rgba(22,34,44,0.45)",
+  ink45:   "rgba(22,34,44,0.58)",   // was 0.45 — too faint on tinted backgrounds
   gold:    "#A8905A",
   goldH:   "#BFA570",
   border:  "#D4DCE2",

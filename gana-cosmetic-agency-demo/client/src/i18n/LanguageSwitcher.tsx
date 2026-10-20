@@ -40,7 +40,7 @@ export default function LanguageSwitcher() {
         onClick={() => setOpen(o => !o)}
         style={{
           display: "flex", alignItems: "center", gap: "0.4rem",
-          fontFamily: "'DM Sans',sans-serif", fontSize: "0.86rem", fontWeight: 500,
+          fontFamily: "'DM Sans',sans-serif", fontSize: "0.92rem", fontWeight: 500,
           color: C.ink, background: "none", border: `1px solid ${C.border}`,
           borderRadius: "999px", padding: "0.42rem 0.85rem", cursor: "pointer",
           lineHeight: 1, transition: "border-color 0.18s ease, color 0.18s ease",
@@ -50,7 +50,7 @@ export default function LanguageSwitcher() {
       >
         <Globe size={16} strokeWidth={1.6} />
         <span>{current.short}</span>
-        <span style={{ fontSize: "0.6rem", opacity: 0.6 }}>▾</span>
+        <span style={{ fontSize: "0.68rem", opacity: 0.6 }}>▾</span>
       </button>
 
       {open && (
@@ -74,7 +74,7 @@ export default function LanguageSwitcher() {
                   style={{
                     display: "flex", alignItems: "center", justifyContent: "space-between",
                     width: "100%", gap: "0.75rem",
-                    fontFamily: "'DM Sans',sans-serif", fontSize: "0.82rem",
+                    fontFamily: "'DM Sans',sans-serif", fontSize: "0.9rem",
                     fontWeight: active ? 700 : 400,
                     color: active ? C.gold : C.ink,
                     background: active ? "rgba(168,144,90,0.08)" : "transparent",
@@ -86,7 +86,7 @@ export default function LanguageSwitcher() {
                   onMouseLeave={e => { if (!active) e.currentTarget.style.background = "transparent"; }}
                 >
                   <span>{l.label}</span>
-                  {active && <span style={{ fontSize: "0.7rem" }}>✓</span>}
+                  {active && <span style={{ fontSize: "0.78rem" }}>✓</span>}
                 </button>
               </li>
             );

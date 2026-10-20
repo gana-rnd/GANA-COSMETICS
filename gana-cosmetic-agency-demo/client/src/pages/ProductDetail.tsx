@@ -10,6 +10,12 @@ const serif = "'Playfair Display',serif";
 const sans  = "'DM Sans',sans-serif";
 const mono  = "'DM Mono',monospace";
 
+/* boxed block (Specifications / How to Use) — same card language as the actives */
+const BOX: React.CSSProperties = {
+  background: C.white, border: `1px solid ${C.borderL}`, borderTop: `2px solid ${C.gold}`,
+  padding: "1.25rem 1.4rem",
+};
+
 /* render "&" in DM Sans so Playfair's ornate serif ampersand never shows in headings */
 function ampSans(s: string) {
   return s.split("&").flatMap((seg, i, arr) =>
@@ -38,7 +44,7 @@ function Header() {
           <img src="/images/logo-full.png" alt="GANA Cosmetics" style={{ height: "52px", width: "auto", display: "block" }}/>
         </Link>
         <div className="flex items-center" style={{ gap: "1.25rem" }}>
-          <Link href="/#products" style={{ fontFamily: sans, fontSize: "0.75rem", fontWeight: 600,
+          <Link href="/#products" style={{ fontFamily: sans, fontSize: "0.84rem", fontWeight: 600,
             letterSpacing: "0.1em", textTransform: "uppercase", color: C.gold, textDecoration: "none" }}>
             {t.detail.allProducts}
           </Link>
@@ -61,10 +67,10 @@ function RelatedCard({ p }: { p: Product }) {
             : <FlaskPlaceholder />}
         </div>
         <div className="p-4">
-          <p style={{ fontFamily: sans, fontSize: "0.58rem", fontWeight: 600, letterSpacing: "0.15em",
+          <p style={{ fontFamily: sans, fontSize: "0.66rem", fontWeight: 600, letterSpacing: "0.15em",
             textTransform: "uppercase", color: C.gold, marginBottom: "0.2rem" }}>{t.cats[p.cat] ?? p.cat}</p>
           <h4 style={{ fontFamily: serif, fontWeight: 700, fontSize: "1rem", color: C.ink }}>{p.name}</h4>
-          <p style={{ fontFamily: mono, fontSize: "0.7rem", color: C.ink45, marginTop: "0.35rem" }}>
+          <p style={{ fontFamily: mono, fontSize: "0.78rem", color: C.ink45, marginTop: "0.35rem" }}>
             {p.price ? `USD ${p.price}` : t.detail.inquiryPrice}
           </p>
         </div>
@@ -76,7 +82,7 @@ function RelatedCard({ p }: { p: Product }) {
 /* small section eyebrow */
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <p style={{ fontFamily: sans, fontSize: "0.65rem", fontWeight: 600, letterSpacing: "0.18em",
+    <p style={{ fontFamily: sans, fontSize: "0.74rem", fontWeight: 600, letterSpacing: "0.18em",
       textTransform: "uppercase", color: C.gold, marginBottom: "1.1rem" }}>{children}</p>
   );
 }
@@ -119,7 +125,7 @@ export default function ProductDetail() {
 
   if (!product) {
     return (
-      <div style={{ background: C.off, minHeight: "100vh" }}>
+      <div style={{ background: C.neutral, minHeight: "100vh" }}>
         <Header />
         <div className="container" style={{ padding: "6rem 0", textAlign: "center" }}>
           <h1 style={{ fontFamily: serif, fontSize: "2rem", color: C.ink, marginBottom: "1rem" }}>{t.detail.notFound}</h1>
@@ -143,12 +149,12 @@ export default function ProductDetail() {
   const certPill = (c: string) => (c === "EU CPNP" ? "CPNP" : c);
 
   return (
-    <div style={{ background: C.off, minHeight: "100vh" }}>
+    <div style={{ background: C.neutral, minHeight: "100vh" }}>
       <Header />
 
       <main className="container" style={{ paddingTop: "2.5rem", paddingBottom: "5rem" }}>
         {/* Breadcrumb */}
-        <nav style={{ fontFamily: mono, fontSize: "0.7rem", color: C.ink45, marginBottom: "2.5rem" }}>
+        <nav style={{ fontFamily: mono, fontSize: "0.78rem", color: C.ink45, marginBottom: "2.5rem" }}>
           <Link href="/" style={{ color: C.ink45, textDecoration: "none" }}>{t.detail.home}</Link>
           <span style={{ margin: "0 0.5rem" }}>/</span>
           <Link href="/#products" style={{ color: C.ink45, textDecoration: "none" }}>{t.detail.productsCrumb}</Link>
@@ -163,14 +169,14 @@ export default function ProductDetail() {
             {product.img
               ? <img src={product.img} alt={product.name} className="w-full h-full object-contain p-12" />
               : <FlaskPlaceholder />}
-            <div style={{ position: "absolute", top: "1rem", right: "1rem", fontFamily: sans, fontSize: "0.6rem",
+            <div style={{ position: "absolute", top: "1rem", right: "1rem", fontFamily: sans, fontSize: "0.68rem",
               fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", padding: "0.25rem 0.7rem",
               background: C.gold, color: C.white }}>{badgeLabel}</div>
           </div>
 
           {/* Info */}
           <div>
-            <p style={{ fontFamily: sans, fontSize: "0.65rem", fontWeight: 600, letterSpacing: "0.18em",
+            <p style={{ fontFamily: sans, fontSize: "0.74rem", fontWeight: 600, letterSpacing: "0.18em",
               textTransform: "uppercase", color: C.gold, marginBottom: "0.6rem" }}>{catLabel}</p>
             <h1 style={{ fontFamily: serif, fontWeight: 700, fontSize: "clamp(2rem,4vw,2.9rem)", color: C.ink,
               lineHeight: 1.1, marginBottom: "0.5rem" }}>{product.name}</h1>
@@ -181,7 +187,7 @@ export default function ProductDetail() {
             {product.indications.length > 0 && (
               <div className="flex flex-wrap" style={{ gap: "0.4rem", marginBottom: "1.4rem" }}>
                 {product.indications.map((key) => (
-                  <span key={key} style={{ fontFamily: sans, fontSize: "0.7rem", fontWeight: 500, color: C.ink70,
+                  <span key={key} style={{ fontFamily: sans, fontSize: "0.78rem", fontWeight: 500, color: C.ink70,
                     border: `1px solid ${C.border}`, borderRadius: "999px", padding: "0.22rem 0.7rem" }}>
                     {t.indicationLabels[key] ?? key}
                   </span>
@@ -189,7 +195,7 @@ export default function ProductDetail() {
               </div>
             )}
 
-            <p style={{ fontFamily: sans, fontSize: "0.95rem", color: C.ink70, lineHeight: 1.7,
+            <p style={{ fontFamily: sans, fontSize: "1rem", color: C.ink70, lineHeight: 1.7,
               marginBottom: "1.75rem" }}>{copy.desc}</p>
 
             {/* Price + volume */}
@@ -198,7 +204,7 @@ export default function ProductDetail() {
               <span style={{ fontFamily: mono, fontSize: "1.9rem", fontWeight: 500, color: C.ink }}>
                 {product.price ? `USD ${product.price}` : t.detail.inquiryPrice}
               </span>
-              <span style={{ fontFamily: mono, fontSize: "0.8rem", color: C.ink45, marginBottom: "0.35rem" }}>
+              <span style={{ fontFamily: mono, fontSize: "0.9rem", color: C.ink45, marginBottom: "0.35rem" }}>
                 / {product.vol}
               </span>
             </div>
@@ -210,13 +216,13 @@ export default function ProductDetail() {
                   <span key={c} className="flex items-center" style={{ gap: "0.35rem",
                     background: "rgba(168,144,90,0.1)", border: `1px solid ${C.gold}`, borderRadius: "6px",
                     padding: "0.28rem 0.6rem" }}>
-                    <span style={{ fontFamily: mono, fontSize: "0.7rem", fontWeight: 700, color: C.gold, letterSpacing: "0.04em" }}>✓ {certPill(c)}</span>
+                    <span style={{ fontFamily: mono, fontSize: "0.78rem", fontWeight: 700, color: C.gold, letterSpacing: "0.04em" }}>✓ {certPill(c)}</span>
                   </span>
                 ))}
               </div>
             )}
 
-            <p style={{ fontFamily: sans, fontSize: "0.78rem", color: C.ink45, marginBottom: "1.75rem" }}>
+            <p style={{ fontFamily: sans, fontSize: "0.875rem", color: C.ink45, marginBottom: "1.75rem" }}>
               {t.detail.retailNote}
             </p>
 
@@ -227,8 +233,8 @@ export default function ProductDetail() {
           </div>
         </div>
 
-        {/* (1) Key Actives as ingredient cards  +  Specifications */}
-        <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "3.5rem", marginTop: "4.5rem" }}>
+        {/* (1) Key Actives + How to Use (left)  |  Specifications (right) — both boxed */}
+        <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "3.5rem", marginTop: "4.5rem", alignItems: "start" }}>
           <div>
             <Eyebrow>{t.detail.keyActives}</Eyebrow>
             <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: "0.75rem" }}>
@@ -237,57 +243,66 @@ export default function ProductDetail() {
                 return (
                   <div key={ing} style={{ background: C.white, border: `1px solid ${C.borderL}`, borderTop: `2px solid ${C.gold}`,
                     padding: "0.85rem 0.95rem" }}>
-                    <div style={{ fontFamily: mono, fontSize: "0.82rem", fontWeight: 500, color: C.ink, lineHeight: 1.3 }}>{ing}</div>
-                    {blurb && <div style={{ fontFamily: sans, fontSize: "0.72rem", color: C.ink45, lineHeight: 1.45, marginTop: "0.3rem" }}>{blurb}</div>}
+                    <div style={{ fontFamily: mono, fontSize: "0.9rem", fontWeight: 500, color: C.ink, lineHeight: 1.3 }}>{ing}</div>
+                    {blurb && <div style={{ fontFamily: sans, fontSize: "0.8rem", color: C.ink45, lineHeight: 1.45, marginTop: "0.3rem" }}>{blurb}</div>}
                   </div>
                 );
               })}
             </div>
+
+            {/* (3) How to Use — boxed, right under the actives so the column has no dead space */}
+            {copy.usage && (
+              <div style={{ marginTop: "2.5rem" }}>
+                <Eyebrow>{t.detail.protocolTitle}</Eyebrow>
+                <div style={BOX}>
+                  <p style={{ fontFamily: sans, fontSize: "1rem", color: C.ink70, lineHeight: 1.75 }}>{copy.usage}</p>
+                </div>
+              </div>
+            )}
+
+            {/* (3b) Home / Clinic application — richer per-product protocol (peptides),
+                 each with the PDF's effect headline as a sub-title */}
+            {pc?.home && (
+              <div style={{ marginTop: "2.5rem" }}>
+                <Eyebrow>{t.detail.homeUse}</Eyebrow>
+                <div style={BOX}>
+                  {pt?.home && <h4 style={{ fontFamily: serif, fontWeight: 700, fontSize: "1.2rem", color: C.ink, marginBottom: "0.7rem" }}>{ampSans(pt.home)}</h4>}
+                  <p style={{ fontFamily: sans, fontSize: "1rem", color: C.ink70, lineHeight: 1.75 }}>{pc.home}</p>
+                </div>
+              </div>
+            )}
+            {pc?.clinic && (
+              <div style={{ marginTop: "2.5rem" }}>
+                <Eyebrow>{t.detail.clinicUse}</Eyebrow>
+                <div style={BOX}>
+                  {pt?.clinic && <h4 style={{ fontFamily: serif, fontWeight: 700, fontSize: "1.2rem", color: C.ink, marginBottom: "0.7rem" }}>{ampSans(pt.clinic)}</h4>}
+                  <p style={{ fontFamily: sans, fontSize: "1rem", color: C.ink70, lineHeight: 1.75 }}>{pc.clinic}</p>
+                </div>
+              </div>
+            )}
           </div>
 
           <div>
             <Eyebrow>{t.detail.specifications}</Eyebrow>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: sans }}>
-              <tbody>
-                {[[t.detail.specCategory, catLabel], [t.detail.specVolume, product.vol],
-                  [t.detail.specRetail, product.price || t.detail.inquiryPrice], [t.detail.specLabel, badgeLabel]].map(([k, v]) => (
-                  <tr key={k} style={{ borderBottom: `1px solid ${C.borderL}` }}>
-                    <td style={{ padding: "0.7rem 0", fontSize: "0.82rem", color: C.ink45, width: "45%" }}>{k}</td>
-                    <td style={{ padding: "0.7rem 0", fontSize: "0.88rem", color: C.ink, fontWeight: 500 }}>{v}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <p style={{ fontFamily: sans, fontSize: "0.78rem", color: C.ink45, lineHeight: 1.6, marginTop: "1.25rem" }}>
-              {t.detail.specNote}
-            </p>
+            <div style={BOX}>
+              <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: sans }}>
+                <tbody>
+                  {[[t.detail.specCategory, catLabel], [t.detail.specVolume, product.vol],
+                    [t.detail.specRetail, product.price || t.detail.inquiryPrice], [t.detail.specLabel, badgeLabel]].map(([k, v], i, arr) => (
+                    <tr key={k} style={{ borderBottom: i < arr.length - 1 ? `1px solid ${C.borderL}` : "none" }}>
+                      <td style={{ padding: "0.7rem 0", fontSize: "0.9rem", color: C.ink45, width: "45%" }}>{k}</td>
+                      <td style={{ padding: "0.7rem 0", fontSize: "0.95rem", color: C.ink, fontWeight: 500 }}>{v}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p style={{ fontFamily: sans, fontSize: "0.875rem", color: C.ink45, lineHeight: 1.6, marginTop: "0.9rem",
+                paddingTop: "0.9rem", borderTop: `1px solid ${C.borderL}` }}>
+                {t.detail.specNote}
+              </p>
+            </div>
           </div>
         </div>
-
-        {/* (3) How to Use */}
-        {copy.usage && (
-          <div style={{ marginTop: "4rem", maxWidth: "760px" }}>
-            <Eyebrow>{t.detail.protocolTitle}</Eyebrow>
-            <p style={{ fontFamily: sans, fontSize: "0.92rem", color: C.ink70, lineHeight: 1.75 }}>{copy.usage}</p>
-          </div>
-        )}
-
-        {/* (3b) Home / Clinic application — richer per-product protocol (peptides),
-             each with the PDF's effect headline as a sub-title */}
-        {pc?.home && (
-          <div style={{ marginTop: "3rem", maxWidth: "760px" }}>
-            <Eyebrow>{t.detail.homeUse}</Eyebrow>
-            {pt?.home && <h4 style={{ fontFamily: serif, fontWeight: 700, fontSize: "1.2rem", color: C.ink, marginTop: "-0.5rem", marginBottom: "0.7rem" }}>{ampSans(pt.home)}</h4>}
-            <p style={{ fontFamily: sans, fontSize: "0.92rem", color: C.ink70, lineHeight: 1.75 }}>{pc.home}</p>
-          </div>
-        )}
-        {pc?.clinic && (
-          <div style={{ marginTop: "2.5rem", maxWidth: "760px" }}>
-            <Eyebrow>{t.detail.clinicUse}</Eyebrow>
-            {pt?.clinic && <h4 style={{ fontFamily: serif, fontWeight: 700, fontSize: "1.2rem", color: C.ink, marginTop: "-0.5rem", marginBottom: "0.7rem" }}>{ampSans(pt.clinic)}</h4>}
-            <p style={{ fontFamily: sans, fontSize: "0.92rem", color: C.ink70, lineHeight: 1.75 }}>{pc.clinic}</p>
-          </div>
-        )}
 
         {/* (5) Catalogue spreads — every page laid directly onto the detail */}
         <div style={{ marginTop: "4rem" }}>
@@ -339,7 +354,7 @@ export default function ProductDetail() {
             <img src="/images/logo-full.png" alt="GANA Cosmetic"
               style={{ height: "48px", width: "auto", display: "block", filter: "invert(1) brightness(2)" }}/>
           </Link>
-          <span style={{ fontFamily: sans, fontSize: "0.75rem", color: "rgba(255,255,255,0.45)" }}>
+          <span style={{ fontFamily: sans, fontSize: "0.84rem", color: "rgba(255,255,255,0.45)" }}>
             © 2026 GANA Cosmetic Co., Ltd.
           </span>
         </div>

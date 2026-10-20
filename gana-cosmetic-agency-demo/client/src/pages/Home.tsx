@@ -133,15 +133,28 @@ function useSectionReveal() {
 
 /* ── Logo bar — full logo centered, language switcher pinned right ───────── */
 function LogoBar() {
+  const t = useT();
+  // one-page layout is long — these jump straight to each block (desktop only;
+  // below xl they would collide with the centred wordmark)
+  const NAV: [string, string][] = [
+    ["#products", t.nav.products], ["#certifications", t.nav.certs], ["#science", t.nav.science],
+    ["#contact", t.nav.contact], ["#group", t.nav.group],
+  ];
   return (
     <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center"
       style={{
         height: "76px",
-        background: "rgba(255,253,246,0.96)",
+        background: "rgba(255,255,255,0.96)",
         backdropFilter: "blur(8px)",
         WebkitBackdropFilter: "blur(8px)",
         borderBottom: `1px solid ${C.borderL}`,
       }}>
+      <nav aria-label="Sections" className="hidden xl:flex items-center"
+        style={{ position: "absolute", left: "clamp(1rem, 3vw, 2rem)", top: "50%", transform: "translateY(-50%)", gap: "1.5rem" }}>
+        {NAV.map(([href, label]) => (
+          <a key={href} href={href} className="nav-link" style={{ fontSize: "0.74rem" }}>{label}</a>
+        ))}
+      </nav>
       <a href="#" aria-label="GANA Cosmetics" className="select-none" style={{ textDecoration: "none" }}>
         <img src="/images/logo-wordmark.png" alt="GANA Cosmetics" style={{ height: "46px", width: "auto", display: "block" }}/>
       </a>
@@ -252,7 +265,7 @@ function Hero() {
           <em style={{ fontStyle: "italic", color: C.gold }}>{t.hero.titleEm}</em>
         </h1>
         <p style={{
-          fontFamily: "'DM Sans', sans-serif", fontSize: "1rem",
+          fontFamily: "'DM Sans', sans-serif", fontSize: "1.0625rem",
           color: C.ink70, lineHeight: 1.75, maxWidth: "520px", marginBottom: "2.25rem",
         }}>
           {t.hero.body}
@@ -264,8 +277,8 @@ function Hero() {
         <div className="flex flex-wrap gap-5">
           {t.hero.badges.map(b => (
             <div key={b} className="flex items-center gap-1.5">
-              <span style={{ color: C.gold, fontSize: "0.75rem" }}>✓</span>
-              <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.72rem", fontWeight:500,
+              <span style={{ color: C.gold, fontSize: "0.84rem" }}>✓</span>
+              <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.8rem", fontWeight:500,
                 color:C.ink70, letterSpacing:"0.04em" }}>{b}</span>
             </div>
           ))}
@@ -300,11 +313,11 @@ function FeatureStrip() {
               <div className="mb-3">{f.icon}</div>
               <h3 style={{
                 fontFamily:"'DM Sans',sans-serif", fontWeight:700,
-                fontSize:"0.875rem", color:C.ink,
+                fontSize:"0.95rem", color:C.ink,
                 letterSpacing:"0.05em", textTransform:"uppercase",
                 marginBottom:"0.5rem",
               }}>{copy.title}</h3>
-              <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.8125rem", color:C.ink70, lineHeight:1.65 }}>{copy.text}</p>
+              <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.9rem", color:C.ink70, lineHeight:1.65 }}>{copy.text}</p>
             </div>
           </div>
           );
@@ -322,7 +335,7 @@ function StatsBar() {
   return (
     <section id="certifications" ref={ref}
       style={{ background: "rgba(245,248,250,0.7)", borderTop: `1px solid ${C.borderL}`, borderBottom: `1px solid ${C.borderL}` }}>
-      <div className="container py-14 md:py-16">
+      <div className="container pt-20 pb-14 md:pt-28 md:pb-16">
         <div className="text-center mb-10">
           <p className="eyebrow mb-3 fade-up d1 justify-center">{t.stats.eyebrow}</p>
           <h3 className="fade-up d2" style={{
@@ -339,17 +352,17 @@ function StatsBar() {
             <div key={c.code} className="flex flex-col items-center text-center"
               style={{ background:C.white, padding:"1.75rem 1.25rem" }}>
               <div className="mb-3">{c.icon}</div>
-              <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.68rem", fontWeight:500,
+              <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.76rem", fontWeight:500,
                 letterSpacing:"0.12em", color:C.gold, textTransform:"uppercase", marginBottom:"0.35rem" }}>{c.code}</div>
-              <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.9rem",
+              <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"1rem",
                 fontWeight:700, color:C.ink, marginBottom:"0.5rem" }}>{copy.title}</div>
-              <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.76rem", color:C.ink45, lineHeight:1.55 }}>{copy.body}</p>
+              <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.85rem", color:C.ink45, lineHeight:1.55 }}>{copy.body}</p>
             </div>
             );
           })}
         </div>
 
-        <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.75rem", color:C.ink45,
+        <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.84rem", color:C.ink45,
           lineHeight:1.7, marginTop:"1.25rem", maxWidth:"760px" }}>
           <strong style={{ color:C.ink70 }}>{t.stats.noticeLabel}</strong> {t.stats.notice}
         </p>
@@ -367,6 +380,7 @@ function ProductsSection() {
   const [filter, setFilter] = useState("All");
   const [query, setQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [showAll, setShowAll] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
   // close the suggestion dropdown on any click outside the search box
   useEffect(() => {
@@ -390,21 +404,24 @@ function ProductsSection() {
   // so ingredient queries like "PDRN" / "glutathione" surface every product
   const matches = (p: typeof PRODUCTS[number]) =>
     norm(p.name).includes(q) || norm(p.desc).includes(q) || p.ings.some(i => norm(i).includes(q));
-  const list = q
+  const full = q
     ? PRODUCTS.filter(matches)
     : (filter === "All"
         ? [...PRODUCTS].sort((a, b) => (DEMOTE.has(a.id) ? 1 : 0) - (DEMOTE.has(b.id) ? 1 : 0))
         : PRODUCTS.filter(p => p.cat === filter));
+  // the home page scrolls long: the "All" tab opens with 12 products and a button
+  // reveals the rest. Search results and category tabs always show everything.
+  const INITIAL = 12;
+  const collapsed = !q && filter === "All" && !showAll && full.length > INITIAL;
+  const list = collapsed ? full.slice(0, INITIAL) : full;
   // typeahead suggestions — only once 2+ chars are typed, capped at 6
   const suggestions = q.length >= 2 ? PRODUCTS.filter(matches).slice(0, 6) : [];
   const showSuggest = searchOpen && suggestions.length > 0;
 
-  // CTA 타일이 그리드의 남은 칸을 정확히 채우도록 — 데스크탑(4칸) 기준 동적 span.
-  // 남는 칸 = 4 − (제품수 % 4)  (4의 배수면 한 줄 전체 = 4)
-  const ctaSpanLg = 4 - (list.length % 4);
-  const LG_SPAN: Record<number, string> = {
-    1: "lg:col-span-1", 2: "lg:col-span-2", 3: "lg:col-span-3", 4: "lg:col-span-4",
-  };
+  // 그리드 끝줄의 빈 칸은 흰 셀로 채워 헤어라인 격자를 유지한다.
+  // (CTA 띠는 그리드 밖에서 뷰포트 전체 폭으로 따로 깐다.)
+  const fillLg = (4 - (list.length % 4)) % 4; // 데스크탑 4칸 기준
+  const fillSm = list.length % 2;             // 모바일 2칸 기준
 
   return (
     <section id="products" data-backdrop="0" style={{ background: C.white, borderTop: `1px solid ${C.borderL}` }} className="pt-6 pb-0 md:pt-8" ref={ref}>
@@ -412,7 +429,7 @@ function ProductsSection() {
       <div className="w-full px-5 md:px-8">
         {/* parent category label */}
         <p className="fade-up d1" style={{
-          fontFamily:"'DM Sans',sans-serif", fontSize:"0.8rem", fontWeight:700, color:C.ink,
+          fontFamily:"'DM Sans',sans-serif", fontSize:"0.9rem", fontWeight:700, color:C.ink,
           textDecoration:"underline", textUnderlineOffset:"5px", marginBottom:"1.1rem",
         }}>{t.products.label}</p>
 
@@ -421,7 +438,7 @@ function ProductsSection() {
           <div className="flex flex-wrap gap-x-8 gap-y-3">
             {filters.map(f => (
               <button key={f} onClick={() => { setFilter(f); setQuery(""); }} style={{
-                fontFamily:"'DM Sans',sans-serif", fontSize:"0.8125rem",
+                fontFamily:"'DM Sans',sans-serif", fontSize:"0.9rem",
                 fontWeight: filter===f && !q ? 700 : 400,
                 color: C.ink, background:"none", border:"none", cursor:"pointer",
                 padding:"0 0 0.8rem 0", marginBottom:"-1px",
@@ -446,7 +463,7 @@ function ProductsSection() {
                 placeholder={t.products.searchPlaceholder}
                 style={{
                   border:"none", outline:"none", background:"transparent", width:"100%",
-                  fontFamily:"'DM Sans',sans-serif", fontSize:"0.8rem", color:C.ink,
+                  fontFamily:"'DM Sans',sans-serif", fontSize:"0.9rem", color:C.ink,
                   padding:"0 0.4rem",
                 }}
               />
@@ -472,8 +489,8 @@ function ProductsSection() {
                     onMouseLeave={e => e.currentTarget.style.background = C.white}
                     style={{ padding:"0.6rem 0.85rem", textDecoration:"none", background:C.white,
                       borderBottom: i < suggestions.length - 1 ? `1px solid ${C.borderL}` : "none" }}>
-                    <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.82rem", color:C.ink }}>{p.name}</span>
-                    <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.68rem", color:C.ink45, whiteSpace:"nowrap", marginLeft:"0.75rem" }}>{filterLabel(p.cat)}</span>
+                    <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.9rem", color:C.ink }}>{p.name}</span>
+                    <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.76rem", color:C.ink45, whiteSpace:"nowrap", marginLeft:"0.75rem" }}>{filterLabel(p.cat)}</span>
                   </Link>
                 ))}
               </div>
@@ -482,10 +499,10 @@ function ProductsSection() {
         </div>
 
         {/* item count — centered, Gucci-style */}
-        <p style={{ textAlign:"center", fontFamily:"'DM Sans',sans-serif", fontSize:"0.78rem",
-          color:C.ink45, margin:"1.4rem 0 0.4rem" }}>{fmt(t.products.items, { n: list.length })}</p>
+        <p style={{ textAlign:"center", fontFamily:"'DM Sans',sans-serif", fontSize:"0.875rem",
+          color:C.ink45, margin:"1.4rem 0 0.4rem" }}>{fmt(t.products.items, { n: full.length })}</p>
         {/* pricing policy — retail / dealer-on-inquiry / shipping separate (client request) */}
-        <p style={{ textAlign:"center", fontFamily:"'DM Sans',sans-serif", fontSize:"0.72rem",
+        <p style={{ textAlign:"center", fontFamily:"'DM Sans',sans-serif", fontSize:"0.8rem",
           color:C.ink45, margin:"0 auto 1.4rem", maxWidth:"560px", lineHeight:1.5 }}>{t.products.priceNote}</p>
 
         {/* Hairline grid — items float on plain white, name + price only */}
@@ -493,7 +510,7 @@ function ProductsSection() {
           {q && list.length === 0 && (
             <div className="col-span-2 lg:col-span-4 flex items-center justify-center"
               style={{ background:C.white, padding:"3.5rem 1rem" }}>
-              <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.85rem", color:C.ink45 }}>
+              <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.95rem", color:C.ink45 }}>
                 {t.products.searchEmpty}
               </span>
             </div>
@@ -530,32 +547,45 @@ function ProductsSection() {
                 }
               </div>
               <div className="px-5 pb-7">
-                <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.85rem", fontWeight:500,
+                <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"1rem", fontWeight:500,
                   color:C.ink, marginBottom:"0.3rem" }}>{p.name}</p>
-                <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.75rem", color:C.ink70 }}>
+                <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.875rem", color:C.ink70 }}>
                   {p.price ? `USD ${p.price}` : t.detail.inquiryPrice}
                 </p>
               </div>
             </Link>
           ))}
 
-          {/* CTA tile — fills the catalogue's trailing empty cells (dynamic span) */}
-          <a href="#contact" className={`col-span-2 ${LG_SPAN[ctaSpanLg]} relative flex flex-col justify-center overflow-hidden`}
-            style={{ textDecoration:"none", minHeight:"min(28vw, 420px)",
-              backgroundImage:`linear-gradient(120deg, rgba(19,38,46,0.78) 0%, rgba(19,38,46,0.45) 100%), url(/images/brand-serum.jpg)`,
-              backgroundSize:"cover", backgroundPosition:"center", padding:"clamp(2rem,4vw,3.5rem)" }}>
-            <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.68rem", fontWeight:600,
-              letterSpacing:"0.22em", textTransform:"uppercase", color:C.goldH, marginBottom:"1rem" }}>{t.products.ctaEyebrow}</p>
-            <h3 style={{ fontFamily:"'Playfair Display',serif", fontWeight:700,
-              fontSize:"clamp(1.4rem,2.4vw,2rem)", color:"#fff", lineHeight:1.15, marginBottom:"1.5rem", maxWidth:"460px" }}>
-              {t.products.ctaTitle1}<br/>
-              <em style={{ fontStyle:"italic", color:C.goldH }}>{t.products.ctaTitleEm}</em>
-            </h3>
-            <span className="btn-gold" style={{ alignSelf:"flex-start" }}>{t.products.ctaButton}</span>
-          </a>
+          {/* trailing empty cells — white fillers keep the hairline grid intact */}
+          {Array.from({ length: fillLg }, (_, i) => (
+            <div key={`fill-lg-${i}`} className="hidden lg:block" style={{ background:C.white }} aria-hidden="true"/>
+          ))}
+          {fillSm === 1 && <div className="block lg:hidden" style={{ background:C.white }} aria-hidden="true"/>}
         </div>
 
+        {collapsed && (
+          <div className="flex justify-center" style={{ padding:"1.75rem 0 2.25rem" }}>
+            <button type="button" className="btn-outline-gold" onClick={() => setShowAll(true)}>
+              {fmt(t.products.showAll, { n: full.length })}
+            </button>
+          </div>
+        )}
       </div>
+      {/* CTA band — full viewport width, flush under the catalogue grid */}
+      <a href="#contact" className="relative flex flex-col justify-center overflow-hidden"
+        style={{ textDecoration:"none", width:"100%", minHeight:"min(28vw, 420px)",
+          backgroundImage:`linear-gradient(120deg, rgba(19,38,46,0.78) 0%, rgba(19,38,46,0.45) 100%), url(/images/brand-serum.jpg)`,
+          backgroundSize:"cover", backgroundPosition:"center",
+          padding:"clamp(2rem,4vw,3.5rem) clamp(1.25rem,5vw,5.5rem)" }}>
+        <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.76rem", fontWeight:600,
+          letterSpacing:"0.22em", textTransform:"uppercase", color:C.goldH, marginBottom:"1rem" }}>{t.products.ctaEyebrow}</p>
+        <h3 style={{ fontFamily:"'Playfair Display',serif", fontWeight:700,
+          fontSize:"clamp(1.4rem,2.4vw,2rem)", color:"#fff", lineHeight:1.15, marginBottom:"1.5rem", maxWidth:"460px" }}>
+          {t.products.ctaTitle1}<br/>
+          <em style={{ fontStyle:"italic", color:C.goldH }}>{t.products.ctaTitleEm}</em>
+        </h3>
+        <span className="btn-gold" style={{ alignSelf:"flex-start" }}>{t.products.ctaButton}</span>
+      </a>
     </section>
   );
 }
@@ -634,7 +664,7 @@ function ContactSection() {
               {c.h2pre}<br/>
               <em style={{ fontStyle:"italic", color:C.gold }}>{c.h2em}</em>
             </h2>
-            <p className="fade-up d3" style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.9375rem",
+            <p className="fade-up d3" style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"1rem",
               color:C.ink45, lineHeight:1.75, marginBottom:"2.5rem", maxWidth:"420px" }}>
               {c.body}
             </p>
@@ -642,7 +672,7 @@ function ContactSection() {
               {c.list.map(item => (
                 <div key={item} className="flex items-center gap-3">
                   <span style={{ color:C.gold, fontSize:"0.5rem" }}>◆</span>
-                  <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.875rem", fontWeight:500, color:C.ink }}>{item}</span>
+                  <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.95rem", fontWeight:500, color:C.ink }}>{item}</span>
                 </div>
               ))}
             </div>
@@ -653,10 +683,10 @@ function ContactSection() {
               <div className="p-12 text-center" style={{ background:C.off, border:`1px solid ${C.borderL}` }}>
                 <div style={{ fontFamily:"'Playfair Display',serif", fontWeight:700,
                   fontSize:"2rem", color:C.gold, marginBottom:"1rem" }}>{c.thankTitle}</div>
-                <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.9rem", color:C.ink45 }}>
+                <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"1rem", color:C.ink45 }}>
                   {c.thankBody}
                 </p>
-                <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.78rem", color:C.ink45, marginTop:"0.9rem", lineHeight:1.6 }}>
+                <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.875rem", color:C.ink45, marginTop:"0.9rem", lineHeight:1.6 }}>
                   {c.thankFallback}
                 </p>
               </div>
@@ -700,7 +730,7 @@ function ContactSection() {
                     placeholder={c.messagePlaceholder}/>
                 </div>
                 {error && (
-                  <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.8125rem", color:"#B23B3B", textAlign:"center" }}>
+                  <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.9rem", color:"#B23B3B", textAlign:"center" }}>
                     {c.error}
                   </p>
                 )}
@@ -734,6 +764,7 @@ function GanaGroupSection() {
   // real certification marks lifted from the GANA catalogue cover (client asset)
   const CERT_BADGES = [
     { label: "FDA — USA",                  src: "/certs/fda.png" },
+    { label: "EU CPNP — Cosmetic Products Notification Portal", src: "/certs/eu-cpnp.svg" },
     { label: "GMP — Korea MFDS",           src: "/certs/gmp.png" },
     { label: "IGC — ISO 22716",            src: "/certs/igc.png" },
     { label: "IGC Certified — ISO 13485",  src: "/certs/iso13485.png" },
@@ -742,7 +773,7 @@ function GanaGroupSection() {
 
   return (
     // fades the fixed backdrop back to the brand cell photo for the closing zone
-    <section ref={ref} data-backdrop="0" className="py-20 md:py-28 relative overflow-hidden"
+    <section id="group" ref={ref} data-backdrop="0" className="py-20 md:py-28 relative overflow-hidden"
       style={{
         background: "rgba(255,255,255,0.72)",
         borderTop: `1px solid ${C.borderL}`,
@@ -760,7 +791,7 @@ function GanaGroupSection() {
               {t.group.h2pre && <>{t.group.h2pre} </>}<em style={{ fontStyle:"italic", color:C.gold }}>{t.group.h2em}</em>
             </h2>
             <p className="fade-up d3" style={{
-              fontFamily:"'DM Sans',sans-serif", fontSize:"0.9rem",
+              fontFamily:"'DM Sans',sans-serif", fontSize:"1rem",
               color:C.ink70, lineHeight:1.7, marginTop:"0.75rem", maxWidth:"420px",
             }}>
               {t.group.body}
@@ -821,19 +852,19 @@ function GanaGroupSection() {
               </div>
 
               <p style={{
-                fontFamily:"'DM Sans',sans-serif", fontSize:"0.7rem", fontWeight:600,
+                fontFamily:"'DM Sans',sans-serif", fontSize:"0.78rem", fontWeight:600,
                 letterSpacing:"0.15em", textTransform:"uppercase", color: b.c2,
                 marginBottom:"1rem",
               }}>{brand.tag}</p>
 
               <p style={{
-                fontFamily:"'DM Sans',sans-serif", fontSize:"0.825rem",
+                fontFamily:"'DM Sans',sans-serif", fontSize:"0.9rem",
                 color: C.ink70, lineHeight: 1.7, marginBottom: b.site ? "1.125rem" : 0,
               }}>{brand.desc}</p>
 
               {b.site && (
                 <a href={`https://${b.site}`} target="_blank" rel="noopener noreferrer" style={{
-                  fontFamily:"'DM Mono',monospace", fontSize:"0.7rem", color: C.gold,
+                  fontFamily:"'DM Mono',monospace", fontSize:"0.78rem", color: C.gold,
                   letterSpacing:"0.04em", textDecoration:"none",
                   borderBottom: `1px solid ${C.gold}`, paddingBottom: "1px",
                 }}>{b.site} →</a>
@@ -858,7 +889,7 @@ function Footer() {
           <div>
             <img src="/images/logo-full.png" alt="GANA Cosmetics" className="mb-5"
               style={{ height:"72px", width:"auto", display:"block", filter:"invert(1) brightness(2)" }}/>
-            <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.8rem", lineHeight:1.7,
+            <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.9rem", lineHeight:1.7,
               color:"rgba(255,255,255,0.5)", maxWidth:"320px" }}>
               {t.footer.tagline}
             </p>
@@ -866,7 +897,7 @@ function Footer() {
 
           {/* Contact */}
           <div>
-            <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.62rem", color:C.gold,
+            <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.7rem", color:C.gold,
               letterSpacing:"0.18em", textTransform:"uppercase", marginBottom:"1rem" }}>{t.footer.contactHeading}</div>
             <div className="space-y-3">
               {[
@@ -876,9 +907,9 @@ function Footer() {
                 [t.footer.labelWhatsapp,"+82 10 8864 7512"],
               ].map(([l,v]) => (
                 <div key={l}>
-                  <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.56rem", color:"rgba(255,255,255,0.4)",
+                  <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.64rem", color:"rgba(255,255,255,0.4)",
                     letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:"0.2rem" }}>{l}</div>
-                  <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.8rem",
+                  <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.9rem",
                     color:"rgba(255,255,255,0.7)", lineHeight:1.55, whiteSpace:"pre-line" }}>{v}</div>
                 </div>
               ))}
@@ -887,7 +918,7 @@ function Footer() {
 
           {/* Company details */}
           <div>
-            <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.62rem", color:C.gold,
+            <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.7rem", color:C.gold,
               letterSpacing:"0.18em", textTransform:"uppercase", marginBottom:"1rem" }}>{t.footer.companyHeading}</div>
             <div className="space-y-3">
               {[
@@ -897,9 +928,9 @@ function Footer() {
                 [t.footer.labelHours,t.footer.hoursValue],
               ].map(([l,v]) => (
                 <div key={l}>
-                  <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.56rem", color:"rgba(255,255,255,0.4)",
+                  <div style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.64rem", color:"rgba(255,255,255,0.4)",
                     letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:"0.2rem" }}>{l}</div>
-                  <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.8rem",
+                  <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.9rem",
                     color:"rgba(255,255,255,0.7)", lineHeight:1.55 }}>{v}</div>
                 </div>
               ))}
@@ -909,11 +940,11 @@ function Footer() {
 
         <div style={{ borderTop:"1px solid rgba(255,255,255,0.08)", paddingTop:"1.5rem" }}
           className="flex flex-col md:flex-row justify-between gap-4">
-          <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.68rem",
+          <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.76rem",
             color:"rgba(255,255,255,0.22)", lineHeight:1.7, maxWidth:"680px" }}>
             {t.footer.disclaimer}
           </p>
-          <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.68rem",
+          <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.76rem",
             color:"rgba(255,255,255,0.3)", whiteSpace:"nowrap" }}>
             © 2026 GANA Cosmetic Co., Ltd.
           </p>
