@@ -50,7 +50,7 @@ export const PRODUCTS: Product[] = [
   /* ── Skin Booster ── */
   { id:"dmp-plus", cat:"Skin Booster", name:"GANA DMP+", tag:"High-End Multi-Active Booster",
     desc:"PLLA + HA + PDRN + Glutathione. Multi-active booster in a ready-to-use prefilled vial.",
-    ings:["PLLA 1mg/ml","HA 3mg/ml","PDRN 2mg/ml","Glutathione 0.5mg"], vol:"3ml × 2 vials", price:"", img:PROD_DMP, badge:"2024 NEW",
+    ings:["PLLA 10mg/ml","HA 3mg/ml","PDRN 2mg/ml","Glutathione 0.5mg"], vol:"3ml × 2 vials", price:"", img:PROD_DMP, badge:"2024 NEW",
     indications:["Regeneration","Hydration","Brightening","Elasticity"] },
   { id:"phv", cat:"Skin Booster", name:"GANA PHV", tag:"2-Year Lasting Hydration",
     desc:"High-molecular HA + PLLA biostimulator. Hyaluronidase-correctable for precise control.",
