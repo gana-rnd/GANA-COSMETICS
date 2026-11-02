@@ -354,3 +354,9 @@
   .cert-chip-img { height: 11px; }
   .cert-chip-txt { font-size: 0.55rem; letter-spacing: 0.02em; }
 }
+
+/* ── 사이트 최대폭 1920 (2026-10-20, 그룹 4사이트 공통 규칙) — 이 위로는 커지지 않고 가운데 정렬.
+ * Home의 고정 로고 바(fixed left-0 right-0)와 고정 배경(fixed inset-0)도 같은 폭으로 맞춘다. ── */
+:root { --site-max: 1920px; }
+body { max-width: var(--site-max); margin-inline: auto; }
+#root .fixed.left-0.right-0, #root .fixed.inset-0 { max-width: var(--site-max); margin-inline: auto; }
